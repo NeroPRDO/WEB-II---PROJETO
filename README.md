@@ -8,12 +8,12 @@
 
 ## Sumário
 
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Árvore de arquivos (Atual)](#árvore-de-arquivos-atual)
-- [Objetivos](#objetivos)
-- [Funcionalidades e Requisitos](#funcionalidades-e-requisitos)
-- [📌 Versionamento das Ferramentas](#📌-versionamento-das-ferramentas)
-- [Autoria](#autoria)
+- [Sobre o Projeto](#📝-Sobre-o-Projeto)
+- [Árvore de arquivos (Atual)](#🌲-Árvore-de-arquivos-(Atual))
+- [Objetivos](#🎯-Objetivos)
+- [Funcionalidades e Requisitos](#🛠️-Funcionalidades-e-Requisitos)
+- [Versionamento das Ferramentas](#📌-Versionamento-das-Ferramentas)
+- [Autoria](#Autoria)
 
   
 ## 📝 Sobre o Projeto
