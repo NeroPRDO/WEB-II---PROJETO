@@ -1,0 +1,58 @@
+.link-text {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.link-text:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+/* Variantes de cor */
+.link-primary {
+    color: #007bff;
+}
+
+.link-secondary {
+    color: #6c757d;
+}
+
+.link-danger {
+    color: #dc3545;
+}
+
+.link-success {
+    color: #28a745;
+}
+
+/* Tamanhos */
+.link-small {
+    font-size: 0.875rem;
+}
+
+.link-medium {
+    font-size: 1rem;
+}
+
+.link-large {
+    font-size: 1.125rem;
+}
+
+/* Sublinhado */
+.link-underline {
+    text-decoration: underline;
+}
+
+.link-no-underline {
+    text-decoration: none;
+}
+
+.link-underline:hover {
+    text-decoration: underline;
+}
+
+.link-no-underline:hover {
+    text-decoration: underline;
+}
