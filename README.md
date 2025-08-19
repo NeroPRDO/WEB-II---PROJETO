@@ -12,7 +12,7 @@
 - [Árvore de arquivos (Atual)](#árvore-de-arquivos-atual)
 - [Objetivos](#objetivos)
 - [Funcionalidades e Requisitos](#funcionalidades-e-requisitos)
-- [Versionamento das Ferramentas](#versionamento-das-ferramentas)
+- [📌 Versionamento das Ferramentas](#📌-versionamento-das-ferramentas)
 - [Autoria](#autoria)
 
   
