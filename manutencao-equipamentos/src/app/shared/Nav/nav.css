@@ -13,7 +13,11 @@ nav {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.103);
 
 }
-
+/*Logo*/
+.material-symbols-outlined{
+    color: #8242be;
+    font-size: 2.5rem;
+}
 
 nav a {
     text-decoration: none;
