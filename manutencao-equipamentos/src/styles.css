@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* importando a fonte inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+    font-family: 'Inter', 'Arial', 'Sans-serif';
+}
+
+body {
+    background: #DDE0FC;
+    background: radial-gradient(circle,rgba(221, 224, 252, 1) 0%, rgba(204, 207, 248, 1) 100%);
+    margin: 0;
+}

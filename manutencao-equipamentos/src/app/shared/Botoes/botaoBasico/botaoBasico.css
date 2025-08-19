@@ -1,0 +1,33 @@
+button, button:hover {
+    /* aplicado a qualquer tipo */
+    border-radius: 8px;
+    padding: 1vh 2vh;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+    align-items: center;
+    text-align: center;
+    font-weight: 750;
+}
+
+/* atributo [outlined] = false (default) */
+.basico {
+    background-color: #460c85;
+    color: white;
+}
+.basico:hover {
+    background-color: #230147;
+}
+
+/* atributo [outlined] = true */
+.outlined {
+    background-color: transparent;
+    border: 2px solid #230147;
+    color: #230147;
+}
+.outlined:hover {
+    background-color: #230147;
+    border: 2px solid transparent;
+    color: white;
+}
