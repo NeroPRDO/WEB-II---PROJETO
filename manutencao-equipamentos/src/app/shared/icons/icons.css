@@ -1,0 +1,31 @@
+body{font-family:sans-serif;
+    background:#0f172a;
+    color:#e5e7eb;
+    text-align:center
+}
+
+h1{margin:20px 0}
+
+.grid{display:flex;
+    gap:20px;
+    justify-content:center
+}
+
+.card{background:#111827;
+    padding:20px;
+    border-radius:12px;
+    width:150px
+}
+
+svg{width:40px;
+    height:40px;
+    stroke:#22d3ee;
+    fill:none;
+    stroke-width:1.6;
+    margin-bottom:10px
+}
+
+p{
+    margin:0;
+    font-size:14px
+}
