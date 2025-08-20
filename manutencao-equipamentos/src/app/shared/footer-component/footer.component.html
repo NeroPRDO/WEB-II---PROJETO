@@ -1,0 +1,40 @@
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4 class="footer-title">Sistema de Manutenção</h4>
+                <p class="footer-description">
+                    Controle completo de solicitações e manutenção de equipamentos.
+                </p>
+            </div>
+
+            <div class="footer-section">
+                <h5 class="footer-subtitle">Links Úteis</h5>
+                <ul class="footer-links">
+                    <li *ngFor="let link of footerLinks">
+                        <app-link-text [text]="link.text" [href]="link.href" variant="secondary" size="small"
+                            [underline]="false">
+                        </app-link-text>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h5 class="footer-subtitle">Redes Sociais</h5>
+                <ul class="footer-links">
+                    <li *ngFor="let social of socialLinks">
+                        <app-link-text [text]="social.text" [href]="social.href" target="_blank" variant="primary"
+                            size="small" [underline]="false">
+                        </app-link-text>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="footer-copyright">
+                © 2025 Sistema de Manutenção de Equipamentos - UFPR. Todos os direitos reservados.
+            </p>
+        </div>
+    </div>
+</footer>
