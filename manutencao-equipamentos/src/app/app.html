@@ -12,8 +12,8 @@
   <app-nav></app-nav>
 
   <div class="container">
+    <!-- BOTOES DO DASKO - COMENTEI PRA COMPONENTIZAR DPS
     <div class="item">
-
       <button class="btnTeste">
         <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -44,13 +44,26 @@
         </div>
       </div>
     </div>
+    -->
 
-    <div class="item">
-      <botao-basico mensagem="clique" [outlined]="false"></botao-basico>
+    <div class="row justify-content-center row-gap-2">
+      <div class="col-4">
+            <panel [title]="'Painel Com titulo'">
+              <text-box>Morbi tristique vitae orci in iaculis. Phasellus ornare purus ac mollis vestibulum. Vivamus consectetur lobortis ante, a elementum augue posuere nec. Vivamus gravida lectus sit amet aliquet imperdiet. Vestibulum eu elit ultrices, hendrerit tortor non, maximus est. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+              </text-box>
+              <div class="d-flex justify-content-end">
+                <botao-basico mensagem="clique" [outlined]="true"></botao-basico>
+              </div>
+          </panel>
+      </div>
+      <div class="col-4">
+            <panel>
+              <text-box>esse painel nao tem tiutlo blabl albal blablalba lblablalb lalba lblabl albalbla blalb blabl albal blablalba lblablalb lalba lblabl albalbla blalb blabl albal blablalba lblablalb lalba lblabl albalbla blalb
+              </text-box>
+          </panel>
+        </div>
     </div>
-
-  </div>
-
+</div>
 
 </body>
 

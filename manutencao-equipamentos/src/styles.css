@@ -7,8 +7,19 @@
     font-family: 'Inter', 'Arial', 'Sans-serif';
 }
 
+:root {
+  /* Cores Roxas */
+  --color-roxo-1: #f2f1fc;
+  --color-roxo-2: #e9ebfd;  /* rgb(233, 235, 253) */
+  --color-roxo-3: #d1d4ff;  /* rgb(209, 212, 255) */
+  --color-roxo-4: #a38eff;  /* #a38eff */
+  --color-roxo-5: #8242be;  /* rgba(130, 66, 190, 255) */
+
+  /* Cores Rosas */
+  --color-rosa-1: #d6a0f1;  /* #d6a0f1 */
+  --color-rosa-2: #9b59b6;  /* #8e44ad */
+  --color-rosa-3: #8e44ad;  /* #9b59b6 */
+}
 body {
-    background: #DDE0FC;
-    background: radial-gradient(circle,rgba(221, 224, 252, 1) 0%, rgba(204, 207, 248, 1) 100%);
-    margin: 0;
+    background: radial-gradient(circle,var(--color-roxo-2) 0%, var(--color-roxo-3) 100%);
 }

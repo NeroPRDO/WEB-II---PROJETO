@@ -1,0 +1,9 @@
+.text-box {
+    background-color: var(--color-roxo-1);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0.75rem;
+    text-align: justify;
+}

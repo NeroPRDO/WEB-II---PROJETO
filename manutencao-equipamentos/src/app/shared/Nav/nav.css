@@ -1,5 +1,5 @@
 nav {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 10px;
@@ -9,6 +9,9 @@ nav {
     justify-content: space-between;
     height: 60px;
     width: 100%;
+
+    /* nao sei se eh uma boa pratica isso */
+    margin-bottom: 3.5vh;
 
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.103);
 
@@ -36,7 +39,7 @@ a {
 }
 
 .menu__link {
-    color: #6646f3;
+    color: var(--color-roxo-5);
     line-height: 2;
     position: relative;
 }
@@ -46,7 +49,7 @@ a {
     width: 0;
     height: 2px;
     border-radius: 2px;
-    background: linear-gradient(135deg, #9b59b6, #8e44ad, #a38eff, #d6a0f1);
+    background: linear-gradient(135deg, var(--color-rosa-3), var(--color-rosa-2), var(--color-roxo-4), var(--color-rosa-1));
     position: absolute;
     bottom: -0.05rem;
     left: 0;
@@ -61,17 +64,21 @@ a {
 
 .nav-logo {
     margin-left: 30px;
-    width: 20px;
+    width: 25%;
 }
 
 .nav-navegacao {
-    width: 300px;
+    width: 50%;
     display: flex;
+    gap: 10px;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .nav-login {
+    display: flex;
+    justify-content: end;
+    width: 25%;
     margin-right: 30px;
 }
 
@@ -89,8 +96,10 @@ a {
     position: relative;
     overflow: hidden;
     transition-duration: .3s;
+    /*
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-    background-color: #a38eff;
+    */
+    background-color: var(--color-roxo-5);
 }
 
 .sign {
