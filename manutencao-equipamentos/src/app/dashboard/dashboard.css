@@ -1,0 +1,160 @@
+a {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-decoration: none;
+    color: #77398f;
+    border-radius: 50%;
+    border: #77398f 1px solid;
+}
+
+a:hover {
+    background-color: #a855f7;
+    color: white;
+}
+
+/*button*/
+
+/*======*/
+section {
+    width: 100%;
+    display: flex;
+    padding: 0 20px 0 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+/* Incio*/
+.boas-vindas {
+    margin: 20px 0 20px 0;
+    width: 1100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ORÇAMENTOS*/
+.sec-titulo {
+    width: 1000px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sec-titulo h4 {
+    font-weight: 800;
+}
+
+.orcamentos {
+    width: 1000px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 6rem;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 10px;
+    scrollbar-width: thin;
+}
+
+/* Para navegadores baseados em WebKit (Chrome, Edge, Safari) */
+.orcamentos::-webkit-scrollbar {
+    height: 8px;
+}
+
+.orcamentos::-webkit-scrollbar-thumb {
+    background: #e2bfff;
+    border-radius: 4px;
+}
+
+.orcamentos::-webkit-scrollbar-track {
+    background: #e7d0f7;
+}
+
+
+/* --- CARDS --- */
+.card {
+    min-width: 220px;
+    height: 200px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    height: 40%;
+    border-radius: 12px 12px 0 0;
+}
+
+/* --- Gradientes por status --- */
+.card-header.pendente {
+    background: linear-gradient(135deg, #fbcfe8, #c4b5fd);
+}
+
+.card-header.concluido {
+    background: linear-gradient(135deg, #86efac, #22c55e);
+}
+
+.card-header.recusado {
+    background: linear-gradient(135deg, #fca5a5, #ef4444);
+}
+
+.card-body {
+    padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 6px 0;
+    color: #111;
+}
+
+.card-status {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.card-status.concluido {
+    color: #16a34a;
+}
+
+.card-status.pendente {
+    color: #a855f7;
+}
+
+.card-status.recusado {
+    color: #dc2626;
+}
+
+.card-btn {
+    background: #cbbed3;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.card-btn:hover {
+    background: #504163;
+}
+
+/* --- CARDS --- */
