@@ -1,0 +1,42 @@
+.loginButton {
+  width: 131px;
+  height: 51px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  background: linear-gradient(
+    to bottom right,
+    #8242be 0%,
+    rgba(46, 142, 255, 0) 30%
+  );
+  background-color: #8242be;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginButton:hover,
+.loginButton:focus {
+  background-color: rgba(69, 0, 158, 0.7);
+  box-shadow: 0 0 10px rgba(57, 20, 105, 0.7);
+  outline: none;
+}
+
+.loginButton-inner {
+  width: 127px;
+  height: 47px;
+  border-radius: 13px;
+  background-color: #8242be;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.loginButton-inner svg {
+  width: 27px;
+  height: 27px;
+  fill: #fff;
+}
