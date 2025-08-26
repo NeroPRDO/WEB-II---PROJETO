@@ -3,7 +3,7 @@
 <section>
     <div class="boas-vindas">
         <div class="text-boas-vindas">
-            <h3>Olà Towers</h3>
+            <h3>Olà, Towers</h3>
             <p>Bem vindo de volta Lindo!</p>
         </div>
 
@@ -25,7 +25,7 @@
             <div class="card-body">
                 <h2 class="card-title">Orçamento #3</h2>
                 <p class="card-status pendente">Pendente</p>
-                <button class="card-btn">Ver Detalhes</button>
+                <button class="card-btn" [routerLink]="['/orcamento','S-001']">Ver Detalhes</button>
             </div>
         </div>
 
@@ -34,7 +34,7 @@
             <div class="card-body">
                 <h2 class="card-title">Orçamento #2</h2>
                 <p class="card-status concluido">Concluido</p>
-                <button class="card-btn">Ver Detalhes</button>
+                <button class="card-btn" [routerLink]="['/solicitacao','S-002']">Ver Detalhes</button>
             </div>
         </div>
 
@@ -43,7 +43,7 @@
             <div class="card-body">
                 <h2 class="card-title">Orçamento #1</h2>
                 <p class="card-status recusado">Recusado</p>
-                <button class="card-btn">Ver Detalhes</button>
+                <button class="card-btn" [routerLink]="['/solicitacao','S-003']">Ver Detalhes</button>
             </div>
         </div>
     </div>
