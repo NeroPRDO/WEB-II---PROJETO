@@ -1,4 +1,4 @@
-<div class="container">
+v<div class="container">
     <div class="content">
         <h1 class="title title-second">Solicitação {{ id }}</h1>
 
@@ -10,20 +10,28 @@
             <div class="full"><strong>Defeito:</strong> {{ defeito }}</div>
         </div>
 
-        <h3 style="margin-top:16px">Histórico</h3>
-        <ul class="timeline">
-            <li *ngFor="let h of historico">
-                <div class="when">{{ h.dataHora }}</div>
-                <div class="desc">{{ h.descricao }} <small *ngIf="h.usuario">— {{ h.usuario }}</small></div>
-            </li>
-        </ul>
+    <h3 style="margin-top:16px">Histórico</h3>
+    <ul class="timeline">
+      @for (h of historico; track $index) {
+        <li>
+          <div class="when">{{ h.dataHora }}</div>
+          <div class="desc"> {{ h.descricao }} 
+            @if (h.usuario) { <small>— {{ h.usuario }}</small> }
+          </div>
+        </li>
+      }
+    </ul>
 
-        <div class="actions">
-            <a *ngIf="estado === 'ORÇADA'" class="btn btn-second" [routerLink]="['/orcamento', id]">
-                Aprovar / Rejeitar
-            </a>
-            <button *ngIf="estado === 'REJEITADA'" class="btn btn-primary">Resgatar Serviço</button>
-            <button *ngIf="estado === 'ARRUMADA'" class="btn btn-primary">Pagar Serviço</button>
+    <div class="actions">
+      @if (estado === 'ORÇADA') {
+        <a class="btn btn-second" [routerLink]="['/orcamento', id]">
+          Aprovar / Rejeitar
+        </a>
+      } @else if (estado === 'REJEITADA') {
+        <button class="btn btn-primary">Resgatar Serviço</button>
+      } @else if (estado === 'ARRUMADA') {
+        <button class="btn btn-primary">Pagar Serviço</button>
+      }
         </div>
     </div>
 </div>
