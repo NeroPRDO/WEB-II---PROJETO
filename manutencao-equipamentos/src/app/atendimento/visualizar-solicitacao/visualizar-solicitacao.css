@@ -1,0 +1,100 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2.5rem 1rem;
+}
+
+.content {
+    background-color: #FFF;
+    border-radius: 15px;
+    width: 960px;
+    max-width: 96%;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(130, 66, 190, 0.5);
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--color-roxo-5);
+    margin-bottom: 14px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 16px;
+}
+
+.grid .full {
+    grid-column: 1 / -1;
+}
+
+.timeline {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.timeline li {
+    padding: 6px 0;
+    border-bottom: 1px dashed #e5e7eb;
+}
+
+.timeline li:last-child {
+    border-bottom: 0;
+}
+
+.when {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.desc {
+    margin-top: 2px;
+}
+
+.actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    border-radius: 15px;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 10px;
+    padding: 10px 50px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 150px;
+    border: none;
+}
+
+.btn-primary {
+    background-color: transparent;
+    border: 1px solid #8242be;
+    color: #8242be;
+    transition: background-color .5s, color .5s;
+}
+
+.btn-primary:hover {
+    background-color: #fff;
+    color: #8242be;
+    border: 1px solid #8242be;
+}
+
+.btn-second {
+    background-color: #8242be;
+    border: 1px solid #8242be;
+    transition: background-color .5s, color .5s, border .5s;
+}
+
+.btn-second:hover {
+    background-color: #fff;
+    color: #8242be;
+    border: 1px solid #8242be;
+}

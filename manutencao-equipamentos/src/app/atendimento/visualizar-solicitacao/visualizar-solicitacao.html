@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="content">
+        <h1 class="title title-second">Solicitação {{ id }}</h1>
+
+        <div class="grid">
+            <div><strong>Estado:</strong> {{ estado }}</div>
+            <div><strong>Preço Orçado:</strong> R$ {{ preco.toFixed(2) }}</div>
+            <div><strong>Equipamento:</strong> {{ descricaoEquip }}</div>
+            <div><strong>Categoria:</strong> {{ categoria }}</div>
+            <div class="full"><strong>Defeito:</strong> {{ defeito }}</div>
+        </div>
+
+        <h3 style="margin-top:16px">Histórico</h3>
+        <ul class="timeline">
+            <li *ngFor="let h of historico">
+                <div class="when">{{ h.dataHora }}</div>
+                <div class="desc">{{ h.descricao }} <small *ngIf="h.usuario">— {{ h.usuario }}</small></div>
+            </li>
+        </ul>
+
+        <div class="actions">
+            <a *ngIf="estado === 'ORÇADA'" class="btn btn-second" [routerLink]="['/orcamento', id]">
+                Aprovar / Rejeitar
+            </a>
+            <button *ngIf="estado === 'REJEITADA'" class="btn btn-primary">Resgatar Serviço</button>
+            <button *ngIf="estado === 'ARRUMADA'" class="btn btn-primary">Pagar Serviço</button>
+        </div>
+    </div>
+</div>
