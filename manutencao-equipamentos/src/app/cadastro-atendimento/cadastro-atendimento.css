@@ -1,0 +1,102 @@
+/* Container que centraliza o formulário na tela */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+/* Estilo do formulário em si, como uma "caixa" */
+.card p-4 {
+  background-color: #fff;
+  border-radius: 15px;
+  width: 9000px;
+  max-width: 90%; /* Limita a largura para telas grandes */
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(130, 66, 190, 0.5); /* Sombra roxa */
+
+  /* Centraliza o conteúdo dentro do card */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Título do formulário */
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: #8242be; /* Cor roxa */
+  margin-bottom: 20px;
+}
+
+/* Estilos para os campos de entrada (input, textarea, select) */
+.form-input-group {
+  margin-bottom: 1rem;
+  width: 100%; /* Garante que o grupo ocupe toda a largura disponível */
+}
+
+.form-input-group label {
+  color: #7f8c8d; /* Cinza do seu estilo */
+  font-weight: 300;
+  margin-bottom: 5px;
+  display: block;
+  text-align: left; /* Alinha o texto da label para a esquerda */
+}
+
+.form-input-group .form-control,
+.form-input-group .form-select {
+  height: 45px;
+  width: 100%;
+  border: none;
+  background-color: #ecf0f1; /* Cor de fundo clara */
+  border-radius: 4px;
+  padding-left: 10px;
+  color: #000;
+}
+
+/* Foco nos campos */
+.form-input-group .form-control:focus,
+.form-input-group .form-select:focus,
+.form-input-group .form-control:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(130, 66, 190, 0.3);
+}
+
+/* Estilo para o botão de envio */
+.btn btn-primary {
+  border-radius: 15px;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 10px;
+  padding: 10px 50px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 150px; /* Largura fixa para o botão */
+  border: none;
+  background-color: #8242be; /* Cor de fundo roxa, igual ao seu estilo base */
+  transition: background-color 0.5s;
+  margin-top: 1rem;
+}
+
+.btn-submit:hover {
+  background-color: #fff;
+  color: #8242be;
+  border: 1px solid #8242be; /* Adiciona uma borda no hover */
+}
+
+.btn-submit:disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+  color: #666;
+}
+
+/* Estilo para a mensagem de erro */
+.text-danger {
+  font-size: 12px;
+  color: #dc3545; /* Vermelho padrão para erros */
+  margin-top: 5px;
+  text-align: left; /* Alinha o texto de erro para a esquerda */
+}

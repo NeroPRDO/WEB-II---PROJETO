@@ -1,0 +1,42 @@
+<app-nav></app-nav>
+<div class="container mt-5">
+  <div class="card p-4">
+    <h2 class="card-title text-center">Solicitação de Manutenção</h2>
+    <hr>
+    <form [formGroup]="Solicitacao" (ngSubmit)="enviarSolicitacao()">
+
+      <div class="mb-3">
+        <label for="descricaoEquipamento" class="form-label">Descrição do Equipamento</label>
+        <input type="text" id="descricaoEquipamento" formControlName="descricaoEquipamento" class="form-control" placeholder="Ex: Notebook Dell Inspiron">
+        <div *ngIf="Solicitacao.get('descricaoEquipamento')?.invalid && Solicitacao.get('descricaoEquipamento')?.touched" class="text-danger">
+          A descrição do equipamento é obrigatória e deve ter no máximo 30 caracteres.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="categoriaEquipamento" class="form-label">Categoria do Equipamento</label>
+        <select id="categoriaEquipamento" formControlName="categoriaEquipamento" class="form-select">
+          <option value="" disabled>Selecione a categoria</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+        </select>
+        <div *ngIf="Solicitacao.get('categoriaEquipamento')?.invalid && Solicitacao.get('categoriaEquipamento')?.touched" class="text-danger">
+          A categoria do equipamento é obrigatória.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="descricaoDefeito" class="form-label">Descrição do Defeito</label>
+        <textarea id="descricaoDefeito" formControlName="descricaoDefeito" class="form-control" rows="4" placeholder="Detalhe o problema do seu equipamento"></textarea>
+        <div *ngIf="Solicitacao.get('descricaoDefeito')?.invalid && Solicitacao.get('descricaoDefeito')?.touched" class="text-danger">
+          A descrição do defeito é obrigatória.
+        </div>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary" [disabled]="Solicitacao.invalid">
+          Registrar Solicitação
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
