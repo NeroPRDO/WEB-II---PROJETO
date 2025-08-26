@@ -3,7 +3,7 @@
 
 [![Node](https://img.shields.io/badge/node-v22.18.0-brightgreen)](https://nodejs.org/)
 [![NPM](https://img.shields.io/badge/npm-10.9.3-blue)](https://www.npmjs.com/)
-[![Angular](https://img.shields.io/badge/angular-20.1.5-red)](https://angular.io/)
+[![Angular](https://img.shields.io/badge/angular-20.1.6-red)](https://angular.io/)
 [![Status](https://img.shields.io/badge/status-development-yellow)]()
 
 ## Sumário
@@ -124,7 +124,7 @@ Ademais, o acesso ao sistema é feito por meio de 2 perfis: Cliente e Funcionár
 **Versões testadas / recomendadas**
 - Node.js: **v22.18.0 (LTS)**
 - NPM: **10.9.3**
-- Angular CLI / Angular: **20.1.5**
+- Angular CLI / Angular: **20.1.6**
 
 **Como checar localmente**
 ```bash
