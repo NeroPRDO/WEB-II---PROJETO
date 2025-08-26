@@ -9,28 +9,28 @@ export const routes: Routes = [
     {
         path: '',
         component: Dashboard,
-        title: 'dashboard'
+        title: 'dashboard',
     },
     {
         path: 'login',
         component: Login,
-        title: 'login'
+        title: 'login',
     },
     {
         path: 'cadastro-atendimento',
         component: CadastroAtendimento,
-        title: 'cadatro-atendimento'
-    }
+        title: 'cadatro-atendimento',
+    },
 
     {
     path: 'orcamento/:id',
     component: Orcamento,
-    title: 'orcamento'
+    title: 'orcamento',
   },
 
   {
     path: 'solicitacao/:id',
     component: VisualizarSolicitacao,
-    title: 'visualizar-solicitacao'
+    title: 'visualizar-solicitacao',
   }
 ];
