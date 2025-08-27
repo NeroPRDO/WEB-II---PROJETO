@@ -27,38 +27,121 @@ Este projeto consiste no desenvolvimento de uma aplicação web utilizando Angul
 WEB-II---PROJETO/
 ├─ README.md
 └─ manutencao-equipamentos/
-   ├─ .editorconfig
-   ├─ .gitignore
-   ├─ angular.json
-   ├─ package-lock.json
-   ├─ package.json
-   ├─ README.md
-   ├─ tsconfig.app.json
-   ├─ tsconfig.json
-   ├─ tsconfig.spec.json
-   ├─ public/
-   │  └─ favicon.ico
-   └─ src/
-      ├─ index.html
-      ├─ main.ts
-      ├─ styles.css
-      └─ app/
-         ├─ app.config.ts
-         ├─ app.css
-         ├─ app.html
-         ├─ app.routes.ts
-         ├─ app.spec.ts
-         ├─ app.ts
-         └─ shared/
-            ├─ Botoes/
-            │  └─ botaoBasico/
-            │     ├─ botaoBasico.css
-            │     ├─ botaoBasico.html
-            │     └─ botaoBasico.ts
-            └─ Nav/
-               ├─ nav.css
-               ├─ nav.html
-               └─ nav.ts
+|   .editorconfig
+|   .gitignore
+|   angular.json
+|   package-lock.json
+|   package.json
+|   README.md
+|   tsconfig.app.json
+|   tsconfig.json
+|   tsconfig.spec.json
+|
++---public
+|       favicon.ico
+|       LOGO.png
+|
+\---src
+    |   index.html
+    |   main.ts
+    |   styles.css
+    |
+    \---app
+        |   app.config.ts
+        |   app.css
+        |   app.html
+        |   app.routes.ts
+        |   app.spec.ts
+        |   app.ts
+        |
+        +---atendimento
+        |   +---orcamento
+        |   |       orcamento.css
+        |   |       orcamento.html
+        |   |       orcamento.spec.ts
+        |   |       orcamento.ts
+        |   |
+        |   \---visualizar-solicitacao
+        |           visualizar-solicitacao.css
+        |           visualizar-solicitacao.html
+        |           visualizar-solicitacao.spec.ts
+        |           visualizar-solicitacao.ts
+        |
+        +---cadastro-atendimento
+        |       cadastro-atendimento.css
+        |       cadastro-atendimento.html
+        |       cadastro-atendimento.spec.ts
+        |       cadastro-atendimento.ts
+        |
+        +---dashboard
+        |       dashboard.css
+        |       dashboard.html
+        |       dashboard.spec.ts
+        |       dashboard.ts
+        |
+        +---login
+        |       login.css
+        |       login.html
+        |       login.spec.ts
+        |       login.ts
+        |
+        \---shared
+            +---Botoes
+            |   \---botaoBasico
+            |           botaoBasico.css
+            |           botaoBasico.html
+            |           botaoBasico.ts
+            |
+            +---btn-login
+            |       btn-login.css
+            |       btn-login.html
+            |       btn-login.spec.ts
+            |       btn-login.ts
+            |
+            +---btn-seta
+            |       btn-seta.css
+            |       btn-seta.html
+            |       btn-seta.spec.ts
+            |       btn-seta.ts
+            |
+            +---footer-component
+            |       footer.component.css
+            |       footer.component.html
+            |       footer.component.ts
+            |
+            +---icons
+            |       icons.css
+            |       icons.html
+            |       icons.ts
+            |
+            +---link-text
+            |       link-text.component.css
+            |       link-text.component.html
+            |       link-text.component.ts
+            |
+            +---Modal
+            |       modal.css
+            |       modal.html
+            |       modal.spec.ts
+            |       modal.ts
+            |
+            +---Nav
+            |       nav.css
+            |       nav.html
+            |       nav.ts
+            |
+            +---panel
+            |       panel.css
+            |       panel.html
+            |       panel.spec.ts
+            |       panel.ts
+            |
+            \---text-box
+                    text-box.css
+                    text-box.html
+                    text-box.spec.ts
+                    text-box.ts
+
 ```
 
 
