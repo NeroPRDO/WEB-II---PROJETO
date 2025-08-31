@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextBox } from './text-box';
+import { PainelFuncinario } from './painel-funcinario';
 
-describe('TextBox', () => {
-  let component: TextBox;
-  let fixture: ComponentFixture<TextBox>;
+describe('PainelFuncinario', () => {
+  let component: PainelFuncinario;
+  let fixture: ComponentFixture<PainelFuncinario>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TextBox]
+      imports: [PainelFuncinario]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(TextBox);
+    fixture = TestBed.createComponent(PainelFuncinario);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

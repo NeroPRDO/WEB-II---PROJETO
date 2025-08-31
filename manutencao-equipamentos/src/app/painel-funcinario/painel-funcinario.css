@@ -1,0 +1,25 @@
+h3 {
+    color: var(--color-rosa-3);
+    padding-bottom: 1.5rem;
+}
+
+table th {
+    color: var(--color-roxo-6) !important;
+}
+
+tbody tr:hover {
+    cursor: pointer;
+}
+
+tbody tr:hover td {
+    color: var(--color-rosa-4)
+}
+
+table tbody tr:nth-child(even) {
+    background-color: var(--color-roxo-4) !important;
+}
+
+.table-striped>tbody>tr:nth-child(2n+1)>td,
+.table-striped>tbody>tr:nth-child(2n+1)>th {
+    background-color: var(--color-roxo-1);
+}

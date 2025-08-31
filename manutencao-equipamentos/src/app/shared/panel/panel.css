@@ -1,34 +1,21 @@
 .panel {
-    border-radius: 15px;
-    border: none;
-    background-color: #ffffff;
+    border-radius: 10px;
+    background-image: linear-gradient(var(--color-rosa-1) 40%, var(--color-roxo-4) 100%);
     gap: 0.5rem;
+    padding: 3px;
     display: flex;
     height: 100%;
     flex-direction: column;
     text-align: left;
-    /* roubei do thiago essa box shadow */
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.103);
+    color: var(--color-roxo-6)
 }
 
-div.panel svg {
-    width: 18px !important;
-    height: 18px !important;
-}
-
-div.panel .title {
-    font-size: 1.225rem;
-    font-weight: 500;
+.content {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
     display: flex;
-    text-align: left;
-    align-items: center;
-    gap: .5rem;
-}
-
-.p-title {
-    padding: 1.1rem;
-}
-
-.p {
-    padding: 1.2rem;
+    flex-direction: column;
+    min-height: 100%;
+    padding: 1.125rem;
+    text-align: justify;
 }

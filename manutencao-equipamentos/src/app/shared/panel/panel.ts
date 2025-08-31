@@ -8,6 +8,4 @@ import { Component, Input } from '@angular/core';
   styleUrl: './panel.css'
 })
 export class Panel {
-  @Input() title = ""
-  @Input() icon = "";
 }

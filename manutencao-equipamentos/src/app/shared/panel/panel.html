@@ -1,15 +1,5 @@
-<div class="panel" [ngClass]="{'p': title === '', 'p-title': title !== ''}">
-    @if (title !== "") {
-            <span class="title">
-
-                @if (icon !== "") {
-                    <svg viewBox="0 0 22 22">
-                        <path [attr.d]='icon' />
-                    </svg>
-                }
-
-                {{title}}
-            </span>
-    }
-    <ng-content></ng-content>
+<div class="panel">
+    <div class="content">
+        <ng-content></ng-content>
+    </div>
 </div>
