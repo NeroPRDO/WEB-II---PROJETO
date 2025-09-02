@@ -6,6 +6,7 @@ import { Orcamento } from './atendimento/orcamento/orcamento'
 import { VisualizarSolicitacao } from './atendimento/visualizar-solicitacao/visualizar-solicitacao';
 import { PainelFuncinario } from './painel-funcinario/painel-funcinario';
 import { Historico } from './historico/historico';
+import { Cadastro } from './cadastro/cadastro';
 
 export const routes: Routes = [
   {
@@ -42,5 +43,10 @@ export const routes: Routes = [
     path: 'historico',
     component: Historico,
     title: 'historico',
+  },
+  {
+    path: 'cadastro',
+    component: Cadastro,
+    title: 'cadastro',
   }
 ];
