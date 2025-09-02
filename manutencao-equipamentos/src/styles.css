@@ -17,4 +17,60 @@
   --color-rosa-1: #d6a0f1;
   --color-rosa-2: #9b59b6;
   --color-rosa-3: #8e44ad;
+  
+  /* Estado: ABERTA */
+  --aberta-1: #e0f2fe;  /* azul claro */
+  --aberta-2: #38bdf8;  /* azul médio */
+  --aberta-3: #0369a1;  /* azul escuro */
+
+  /* Estado: ORÇADA */
+  --orcada-1: #ede9fe;  /* lilás claro */
+  --orcada-2: #a855f7;  /* lilás médio */
+  --orcada-3: #6b21a8;  /* lilás escuro */
+
+  /* Estado: APROVADA */
+  --aprovada-1: #dcfce7; /* verde claro */
+  --aprovada-2: #22c55e; /* verde médio */
+  --aprovada-3: #166534; /* verde escuro */
+
+  /* Estado: REJEITADA */
+  --rejeitada-1: #fee2e2; /* vermelho claro */
+  --rejeitada-2: #ef4444; /* vermelho médio */
+  --rejeitada-3: #7f1d1d; /* vermelho escuro */
+
+  /* Estado: ARRUMADA */
+  --arrumada-1: #f0fdfa; /* ciano claro */
+  --arrumada-2: #14b8a6; /* ciano médio */
+  --arrumada-3: #134e4a; /* ciano escuro */
+
+  /* Estado: PAGA */
+  --paga-1: #fef9c3;  /* amarelo claro */
+  --paga-2: #eab308;  /* amarelo médio */
+  --paga-3: #854d0e;  /* amarelo escuro */
+
+  /* Estado: FINALIZADA */
+  --finalizada-1: #f3f4f6; /* cinza claro */
+  --finalizada-2: #6b7280; /* cinza médio */
+  --finalizada-3: #111827; /* cinza escuro */
+
+  /* Feedback */
+  --success-light: #dcfce7;
+  --success: #22c55e;
+  --success-dark: #166534;
+
+  --warning-light: #fef9c3;
+  --warning: #eab308;
+  --warning-dark: #854d0e;
+
+  --info-light: #dbeafe;
+  --info: #3b82f6;
+  --info-dark: #1e3a8a;
+
+  --error-light: #fee2e2;
+  --error: #ef4444;
+  --error-dark: #7f1d1d;
+
+  --color-roxo-5-50: rgba(130, 66, 190, 0.5);
+ --color-roxo-5-25: rgba(130, 66, 190, 0.25);
+  
 }
