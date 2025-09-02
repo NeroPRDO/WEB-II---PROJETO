@@ -14,39 +14,82 @@ export const routes: Routes = [
     component: Dashboard,
     title: 'dashboard',
   },
+  
   {
     path: 'login',
     component: Login,
     title: 'login',
   },
+  
   {
     path: 'cadastro-atendimento',
     component: CadastroAtendimento,
     title: 'cadatro-atendimento',
   },
+  
   {
     path: 'orcamento/:id',
     component: Orcamento,
     title: 'orcamento',
   },
+  
   {
     path: 'painel',
     component: PainelFuncinario,
     title: 'painel-funcionario'
   },
+  
   {
     path: 'solicitacao/:id',
     component: VisualizarSolicitacao,
     title: 'visualizar-solicitacao',
   },
+  
   {
     path: 'historico',
     component: Historico,
     title: 'historico',
   },
+  
   {
     path: 'cadastro',
     component: Cadastro,
     title: 'cadastro',
+  },
+
+  // === Perfil do Funcionário === RASCUNHO
+  {
+    path: 'func',
+    component: PainelFuncinario,
+    title: 'painel-funcionario'
+  },
+
+  {
+    // listagem geral
+    path: 'func/solicitacoes',
+    component: Historico, //por enquanto
+    title: 'lista-solicitacoes'
+  },
+
+  {
+    // reuso da tela de orçamento, mas dentro do espaço do funcionário
+    path: 'func/orcamento/:id',
+    component: Orcamento,
+    title: 'func-orcamento'
+  },
+
+  {
+    // reuso da tela de visualizar
+    path: 'func/solicitacao/:id',
+    component: VisualizarSolicitacao, //por enquanto
+    title: 'func-visualizar-solicitacao'
+  },
+
+  {
+    // opcional: funcionário abrindo um novo chamado
+    path: 'func/cadastro-atendimento',
+    component: CadastroAtendimento,
+    title: 'func-cadastro-atendimento'
   }
+
 ];
