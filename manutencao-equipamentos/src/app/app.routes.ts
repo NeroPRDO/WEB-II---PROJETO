@@ -7,8 +7,11 @@ import { VisualizarSolicitacao } from './atendimento/visualizar-solicitacao/visu
 import { PainelFuncinario } from './painel-funcinario/painel-funcinario';
 import { Historico } from './historico/historico';
 import { Cadastro } from './cadastro/cadastro';
+//import { Sobre } from './sobre/sobre';
+//import { Contato } from './contato/contato';
 
 export const routes: Routes = [
+  
   {
     path: '',
     component: Dashboard,
@@ -91,5 +94,17 @@ export const routes: Routes = [
     component: CadastroAtendimento,
     title: 'func-cadastro-atendimento'
   }
+  
+  { 
+    path: 'sobre', 
+    component: Sobre, 
+    title: 'sobre' 
+  },
 
+  { 
+    path: 'contato', 
+    component: Contato, 
+    title: 'contato' 
+  },
+    
 ];
