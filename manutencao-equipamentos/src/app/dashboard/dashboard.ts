@@ -18,11 +18,17 @@ interface CardOrcamento {
   styleUrl: './dashboard.css'
 })
 export class Dashboard {
-  
+
   orcamentos: CardOrcamento[] = [
-      { id: 'S-001', titulo: 'Notebook Lenovo', estado: 'ORÇADA' },
-      { id: 'S-002', titulo: 'Impressora HP',   estado: 'APROVADA' },
-      { id: 'S-003', titulo: 'PS4',             estado: 'REJEITADA' },
+    { id: 'S-001', titulo: 'Notebook Lenovo', estado: 'ORÇADA' },
+    { id: 'S-002', titulo: 'Impressora HP', estado: 'APROVADA' },
+    { id: 'S-003', titulo: 'PS4', estado: 'REJEITADA' },
   ];
-  
+
+
+  flag: string = 'Dash';
+
+  isFlag(f: string) {
+    this.flag = f;
+  }
 }

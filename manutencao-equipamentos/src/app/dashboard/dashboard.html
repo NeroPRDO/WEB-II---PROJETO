@@ -1,50 +1,168 @@
 <app-nav></app-nav>
-
 <section>
-    <div class="boas-vindas">
-        <div class="text-boas-vindas">
-            <h3>Olà, Towers</h3>
-            <p>Bem vindo de volta Lindo!</p>
+    <div class="title">
+        <div class="chamada-title">
+            <h1>Cliente</h1>
+
+        </div>
+        <div class="menu">
+            <a href="#" class="link" (click)="isFlag('Dash')">
+                <span class="link-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor"
+                        viewBox="0 0 256 256">
+                        <rect width="256" height="256" fill="none"></rect>
+                        <path
+                            d="M213.3815,109.61945,133.376,36.88436a8,8,0,0,0-10.76339.00036l-79.9945,72.73477A8,8,0,0,0,40,115.53855V208a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V115.53887A8,8,0,0,0,213.3815,109.61945Z"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="16"></path>
+                    </svg>
+                </span>
+                <span class="link-title">Dashboard</span>
+            </a>
+            <a href="#" class="link" (click)="isFlag('Solicitacao')">
+                <span class="link-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19.2914 5.99994H20.0002C20.5525 5.99994 21.0002 6.44766 21.0002 6.99994V13.9999C21.0002 14.5522 20.5525 14.9999 20.0002 14.9999H18.0002L13.8319 9.16427C13.3345 8.46797 12.4493 8.16522 11.6297 8.41109L9.14444 9.15668C8.43971 9.3681 7.6758 9.17551 7.15553 8.65524L6.86277 8.36247C6.41655 7.91626 6.49011 7.17336 7.01517 6.82332L12.4162 3.22262C13.0752 2.78333 13.9312 2.77422 14.5994 3.1994L18.7546 5.8436C18.915 5.94571 19.1013 5.99994 19.2914 5.99994ZM5.02708 14.2947L3.41132 15.7085C2.93991 16.1209 2.95945 16.8603 3.45201 17.2474L8.59277 21.2865C9.07284 21.6637 9.77592 21.5264 10.0788 20.9963L10.7827 19.7645C11.2127 19.012 11.1091 18.0682 10.5261 17.4269L7.82397 14.4545C7.09091 13.6481 5.84722 13.5771 5.02708 14.2947ZM7.04557 5H3C2.44772 5 2 5.44772 2 6V13.5158C2 13.9242 2.12475 14.3173 2.35019 14.6464C2.3741 14.6238 2.39856 14.6015 2.42357 14.5796L4.03933 13.1658C5.47457 11.91 7.65103 12.0343 8.93388 13.4455L11.6361 16.4179C12.6563 17.5401 12.8376 19.1918 12.0851 20.5087L11.4308 21.6538C11.9937 21.8671 12.635 21.819 13.169 21.4986L17.5782 18.8531C18.0786 18.5528 18.2166 17.8896 17.8776 17.4146L12.6109 10.0361C12.4865 9.86205 12.2652 9.78636 12.0603 9.84783L9.57505 10.5934C8.34176 10.9634 7.00492 10.6264 6.09446 9.7159L5.80169 9.42313C4.68615 8.30759 4.87005 6.45035 6.18271 5.57524L7.04557 5Z">
+                        </path>
+                    </svg>
+                </span>
+                <span class="link-title">Solicitações</span>
+            </a>
+            <a href="#" class="link" (click)="isFlag('Orcamentos')">
+                <span class="link-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M5.67591 4.25667C9.60392 1.03828 15.4094 1.26236 19.076 4.92893C22.9812 8.83418 22.9812 15.1658 19.076 19.0711C15.1707 22.9763 8.83906 22.9763 4.93382 19.0711C2.40932 16.5466 1.51676 13.0081 2.25611 9.76666L2.33275 9.45394L4.26718 9.96315C3.56967 12.623 4.26329 15.5721 6.34803 17.6569C9.47222 20.781 14.5375 20.781 17.6617 17.6569C20.7859 14.5327 20.7859 9.46734 17.6617 6.34315C14.8441 3.5255 10.4475 3.24903 7.32006 5.51375L7.09886 5.67983L8.1158 6.6967L3.5196 7.75736L4.58026 3.16117L5.67591 4.25667ZM13.0049 6V8H15.5049V10H10.0049C9.72874 10 9.50488 10.2239 9.50488 10.5C9.50488 10.7455 9.68176 10.9496 9.91501 10.9919L10.0049 11H14.0049C15.3856 11 16.5049 12.1193 16.5049 13.5C16.5049 14.8807 15.3856 16 14.0049 16H13.0049V18H11.0049V16H8.50488V14H14.0049C14.281 14 14.5049 13.7761 14.5049 13.5C14.5049 13.2545 14.328 13.0504 14.0948 13.0081L14.0049 13H10.0049C8.62417 13 7.50488 11.8807 7.50488 10.5C7.50488 9.11929 8.62417 8 10.0049 8H11.0049V6H13.0049Z">
+                        </path>
+                    </svg>
+                </span>
+                <span class="link-title">Orçamentos</span>
+            </a>
         </div>
 
-        <button routerLink="cadastro-atendimento">Novo</button>
+        <button class="button">+ Solicitação</button>
+    </div>
+
+    @if(flag == 'Dash'){
+    <div class="status-cards">
+        <div class="card yellow">
+            <h3>Pendentes</h3>
+            <p>1</p>
+        </div>
+        <div class="card blue">
+            <h3>Em Andamento</h3>
+            <p>1</p>
+        </div>
+        <div class="card green">
+            <h3>Concluídas</h3>
+            <p>1</p>
+        </div>
+        <div class="card purple">
+            <h3>Orçamentos</h3>
+            <p>1 <span style="font-size: 12px; font-weight: normal; color: #555;">Pendentes</span></p>
+        </div>
+    </div>
+
+    <div class="activities">
+        <h2>Atividades Recentes</h2>
+        <p class="subtitle">Últimas atualizações em suas solicitações</p>
+
+        <div class="activity">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3>Reparo no Noot</h3>
+                <span class="status pendente">Pendente</span>
+            </div>
+            <p>OOU QUEM LEU ME DEVE UM PIX</p>
+            <div class="tags">
+                <span class="tag eletrica">Eletronico</span>
+                <span class="tag alta">Alta</span>
+                <span class="tag data">12/01/2099</span>
+            </div>
+        </div>
+    </div>
+    }
+    @if(flag == 'Solicitacao'){
+    <div class="activities">
+        <h2>Todas as Solicitações</h2>
+        <p class="subtitle">Histórico completo de suas solicitações de manutenção</p>
+
+        <!-- Solicitação 1 -->
+        <div class="activity">
+            <div class="header">
+                <h3>Reparo no Noot</h3>
+                <span class="status pendente">Pendente</span>
+                <button class="view">👁️</button>
+            </div>
+            <p>Pascal melhor linguagem VO FICA LOUCO COM CSS</p>
+            <div class="tags">
+                <span class="tag eletrica">Eletronico</span>
+                <span class="tag alta">Alta</span>
+                <span class="tag data">14/01/2099</span>
+                <span class="tag orcamento">Orçamento: R$ 45000,00</span>
+            </div>
+        </div>
+
+        <!-- Solicitação 2 -->
+        <div class="activity">
+            <div class="header">
+                <h3>REpimboca da parafuseta</h3>
+                <span class="status andamento">Em Andamento</span>
+                <button class="view">👁️</button>
+            </div>
+            <p>UAU ELE LE o MANUAL</p>
+            <div class="tags">
+                <span class="tag hidraulica">CARRO</span>
+                <span class="tag media">Média</span>
+                <span class="tag data">09/01/2099</span>
+            </div>
+        </div>
 
     </div>
 
-</section>
-
-<section>
-    <div class="sec-titulo">
-        <h4>Orçamento</h4>
-        <a href="#">-></a>
-    </div>
+    }
+    @if(flag == 'Orcamentos'){
     <div class="orcamentos">
-        <div class="card">
-            <div class="card-header pendente"></div>
+        <h2>Orçamentos Recebidos</h2>
+        <p class="subtitle">Analise e aprove os orçamentos para suas solicitações</p>
 
-            <div class="card-body">
-                <h2 class="card-title">Orçamento #3</h2>
-                <p class="card-status pendente">Pendente</p>
-                <button class="card-btn" [routerLink]="['/orcamento','S-001']">Ver Detalhes</button>
+        <div class="orcamento-card">
+            <div class="orcamento-header">
+                <div>
+                    <h3>Reparo no conection string</h3>
+                    <p class="descricao">TReparo no conection string sistema</p>
+                    <p class="criado">Criado em 15/01/2099</p>
+                </div>
+                <div class="orcamento-status">
+                    <h4 class="valor">R$ 890,00</h4>
+                    <span class="status pendente">Pendente</span>
+                </div>
             </div>
-        </div>
 
-        <div class="card">
-            <div class="card-header concluido"></div>
-            <div class="card-body">
-                <h2 class="card-title">Orçamento #2</h2>
-                <p class="card-status concluido">Concluido</p>
-                <button class="card-btn" [routerLink]="['/solicitacao','S-002']">Ver Detalhes</button>
+            <div class="orcamento-itens">
+                <div class="item">
+                    <span>REQUISITOSSS</span>
+                    <span>1x R$ 200.00 = R$ 200.00</span>
+                </div>
+                <div class="item">
+                    <span>LTAMPASO AAS</span>
+                    <span>1x R$ 150.00 = R$ 150.00</span>
+                </div>
+                <div class="item">
+                    <span>Mão de obra</span>
+                    <span>2x R$ 50.00 = R$ 100.00</span>
+                </div>
             </div>
-        </div>
 
-        <div class="card">
-            <div class="card-header recusado"></div>
-            <div class="card-body">
-                <h2 class="card-title">Orçamento #1</h2>
-                <p class="card-status recusado">Recusado</p>
-                <button class="card-btn" [routerLink]="['/solicitacao','S-003']">Ver Detalhes</button>
+            <div class="orcamento-actions">
+                <button class="btn aprovar">✔ Aprovar</button>
+                <button class="btn rejeitar">✖ Rejeitar</button>
+                <button class="btn pdf">⬇ Baixar PDF</button>
             </div>
         </div>
     </div>
+
+    }
+
+
 </section>
