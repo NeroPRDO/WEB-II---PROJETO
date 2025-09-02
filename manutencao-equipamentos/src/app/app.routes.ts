@@ -93,8 +93,8 @@ export const routes: Routes = [
     path: 'func/cadastro-atendimento',
     component: CadastroAtendimento,
     title: 'func-cadastro-atendimento'
-  }
-  
+  },
+/*  
   { 
     path: 'sobre', 
     component: Sobre, 
@@ -106,5 +106,5 @@ export const routes: Routes = [
     component: Contato, 
     title: 'contato' 
   },
-    
+*/
 ];
