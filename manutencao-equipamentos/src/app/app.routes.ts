@@ -5,6 +5,7 @@ import { CadastroAtendimento } from './cadastro-atendimento/cadastro-atendimento
 import { Orcamento } from './atendimento/orcamento/orcamento'
 import { VisualizarSolicitacao } from './atendimento/visualizar-solicitacao/visualizar-solicitacao';
 import { PainelFuncinario } from './painel-funcinario/painel-funcinario';
+import { Historico } from './historico/historico';
 
 export const routes: Routes = [
   {
@@ -36,5 +37,10 @@ export const routes: Routes = [
     path: 'solicitacao/:id',
     component: VisualizarSolicitacao,
     title: 'visualizar-solicitacao',
+  },
+  {
+    path: 'historico',
+    component: Historico,
+    title: 'historico',
   }
 ];
