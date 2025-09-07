@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './panel.css'
 })
 export class Panel {
+  @Input() border_gradient = "";
 }

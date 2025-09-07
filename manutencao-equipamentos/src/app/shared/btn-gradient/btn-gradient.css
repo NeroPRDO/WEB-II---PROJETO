@@ -1,0 +1,42 @@
+.btn-border {
+    --gradient-shown-1: rgba(218, 179, 255, 0.75);
+    --gradient-shown-2: rgba(237, 179, 255, 0.75);
+    border: none;
+    border-radius: 10px;
+    background-image: linear-gradient(var(--gradient-shown-1) 40%, var(--gradient-shown-2) 100%);
+    padding: 0px;
+    transition: 0.2s;
+}
+
+.btn-border-hide {
+    background-color: transparent;
+    padding: 4px;
+    transition: 0.2s;
+}
+
+.btn-border-hide:hover {
+    padding: 0px;
+    transition: 0.3s;
+}
+
+.btn-border-hide:hover div.btn-border {
+    padding: 4px;
+    transition: 0.3s;
+    
+}
+
+.btn {
+    font-size: 18px;
+    border: none;
+    outline: none;
+    padding: 15px 10px 10px 15px;
+    border-radius: 8px;
+    background-color: var(--color-roxo-1);
+    color: var(--color-roxo-6);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+
+}

@@ -1,0 +1,57 @@
+table th {
+    color: var(--color-roxo-6) !important;
+}
+
+tbody tr:hover {
+    cursor: pointer;
+}
+
+tbody tr:hover td {
+    color: var(--color-rosa-4)
+}
+
+table tbody tr:nth-child(odd) td{
+    background-color: #f3f3f3 !important;
+}
+
+tbody td {
+    align-items: center;
+}
+
+td div.codigo {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 1px;
+    border-radius: 15px;
+    padding: 2px;
+}
+
+
+td div.aberta {
+    background-color: rgb(224, 224, 224);
+    color: black;
+}
+
+tbody tr:hover td {
+    background-color: #f3f3f3;
+    transition: 0.3s;
+}
+
+tbody tr td {
+    transition: 0.3s;
+}
+
+
+td button {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: min-content;
+    padding: 2px 5px 2px 5px;
+    color: var(--color-rosa-3) !important;
+    background-color: transparent;
+}

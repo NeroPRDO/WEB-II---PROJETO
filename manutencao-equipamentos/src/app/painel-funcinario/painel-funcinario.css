@@ -3,23 +3,25 @@ h3 {
     padding-bottom: 1.5rem;
 }
 
-table th {
-    color: var(--color-roxo-6) !important;
+.filtros-chamados {
+    border-bottom: 1px solid #e2e2e2f3;
+    padding: 15px;
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    align-items: center;
 }
 
-tbody tr:hover {
-    cursor: pointer;
+.filtros-chamados select {
+    width: max-content;
 }
 
-tbody tr:hover td {
-    color: var(--color-rosa-4)
+.painel-funcionario {
+    height: 80vh !important;
 }
 
-table tbody tr:nth-child(even) {
-    background-color: var(--color-roxo-4) !important;
-}
-
-.table-striped>tbody>tr:nth-child(2n+1)>td,
-.table-striped>tbody>tr:nth-child(2n+1)>th {
-    background-color: var(--color-roxo-1);
+.acoes-funcionario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
