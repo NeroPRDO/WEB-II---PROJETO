@@ -6,19 +6,6 @@
 
         </div>
         <div class="menu">
-            <a href="#" class="link" (click)="isFlag('Dash')">
-                <span class="link-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" fill="currentColor"
-                        viewBox="0 0 256 256">
-                        <rect width="256" height="256" fill="none"></rect>
-                        <path
-                            d="M213.3815,109.61945,133.376,36.88436a8,8,0,0,0-10.76339.00036l-79.9945,72.73477A8,8,0,0,0,40,115.53855V208a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V115.53887A8,8,0,0,0,213.3815,109.61945Z"
-                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="16"></path>
-                    </svg>
-                </span>
-                <span class="link-title">Dashboard</span>
-            </a>
             <a href="#" class="link" (click)="isFlag('Solicitacao')">
                 <span class="link-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -44,83 +31,50 @@
         <button class="button" routerLink="cadastro-atendimento">+ Solicitação</button>
     </div>
 
-    @if(flag == 'Dash'){
-    <div class="status-cards">
-        <div class="card yellow">
-            <h3>Pendentes</h3>
-            <p>1</p>
-        </div>
-        <div class="card blue">
-            <h3>Em Andamento</h3>
-            <p>1</p>
-        </div>
-        <div class="card green">
-            <h3>Concluídas</h3>
-            <p>1</p>
-        </div>
-        <div class="card purple">
-            <h3>Orçamentos</h3>
-            <p>1 <span style="font-size: 12px; font-weight: normal; color: #555;">Pendentes</span></p>
-        </div>
-    </div>
-
-    <div class="activities">
-        <h2>Atividades Recentes</h2>
-        <p class="subtitle">Últimas atualizações em suas solicitações</p>
-
-        <div class="activity">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h3>Reparo no Noot</h3>
-                <span class="status pendente">Pendente</span>
-            </div>
-            <p>OOU QUEM LEU ME DEVE UM PIX</p>
-            <div class="tags">
-                <span class="tag eletrica">Eletronico</span>
-                <span class="tag alta">Alta</span>
-                <span class="tag data">12/01/2099</span>
-            </div>
-        </div>
-    </div>
-    }
     @if(flag == 'Solicitacao'){
-    <div class="activities">
-        <h2>Todas as Solicitações</h2>
-        <p class="subtitle">Histórico completo de suas solicitações de manutenção</p>
+    <div class="table-container">
+        <h2>Solicitações</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>categoria</th>
+                    <th>Data Registro</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nootbook</td>
+                    <td>Computadores</td>
+                    <td>01/09/2025</td>
+                    <td><span class="status active">Aprovado</span></td>
 
-        <!-- Solicitação 1 -->
-        <div class="activity">
-            <div class="header">
-                <h3>Reparo no Noot</h3>
-                <span class="status pendente">Pendente</span>
-                <button class="view">👁️</button>
-            </div>
-            <p>Pascal melhor linguagem VO FICA LOUCO COM CSS</p>
-            <div class="tags">
-                <span class="tag eletrica">Eletronico</span>
-                <span class="tag alta">Alta</span>
-                <span class="tag data">14/01/2099</span>
-                <span class="tag orcamento">Orçamento: R$ 45000,00</span>
-            </div>
-        </div>
+                    <td class="actions">
+                        <button class="edit-button">
+                            <svg class="edit-svgIcon" viewBox="0 0 512 512">
+                                <path
+                                    d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z">
+                                </path>
+                            </svg>
+                        </button>
 
-        <!-- Solicitação 2 -->
-        <div class="activity">
-            <div class="header">
-                <h3>REpimboca da parafuseta</h3>
-                <span class="status andamento">Em Andamento</span>
-                <button class="view">👁️</button>
-            </div>
-            <p>UAU ELE LE o MANUAL</p>
-            <div class="tags">
-                <span class="tag hidraulica">CARRO</span>
-                <span class="tag media">Média</span>
-                <span class="tag data">09/01/2099</span>
-            </div>
-        </div>
-
+                        <button class="delete-button">
+                            <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                                <path
+                                    d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z">
+                                </path>
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     }
+
     @if(flag == 'Orcamentos'){
     <div class="orcamentos">
         <h2>Orçamentos Recebidos</h2>

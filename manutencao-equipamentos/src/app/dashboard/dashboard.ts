@@ -26,7 +26,7 @@ export class Dashboard {
   ];
 
 
-  flag: string = 'Dash';
+  flag: string = 'Solicitacao';
 
   isFlag(f: string) {
     this.flag = f;
