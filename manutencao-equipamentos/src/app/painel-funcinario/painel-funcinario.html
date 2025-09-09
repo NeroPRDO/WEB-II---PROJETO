@@ -1,53 +1,30 @@
 <app-nav></app-nav>
 
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center painel-funcionario">
         <div class="col-3">
             <panel>
+                <div class="acoes-funcionario">
+                    <btn-gradient message="Ver Solicitacoes"></btn-gradient>
+                    <btn-gradient message="Manter Funcionarios"></btn-gradient>
+                    <btn-gradient message="Gerar Relatorio"></btn-gradient>
+                </div>
             </panel>
         </div>
         <div class="col-8">
             <panel>
 
                 <h3 class="text-center">Chamados Abertos</h3>
-                <div class="table-responsive px-3">
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">Codigo</th>
-                                <th scope="col">Cliente</th>
-                                <th scope="col">Descricao</th>
-                                <th scope="col">Data</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>S-001</td>
-                                <td>MARIA FERNANDA</td>
-                                <td>Asus Vivobook 15</td>
-                                <td>02/07/2025</td>
-                            </tr>
-                            <tr>
-                                <td>S-002</td>
-                                <td>LUCAS B</td>
-                                <td>Lenovo Ideapad 3</td>
-                                <td>07/05/2025</td>
-                            </tr>
-                            <tr>
-                                <td>S-003</td>
-                                <td>MATEUS Z</td>
-                                <td>Macbook Air 13</td>
-                                <td>07/02/2025</td>
-                            </tr>
-                            <tr>
-                                <td>S-004</td>
-                                <td>MARIA FERNANDA</td>
-                                <td>Asus Vivobook 15</td>
-                                <td>02/07/2025</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <div class="filtros-chamados">
+                    <span>Mostrar</span>
+                    <select class="form-select form-select-sm" aria-label="Small select example">
+                        <option value="1">Todas</option>
+                        <option value="1">Abertas Hoje</option>
+                        <option value="2">Periodo</option>
+                    </select>
                 </div>
+                <app-table-chamado></app-table-chamado>
             </panel>
         </div>
     </div>

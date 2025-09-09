@@ -9,8 +9,8 @@
 .content {
     background-color: #FFF;
     border-radius: 15px;
-    width: 960px;
-    height: 50%;
+    width: 1000px;
+    height: 60%;
     justify-content: space-between;
     align-items: center;
     position: relative;
@@ -23,9 +23,11 @@
     background-color: #8242be;/* roxo 5 */
     width: 40%;
     height: 100%;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    right: 0;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+
+    left: 0;
 }
 
 .title {
@@ -89,7 +91,6 @@
 }
 .first-content {
     display: flex;
-    flex-direction: row-reverse;
 }
 .first-content .second-column {
     z-index: 11;
