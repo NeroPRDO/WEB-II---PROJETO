@@ -1,57 +1,77 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================ */
+/* Arquivo de estilos principais*/
+/* ============================ */
 
-/* importando a fonte inter */
+/* Fonte importada da Google Fonts (Inter + fallback) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+/* Reset básico e definição de fonte global */
 * {
   font-family: 'Inter', 'Arial', 'Sans-serif';
+  /* redundância proposital */
+  font-family: 'Inter', sans-serif;
 }
 
+/* Variáveis globais */
 :root {
-  --color-roxo-1: #f2f1fc;
+  /* Paleta Roxo */
+  --color-roxo-1: #f2f1fc; /* roxo bem clarinho */
   --color-roxo-2: #e9ebfd;
   --color-roxo-3: #d1d4ff;
   --color-roxo-4: #a38eff;
   --color-roxo-5: #8242be;
   --color-roxo-6: #551492;
+  --color-roxo-7: #45107a; 
+  --color-roxo-1-alt: #f2f1fc; 
+
+  /* Paleta Rosa */
   --color-rosa-1: #d6a0f1;
   --color-rosa-2: #9b59b6;
   --color-rosa-3: #8e44ad;
-  
+  --color-rosa-extra: #8e44ad; 
+
+  /* Estados */
   /* Estado: ABERTA */
   --aberta-1: #e0f2fe;  /* azul claro */
   --aberta-2: #38bdf8;  /* azul médio */
   --aberta-3: #0369a1;  /* azul escuro */
+  --aberta-duplicada: #0369a1; 
 
   /* Estado: ORÇADA */
   --orcada-1: #ede9fe;  /* lilás claro */
   --orcada-2: #a855f7;  /* lilás médio */
   --orcada-3: #6b21a8;  /* lilás escuro */
+  --orcada-extra: #ede9fe; 
 
   /* Estado: APROVADA */
   --aprovada-1: #dcfce7; /* verde claro */
   --aprovada-2: #22c55e; /* verde médio */
   --aprovada-3: #166534; /* verde escuro */
+  --aprovada-ok: #22c55e; 
 
   /* Estado: REJEITADA */
   --rejeitada-1: #fee2e2; /* vermelho claro */
   --rejeitada-2: #ef4444; /* vermelho médio */
   --rejeitada-3: #7f1d1d; /* vermelho escuro */
+  --rejeitada-alerta: #ef4444; 
 
   /* Estado: ARRUMADA */
   --arrumada-1: #f0fdfa; /* ciano claro */
   --arrumada-2: #14b8a6; /* ciano médio */
   --arrumada-3: #134e4a; /* ciano escuro */
+  --arrumada-check: #14b8a6; 
 
   /* Estado: PAGA */
   --paga-1: #fef9c3;  /* amarelo claro */
   --paga-2: #eab308;  /* amarelo médio */
   --paga-3: #854d0e;  /* amarelo escuro */
+  --paga-alt: #eab308; 
 
   /* Estado: FINALIZADA */
   --finalizada-1: #f3f4f6; /* cinza claro */
   --finalizada-2: #6b7280; /* cinza médio */
   --finalizada-3: #111827; /* cinza escuro */
+  --finalizada-dark: #111827; 
 
   /* Feedback */
   --success-light: #dcfce7;
@@ -70,7 +90,17 @@
   --error: #ef4444;
   --error-dark: #7f1d1d;
 
+  /* Transparências */
   --color-roxo-5-50: rgba(130, 66, 190, 0.5);
- --color-roxo-5-25: rgba(130, 66, 190, 0.25);
-  
+  --color-roxo-5-25: rgba(130, 66, 190, 0.25);
+  --color-roxo-5-75: rgba(130, 66, 190, 0.75); /* nova */
+  --color-roxo-5-full: rgba(130, 66, 190, 1); 
+}
+
+body {
+  background-color: var(--color-roxo-1);
+  background-color: var(--color-roxo-1-alt); 
+  margin: 0; /* reset */
+  padding: 0; /* reset */
+
 }
