@@ -7,6 +7,7 @@ import { VisualizarSolicitacao } from './atendimento/visualizar-solicitacao/visu
 import { PainelFuncinario } from './painel-funcinario/painel-funcinario';
 import { Historico } from './historico/historico';
 import { Cadastro } from './cadastro/cadastro';
+import { EfetuarOrcamento } from './efetuar-orcamento/efetuar-orcamento';
 //import { Sobre } from './sobre/sobre';
 //import { Contato } from './contato/contato';
 
@@ -60,25 +61,31 @@ export const routes: Routes = [
     title: 'cadastro',
   },
 
-  // === Perfil do Funcionário === RASCUNHO
+  {
+    path: 'func/orcamento',
+    component: EfetuarOrcamento,
+    title: 'efetuar-orcamento',
+  },
+
+  {
+    path: 'func/orcamento/:id',
+    component: EfetuarOrcamento,
+    title: 'efetuar-orcamento',
+  },
+
   {
     path: 'func',
     component: PainelFuncinario,
     title: 'painel-funcionario'
   },
 
+  // === Perfil do Funcionário === RASCUNHO
+
   {
     // listagem geral
     path: 'func/solicitacoes',
     component: Historico, //por enquanto
     title: 'lista-solicitacoes'
-  },
-
-  {
-    // reuso da tela de orçamento, mas dentro do espaço do funcionário
-    path: 'func/orcamento/:id',
-    component: Orcamento,
-    title: 'func-orcamento'
   },
 
   {
@@ -94,6 +101,7 @@ export const routes: Routes = [
     component: CadastroAtendimento,
     title: 'func-cadastro-atendimento'
   },
+  
 /*  
   { 
     path: 'sobre', 
