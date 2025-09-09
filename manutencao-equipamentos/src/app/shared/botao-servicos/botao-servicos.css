@@ -1,0 +1,44 @@
+/* Usando :host para garantir que os estilos fiquem encapsulados neste componente */
+:host {
+  display: block;
+}
+
+.actions-container {
+  display: flex;
+  gap: 12px; /* Espaçamento entre os botões */
+  flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas menores */
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.btn-success {
+  background-color: #28a745; 
+}
+
+.btn-danger {
+  background-color: #dc3545; 
+}
+
+.btn-info {
+  background-color: #17a2b8; 
+}

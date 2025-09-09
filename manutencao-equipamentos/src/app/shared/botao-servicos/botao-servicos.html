@@ -1,0 +1,25 @@
+<div class="actions-container">
+  <button
+    class="btn btn-success"
+    (click)="approveService()"
+    [disabled]="isLoading"
+    title="Aprovar serviço">
+    Aprovar
+  </button>
+
+  <button
+    class="btn btn-danger"
+    (click)="rejectService()"
+    [disabled]="isLoading"
+    title="Rejeitar serviço">
+    Rejeitar
+  </button>
+
+  <button
+    class="btn btn-info"
+    (click)="showBudget()"
+    [disabled]="isLoading"
+    title="Visualizar orçamento detalhado">
+    Ver Orçamento
+  </button>
+</div>
