@@ -24,7 +24,24 @@
                         <option value="2">Periodo</option>
                     </select>
                 </div>
-                <app-table-chamado></app-table-chamado>
+                <ng-template #templateCodigo let-row>
+                    <div class="codigo">{{ row.codigo }}</div>
+                </ng-template>
+
+                <ng-template #templateAcao let-row>
+                    <span class="acao">orcamento</span>
+                </ng-template>
+
+                <app-table-chamado
+                [colunas]="[
+                    { id: 'codigo', header: 'codigo', render: templateCodigo },
+                    { id: 'cliente', header: 'cliente' },
+                    { id: 'descricao', header: 'descricao'},
+                    { id: 'data_chamado', header: 'data'},
+                    { id: 'acao', header: 'acao', render: templateAcao}
+                ]"
+                [data]="data"
+                />
             </panel>
         </div>
     </div>

@@ -25,3 +25,16 @@ h3 {
     flex-direction: column;
     gap: 10px;
 }
+
+.codigo {
+    background-color: rgb(202, 255, 171);
+    color: rgb(32, 87, 0);
+    text-align: center;
+    border-radius: 15px;
+    padding: 2px 5px 2px 5px;
+}
+
+.acao {
+    color: var(--color-roxo-6);
+    text-decoration: underline;
+}

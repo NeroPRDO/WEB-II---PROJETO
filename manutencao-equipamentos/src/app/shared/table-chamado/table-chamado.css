@@ -11,7 +11,7 @@ tbody tr:hover td {
 }
 
 table tbody tr:nth-child(odd) td{
-    background-color: #f3f3f3 !important;
+    background-color: #f6f6f6 !important;
 }
 
 tbody td {

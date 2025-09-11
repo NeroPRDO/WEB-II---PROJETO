@@ -1,32 +1,29 @@
 <div class="table-responsive px-3">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Codigo</th>
-                <th scope="col">Cliente</th>
-                <th scope="col">Descricao</th>
-                <th scope="col">Data</th>
-                <th scope="col">Acao</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (chamado of chamados; track chamado.id) {
-                <tr>
-                    <td>
-                        <div class="codigo {{ chamado.estado.toLowerCase() }}">
-                            {{ chamado.codigo }}
-                        </div>
-                    </td>
-                    <td>{{ chamado.cliente }}</td>
-                    <td>{{ chamado.descricao }}</td>
-                    <td>{{ chamado.data }}</td>
-                    <td>
-                        <button>
-                            orcamento
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+  <table class="table">
+    <thead>
+      <tr>
+        @for (coluna of colunas; track coluna.id) {
+          <th scope="col">{{ coluna.header }}</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of data; track row.id) {
+        <tr>
+          @for (coluna of colunas; track coluna.id) {
+            <td>
+              @if (coluna.render) {
+                <ng-container
+                  [ngTemplateOutlet]="coluna.render"
+                  [ngTemplateOutletContext]="{ $implicit: row }"
+                ></ng-container>
+              } @else {
+                {{ row[coluna.id] }}
+              }
+            </td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
 </div>
