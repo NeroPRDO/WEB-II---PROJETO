@@ -127,6 +127,15 @@ button {
     background-color: #218838;
 }
 
+.button-visualizar {
+    background-color: var(--color-roxo-5);
+    color: white;
+}
+
+.button-visualizar:hover {
+    background-color: var(--color-roxo-7);
+}
+
 .button-rejeitar {
     background-color: #dc3545;
     color: white;

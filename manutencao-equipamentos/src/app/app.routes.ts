@@ -4,6 +4,7 @@ import { Login } from './login/login';
 import { CadastroAtendimento } from './cadastro-atendimento/cadastro-atendimento';
 import { Orcamento } from './atendimento/orcamento/orcamento'
 import { VisualizarSolicitacao } from './atendimento/visualizar-solicitacao/visualizar-solicitacao';
+import { VisualizarServico } from './visualizar-servico/visualizar-servico';
 import { PainelFuncinario } from './painel-funcinario/painel-funcinario';
 import { Historico } from './historico/historico';
 import { Cadastro } from './cadastro/cadastro';
@@ -60,6 +61,12 @@ export const routes: Routes = [
     path: 'solicitacao/:id',
     component: VisualizarSolicitacao,
     title: 'visualizar-solicitacao',
+  },
+
+  {
+      path: 'visualizar-servico',
+      component: VisualizarServico, //Dar uma olhada RF008
+      title: 'visualizar-servico',
   },
 
   {
