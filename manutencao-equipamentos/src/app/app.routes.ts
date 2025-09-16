@@ -11,6 +11,7 @@ import { EfetuarOrcamento } from './efetuar-orcamento/efetuar-orcamento';
 //import { Sobre } from './sobre/sobre';
 //import { Contato } from './contato/contato';
 import { Servicos } from './servicos/servicos';
+import { ManutencaoComponent } from './manutencao/manutencao';
 
 export const routes: Routes = [
   
@@ -86,6 +87,18 @@ export const routes: Routes = [
     title: 'painel-funcionario'
   },
 
+  {
+    path: 'func/manutencao',
+    component: ManutencaoComponent,
+    title: 'manutencao'
+  },
+
+  {
+    path: 'func/manutencao/:id',
+    component: ManutencaoComponent,
+    title: 'detalhe-manutencao'
+  },
+  
   // === Perfil do Funcionário === RASCUNHO
 
   {
