@@ -10,6 +10,7 @@ import { Cadastro } from './cadastro/cadastro';
 import { EfetuarOrcamento } from './efetuar-orcamento/efetuar-orcamento';
 //import { Sobre } from './sobre/sobre';
 //import { Contato } from './contato/contato';
+import { Servicos } from './servicos/servicos';
 
 export const routes: Routes = [
   
@@ -23,8 +24,14 @@ export const routes: Routes = [
     path: 'login',
     component: Login,
     title: 'login',
+  }, 
+
+  {
+    path: 'app-servicos',
+    component: Servicos,
+    title: 'app-servicos',
   },
-  
+
   {
     path: 'cadastro-atendimento',
     component: CadastroAtendimento,
