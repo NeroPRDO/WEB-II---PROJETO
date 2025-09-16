@@ -1,0 +1,74 @@
+.manutencao-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 22px;
+  padding: 18px;
+  align-items: start;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  border: 1px solid #e8e8f2;
+}
+
+/* detalhes / header */
+.header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.equip-img {
+  width: 90px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+.title h1 {
+  margin: 0;
+  font-size: 28px;
+}
+.title p.sub {
+  margin: 2px 0 0;
+  color: #666;
+  font-size: 13px;
+}
+
+/* info */
+.info h3 { margin-top: 8px; }
+.status { color: #2b2b2b; font-weight: 700; background: #f3f0ff; padding: 4px 8px; border-radius: 6px; }
+
+/* histórico */
+.historico { list-style: none; padding-left: 0; margin: 0; }
+.historico li { padding: 8px 0; border-bottom: 1px dashed #eee; }
+.hist-meta { font-size: 12px; color: #444; }
+.hist-desc { margin-top: 6px; font-weight: 500; }
+.hist-orient { margin-top: 4px; color: #555; font-size: 13px; }
+
+/* ações (coluna direita) */
+.acoes h2 { margin-top: 0; }
+.btns { display: flex; gap: 10px; margin-bottom: 12px; }
+button { padding: 9px 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; }
+button.primary { background: #8242be; color: #fff; }
+button.sec { background: transparent; border: 1px solid #ddd; color: #333; }
+
+/* formulário */
+.form-manutencao label { display: block; margin-top: 8px; font-weight: 600; }
+.form-manutencao textarea { width: 100%; min-height: 80px; margin-top: 6px; padding: 8px; border-radius: 6px; border: 1px solid #ccc; resize: vertical; }
+.form-actions { display: flex; gap: 10px; margin-top: 12px; }
+.meta-info p { margin: 8px 0 0; font-size: 13px; color: #333; }
+
+.error { color: #b00020; margin-top: 8px; font-weight: 600; }
+
+@media (max-width: 880px) {
+  .manutencao-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .acoes { order: 2; }
+  .detalhes { order: 1; }
+}
