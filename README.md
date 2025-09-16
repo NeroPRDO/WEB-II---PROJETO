@@ -24,124 +24,162 @@ Este projeto consiste no desenvolvimento de uma aplicação web utilizando Angul
 
 
 ```
-WEB-II---PROJETO/
-├─ README.md
-└─ manutencao-equipamentos/
-|   .editorconfig
-|   .gitignore
-|   angular.json
-|   package-lock.json
-|   package.json
-|   README.md
-|   tsconfig.app.json
-|   tsconfig.json
-|   tsconfig.spec.json
-|
-+---public
-|       favicon.ico
-|       LOGO.png
-|
-\---src
-    |   index.html
-    |   main.ts
-    |   styles.css
-    |
-    \---app
-        |   app.config.ts
-        |   app.css
-        |   app.html
-        |   app.routes.ts
-        |   app.spec.ts
-        |   app.ts
+\---WEB-II---PROJETO
+    |   README.md
+    |   
+    \---manutencao-equipamentos
         |
-        +---atendimento
-        |   +---orcamento
-        |   |       orcamento.css
-        |   |       orcamento.html
-        |   |       orcamento.spec.ts
-        |   |       orcamento.ts
-        |   |
-        |   \---visualizar-solicitacao
-        |           visualizar-solicitacao.css
-        |           visualizar-solicitacao.html
-        |           visualizar-solicitacao.spec.ts
-        |           visualizar-solicitacao.ts
+        +---public
+        |       favicon.ico
+        |       LOGO.png
         |
-        +---cadastro-atendimento
-        |       cadastro-atendimento.css
-        |       cadastro-atendimento.html
-        |       cadastro-atendimento.spec.ts
-        |       cadastro-atendimento.ts
-        |
-        +---dashboard
-        |       dashboard.css
-        |       dashboard.html
-        |       dashboard.spec.ts
-        |       dashboard.ts
-        |
-        +---login
-        |       login.css
-        |       login.html
-        |       login.spec.ts
-        |       login.ts
-        |
-        \---shared
-            +---Botoes
-            |   \---botaoBasico
-            |           botaoBasico.css
-            |           botaoBasico.html
-            |           botaoBasico.ts
+        \---src
+            |   index.html
+            |   main.ts
+            |   styles.css
             |
-            +---btn-login
-            |       btn-login.css
-            |       btn-login.html
-            |       btn-login.spec.ts
-            |       btn-login.ts
-            |
-            +---btn-seta
-            |       btn-seta.css
-            |       btn-seta.html
-            |       btn-seta.spec.ts
-            |       btn-seta.ts
-            |
-            +---footer-component
-            |       footer.component.css
-            |       footer.component.html
-            |       footer.component.ts
-            |
-            +---icons
-            |       icons.css
-            |       icons.html
-            |       icons.ts
-            |
-            +---link-text
-            |       link-text.component.css
-            |       link-text.component.html
-            |       link-text.component.ts
-            |
-            +---Modal
-            |       modal.css
-            |       modal.html
-            |       modal.spec.ts
-            |       modal.ts
-            |
-            +---Nav
-            |       nav.css
-            |       nav.html
-            |       nav.ts
-            |
-            +---panel
-            |       panel.css
-            |       panel.html
-            |       panel.spec.ts
-            |       panel.ts
-            |
-            \---text-box
-                    text-box.css
-                    text-box.html
-                    text-box.spec.ts
-                    text-box.ts
-
+            \---app
+                |   app.config.ts
+                |   app.css
+                |   app.html
+                |   app.routes.ts
+                |   app.spec.ts
+                |   app.ts
+                |
+                +---atendimento
+                |   +---orcamento
+                |   |       orcamento.css
+                |   |       orcamento.html
+                |   |       orcamento.spec.ts
+                |   |       orcamento.ts
+                |   |
+                |   \---visualizar-solicitacao
+                |           visualizar-solicitacao.css
+                |           visualizar-solicitacao.html
+                |           visualizar-solicitacao.spec.ts
+                |           visualizar-solicitacao.ts
+                |
+                +---cadastro
+                |       cadastro.css
+                |       cadastro.html
+                |       cadastro.spec.ts
+                |       cadastro.ts
+                |
+                +---cadastro-atendimento
+                |       cadastro-atendimento.css
+                |       cadastro-atendimento.html
+                |       cadastro-atendimento.spec.ts
+                |       cadastro-atendimento.ts
+                |
+                +---dashboard
+                |       dashboard.css
+                |       dashboard.html
+                |       dashboard.ts
+                |
+                +---efetuar-orcamento
+                |       efetuar-orcamento.css
+                |       efetuar-orcamento.html
+                |       efetuar-orcamento.spec.ts
+                |       efetuar-orcamento.ts
+                |
+                +---historico
+                |       historico.css
+                |       historico.html
+                |       historico.spec.ts
+                |       historico.ts
+                |
+                +---login
+                |       login.css
+                |       login.html
+                |       login.spec.ts
+                |       login.ts
+                |
+                +---manutencao
+                |       manutencao.css
+                |       manutencao.html
+                |       manutencao.spec.ts
+                |       manutencao.ts
+                |
+                +---pagamento
+                |       pagamento.css
+                |       pagamento.html
+                |       pagamento.spec.ts
+                |       pagamento.ts
+                |
+                +---painel-funcinario
+                |       painel-funcinario.css
+                |       painel-funcinario.html
+                |       painel-funcinario.spec.ts
+                |       painel-funcinario.ts
+                |
+                +---servicos
+                |       servicos.css
+                |       servicos.html
+                |       servicos.spec.ts
+                |       servicos.ts
+                |
+                \---shared
+                    +---botao-servicos
+                    |       botao-servicos.css
+                    |       botao-servicos.html
+                    |       botao-servicos.spec.ts
+                    |       botao-servicos.ts
+                    |
+                    +---btn-gradient
+                    |       btn-gradient.css
+                    |       btn-gradient.html
+                    |       btn-gradient.spec.ts
+                    |       btn-gradient.ts
+                    |
+                    +---btn-login
+                    |       btn-login.css
+                    |       btn-login.html
+                    |       btn-login.spec.ts
+                    |       btn-login.ts
+                    |
+                    +---btn-seta
+                    |       btn-seta.css
+                    |       btn-seta.html
+                    |       btn-seta.spec.ts
+                    |       btn-seta.ts
+                    |
+                    +---footer-component
+                    |       footer.component.css
+                    |       footer.component.html
+                    |       footer.component.ts
+                    |
+                    +---icons
+                    |       icons.css
+                    |       icons.html
+                    |       icons.ts
+                    |
+                    +---link-text
+                    |       link-text.component.css
+                    |       link-text.component.html
+                    |       link-text.component.ts
+                    |
+                    +---Modal
+                    |       modal.css
+                    |       modal.html
+                    |       modal.spec.ts
+                    |       modal.ts
+                    |
+                    +---Nav
+                    |       nav.css
+                    |       nav.html
+                    |       nav.ts
+                    |
+                    +---panel
+                    |       panel.css
+                    |       panel.html
+                    |       panel.spec.ts
+                    |       panel.ts
+                    |
+                    \---table-chamado
+                            table-chamado.css
+                            table-chamado.html
+                            table-chamado.spec.ts
+                            table-chamado.ts
 ```
 
 
