@@ -12,21 +12,26 @@ import { EfetuarOrcamento } from './efetuar-orcamento/efetuar-orcamento';
 //import { Contato } from './contato/contato';
 import { Servicos } from './servicos/servicos';
 import { ManutencaoComponent } from './manutencao/manutencao';
+import { Pagamento } from './pagamento/pagamento';
 
 export const routes: Routes = [
-  
+
   {
     path: '',
     component: Dashboard,
     title: 'dashboard',
   },
-  
+
   {
     path: 'login',
     component: Login,
     title: 'login',
-  }, 
-
+  },
+  {
+    path: 'pagamento',
+    component: Pagamento,
+    title: 'pagamento',
+  },
   {
     path: 'app-servicos',
     component: Servicos,
@@ -38,31 +43,31 @@ export const routes: Routes = [
     component: CadastroAtendimento,
     title: 'cadatro-atendimento',
   },
-  
+
   {
     path: 'orcamento/:id',
     component: Orcamento,
     title: 'orcamento',
   },
-  
+
   {
     path: 'painel',
     component: PainelFuncinario,
     title: 'painel-funcionario'
   },
-  
+
   {
     path: 'solicitacao/:id',
     component: VisualizarSolicitacao,
     title: 'visualizar-solicitacao',
   },
-  
+
   {
     path: 'historico',
     component: Historico,
     title: 'historico',
   },
-  
+
   {
     path: 'cadastro',
     component: Cadastro,
@@ -98,7 +103,7 @@ export const routes: Routes = [
     component: ManutencaoComponent,
     title: 'detalhe-manutencao'
   },
-  
+
   // === Perfil do Funcionário === RASCUNHO
 
   {
@@ -121,18 +126,18 @@ export const routes: Routes = [
     component: CadastroAtendimento,
     title: 'func-cadastro-atendimento'
   },
-  
-/*  
-  { 
-    path: 'sobre', 
-    component: Sobre, 
-    title: 'sobre' 
-  },
 
-  { 
-    path: 'contato', 
-    component: Contato, 
-    title: 'contato' 
-  },
-*/
+  /*  
+    { 
+      path: 'sobre', 
+      component: Sobre, 
+      title: 'sobre' 
+    },
+  
+    { 
+      path: 'contato', 
+      component: Contato, 
+      title: 'contato' 
+    },
+  */
 ];
