@@ -1,5 +1,6 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 
 export interface TableColumn {
@@ -11,7 +12,7 @@ export interface TableColumn {
 @Component({
   selector: 'app-table-chamado',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './table-chamado.html',
   styleUrls: ['./table-chamado.css'],
 })
