@@ -3,26 +3,32 @@
     <thead>
       <tr>
         @for (coluna of colunas; track coluna.id) {
-          <th scope="col">{{ coluna.header }}</th>
+        <th scope="col">{{ coluna.header }}</th>
         }
       </tr>
     </thead>
+
     <tbody>
       @for (row of data; track row.id) {
-        <tr>
-          @for (coluna of colunas; track coluna.id) {
-            <td>
-              @if (coluna.render) {
-                <ng-container
-                  [ngTemplateOutlet]="coluna.render"
-                  [ngTemplateOutletContext]="{ $implicit: row }"
-                ></ng-container>
-              } @else {
-                {{ row[coluna.id] }}
-              }
-            </td>
+      <tr>
+        @for (coluna of colunas; track coluna.id) {
+        <td>
+          @if (coluna.id === 'acao') {
+          <!-- Substitui o texto "orcamento" por botão -->
+          <button class="btn btn-second btn-xs" [routerLink]="['/func/orcamento', row.id]">
+            Efetuar Orçamento
+          </button>
+          } @else if (coluna.render) {
+          <ng-container
+            [ngTemplateOutlet]="coluna.render"
+            [ngTemplateOutletContext]="{ $implicit: row }"
+          ></ng-container>
+          } @else {
+          {{ row[coluna.id] }}
           }
-        </tr>
+        </td>
+        }
+      </tr>
       }
     </tbody>
   </table>
