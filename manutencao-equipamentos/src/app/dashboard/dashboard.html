@@ -30,18 +30,27 @@
                     @switch (solicitacao.estado) {
                     @case ('ORÇADA') {
                     <div>
-                        <button class="button-aprovar">Aprovar</button>
-                        <button class="button-rejeitar">Rejeitar</button>
+                        <button class="button-visualizar" (click)="enviar('ORÇADA')"
+                            routerLink="visualizar-servico">Solicitação</button>
                     </div>
                     }
                     @case ('APROVADA') {
-                    <button class="button-visualizar" routerLink="visualizar-servico">Visualizar Serviço</button>
+                    <button class="button-visualizar" (click)="enviar('APROVADA')"
+                        routerLink="visualizar-servico">Solicitação</button>
                     }
                     @case ('REJEITADA') {
-                    <button class="button-resgatar">Resgatar Serviço</button>
+                    <div>
+                        <button class="button-visualizar" (click)="enviar('REJEITADA')"
+                            routerLink="visualizar-servico">Solicitação</button>
+                    </div>
+
                     }
                     @case ('ARRUMADA') {
-                    <button class="button-pagar" routerLink="pagamento">Pagar Serviço</button>
+                    <div>
+                        <button class="button-visualizar" (click)="enviar('ARRUMADA')"
+                            routerLink="visualizar-servico">Solicitação</button>
+                    </div>
+
                     }
                     @default {
                     <button class="button-verDetalhes">Ver Detalhes</button>

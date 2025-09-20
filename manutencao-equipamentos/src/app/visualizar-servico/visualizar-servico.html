@@ -36,5 +36,33 @@
 
   <section class="acoes">
     <button class="btn btn-secondary" routerLink="/">Voltar</button>
+    @switch (solicitacao) {
+    @case ('ORÇADA') {
+    <div>
+      <button class="button-rejeitar">Rejeitar</button>
+      <button class="button-aprovar">Aprovar</button>
+    </div>
+    }
+    @case ('APROVADA') {
+
+    }
+    @case ('REJEITADA') {
+    <div>
+      <button class="button-resgatar">Resgatar Serviço</button>
+    </div>
+
+    }
+    @case ('ARRUMADA') {
+    <div>
+      <button class="button-pagar" routerLink="/pagamento">Pagar Serviço</button>
+
+    </div>
+
+    }
+    @default {
+    <button class="button-verDetalhes">Ver Detalhes</button>
+    <button class="button-visualizar" routerLink="visualizar-servico">Solicitação</button>
+    }
+    }
   </section>
 </div>
