@@ -3,21 +3,17 @@ nav {
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 10px;
-
+    /*não cologem margim aqui, vai quebrar os componentes*/
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 60px;
     width: 100%;
-
-    /* nao sei se eh uma boa pratica isso */
-    margin-bottom: 3.5vh;
-
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.103);
-
 }
+
 /*Logo*/
-.material-symbols-outlined{
+.material-symbols-outlined {
     color: #8242be;
     font-size: 2.5rem;
 }
