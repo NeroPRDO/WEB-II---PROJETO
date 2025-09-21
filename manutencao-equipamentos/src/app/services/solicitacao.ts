@@ -5,5 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class SolicitacaoService {
 
-  solicitacao: string = '';
+  private _solicitacoes: any[] = [];
+
+  setSolicitacoes(dados: any[]) {
+    this._solicitacoes = dados;
+  }
+
+  getSolicitacoes(): any[] {
+    return this._solicitacoes;
+  }
 }

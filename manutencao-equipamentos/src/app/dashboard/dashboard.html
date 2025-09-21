@@ -27,35 +27,9 @@
                 <td>{{ solicitacao.descricao }}</td>
                 <td>{{ solicitacao.estado }}</td>
                 <td>
-                    @switch (solicitacao.estado) {
-                    @case ('ORÇADA') {
-                    <div>
-                        <button class="button-visualizar" (click)="enviar('ORÇADA')"
-                            routerLink="visualizar-servico">Solicitação</button>
-                    </div>
-                    }
-                    @case ('APROVADA') {
-                    <button class="button-visualizar" (click)="enviar('APROVADA')"
-                        routerLink="visualizar-servico">Solicitação</button>
-                    }
-                    @case ('REJEITADA') {
-                    <div>
-                        <button class="button-visualizar" (click)="enviar('REJEITADA')"
-                            routerLink="visualizar-servico">Solicitação</button>
-                    </div>
-
-                    }
-                    @case ('ARRUMADA') {
-                    <div>
-                        <button class="button-visualizar" (click)="enviar('ARRUMADA')"
-                            routerLink="visualizar-servico">Solicitação</button>
-                    </div>
-
-                    }
-                    @default {
-                    <button class="button-verDetalhes">Ver Detalhes</button>
-                    }
-                    }
+                    <button class="button-visualizar" (click)="enviar(solicitacao)" routerLink="visualizar-servico">
+                        Solicitação
+                    </button>
                 </td>
             </tr>
             }

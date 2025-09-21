@@ -12,11 +12,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './visualizar-servico.css'
 })
 export class VisualizarServico {
-  solicitacao: string = '';
+  solicitacoes: any[] = [];
 
-  constructor(private solicitacaoService: SolicitacaoService) {
-    this.solicitacao = this.solicitacaoService.solicitacao;
+  constructor(private solicitacaoService: SolicitacaoService) { }
+
+  ngOnInit() {
+    // Pega os dados da service
+    this.solicitacoes = this.solicitacaoService.getSolicitacoes();
   }
+
+
   visualizarOrcamento = false;
   visualizarRejeitar = false;
   motivoRejeicao = '';

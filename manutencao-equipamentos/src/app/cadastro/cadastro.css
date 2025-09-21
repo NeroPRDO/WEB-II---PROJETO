@@ -1,4 +1,3 @@
-
 .container {
     display: flex;
     justify-content: center;
@@ -10,7 +9,7 @@
     background-color: #FFF;
     border-radius: 15px;
     width: 1000px;
-    height: 60%;
+    height: 550px;
     justify-content: space-between;
     align-items: center;
     position: relative;
@@ -20,13 +19,12 @@
 .content::before {
     content: "";
     position: absolute;
-    background-color: #8242be;/* roxo 5 */
+    background-color: #8242be;
+    /* roxo 5 */
     width: 40%;
     height: 100%;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-
-
     left: 0;
 }
 
@@ -35,23 +33,29 @@
     font-weight: bold;
     text-transform: capitalize;
 }
+
 .title-primary {
     color: #fff;
 }
+
 .title-second {
     color: #8242be;
 }
+
 .description {
     font-size: 14px;
     font-weight: 300;
     line-height: 30px;
 }
+
 .description-primary {
     color: #fff;
 }
+
 .description-second {
     color: #7f8c8d;
 }
+
 .btn {
     border-radius: 15px;
     text-transform: uppercase;
@@ -65,15 +69,18 @@
     border: none;
     margin-top: 1rem;
 }
+
 .btn-primary {
     background-color: transparent;
     border: 1px solid #fff;
     transition: background-color .5s;
 }
+
 .btn-primary:hover {
     background-color: #fff;
     color: #8242be;
 }
+
 .btn-second {
     background-color: #8242be;
     border: 1px solid #8242be;
@@ -81,25 +88,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center; 
-    text-decoration: none; 
+    text-align: center;
+    text-decoration: none;
 }
+
 .btn-second:hover {
     background-color: #fff;
     border: 1px solid #8242be;
     color: #8242be;
 }
+
 .first-content {
     display: flex;
 }
+
 .first-content .second-column {
     z-index: 11;
 }
+
 .first-column {
     text-align: center;
     width: 40%;
     z-index: 10;
 }
+
 .second-column {
     width: 60%;
     display: flex;
@@ -112,6 +124,7 @@
     flex-direction: column;
     width: 55%;
 }
+
 .form input {
     height: 45px;
     width: 100%;
@@ -120,11 +133,12 @@
     border-radius: 4px;
     padding-left: 10px;
 }
-input:-webkit-autofill 
-{    
+
+input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px #ecf0f1 inset !important;
     -webkit-text-fill-color: #000 !important;
 }
+
 .label-input {
     background-color: #ecf0f1;
     display: flex;
@@ -132,4 +146,3 @@ input:-webkit-autofill
     margin: 8px 0;
     border-radius: 4px;
 }
-

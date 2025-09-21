@@ -3,109 +3,112 @@
 <div class="container">
   <h2 class="titulo">Detalhes da Solicitação</h2>
 
-  <!-- Dados principais da solicitação -->
   <section class="detalhes">
-    <div><strong>Serviço:</strong> Manutenção Preventiva</div>
+    @for(solicitacao of solicitacoes; track solicitacao.id){
+    <div><strong>Serviço:</strong>{{solicitacao.servico}}</div>
     <div><strong>Cliente:</strong> Razer Montanõ</div>
-    <div><strong>Status:</strong> Em andamento</div>
+    <div><strong>Status:</strong> {{solicitacao.estado}}</div>
     <div><strong>Valor:</strong> R$ 150,00</div>
-    <div><strong>Data de Abertura:</strong> 10/09/2025 09:15</div>
-    <div><strong>Descrição:</strong> Revisão completa do equipamento X para evitar falhas futuras.</div>
-  </section>
+    <div><strong>Data de Abertura:</strong>{{solicitacao.dataHora}}</div>
+    <div><strong>Equipamento:</strong> {{solicitacao.equipamento}}</div>
+    <div><strong>Categoria:</strong> {{solicitacao.categoria}}</div>
+    <div><strong>Descrição:</strong> {{solicitacao.descricao}}.</div>
 
-  <section class="historico">
-    <h3>Histórico de Andamentos</h3>
-    <ul>
-      <li>
-        <span class="data">10/09/2025 09:15</span>
-        <span class="acao">Solicitação criada</span>
-        <span class="funcionario">por Razer Montaño</span>
-      </li>
-      <li>
-        <span class="data">11/09/2025 14:30</span>
-        <span class="acao">Análise inicial concluída</span>
-        <span class="funcionario">por Pedro Oliveira</span>
-      </li>
-      <li>
-        <span class="data">12/09/2025 10:00</span>
-        <span class="acao">Execução iniciada</span>
-        <span class="funcionario">por Ana Lima</span>
-      </li>
-    </ul>
-  </section>
+    <section class="historico">
+      <h3>Histórico de Andamentos</h3>
+      <ul>
+        <li>
+          <span class="data">10/09/2025 09:15</span>
+          <span class="acao">Solicitação criada</span>
+          <span class="funcionario">por Razer Montaño</span>
+        </li>
+        <li>
+          <span class="data">11/09/2025 14:30</span>
+          <span class="acao">Análise inicial concluída</span>
+          <span class="funcionario">por Pedro Oliveira</span>
+        </li>
+        <li>
+          <span class="data">12/09/2025 10:00</span>
+          <span class="acao">Execução iniciada</span>
+          <span class="funcionario">por Ana Lima</span>
+        </li>
+      </ul>
+    </section>
 
-  <section class="acoes">
-    <button class="btn btn-secondary" routerLink="/">Voltar</button>
-    @switch (solicitacao) {
-    @case ('ORÇADA') {
-    <div>
-      <button class="button-aprovar" (click)="visualizar()">visualizar orçamento</button>
+    <section class="acoes">
+      <button class="btn btn-secondary" routerLink="/">Voltar</button>
+      @switch (solicitacao.estado) {
+      @case ('ORÇADA') {
+      <div>
+        <button class="button-aprovar" (click)="visualizar()">visualizar orçamento</button>
+      </div>
+      }
+      @case ('APROVADA') {
+
+      }
+      @case ('REJEITADA') {
+      <div>
+        <button class="button-resgatar" onclick="alert('Serviço Passou para APROVADO')">Resgatar Serviço</button>
+      </div>
+
+      }
+      @case ('ARRUMADA') {
+      <div>
+        <button class="button-pagar" routerLink="/pagamento">Pagar Serviço</button>
+
+      </div>
+      }
+      @default {
+      <button class="button-verDetalhes">Ver Detalhes</button>
+      <button class="button-visualizar" routerLink="visualizar-servico">Solicitação</button>
+      }
+      }
+    </section>
+
+    @if(visualizarOrcamento) {
+    <div id="modalOrcamento" class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="visualizar()">&times;</span>
+
+        <h2>Orçamento</h2>
+        <p><strong>Solicitação:</strong> Troca de peça X</p>
+        <p><strong>Data:</strong> 21/09/2025</p>
+        <p><strong>Estado:</strong> Em análise</p>
+
+        <p class="orcado">
+          <strong>Preço Orçado:</strong> R$ 1.250,00
+        </p>
+
+        <div class="botoes">
+          <button class="button-rejeitar" (click)="visuRejeitar()">Rejeitar Serviço</button>
+          <button class="button-aprovar" onclick="alert('Serviço Aprovado no Valor R$ 1.250,00')" [routerLink]="['/']">
+            Aprovar Serviço
+          </button>
+        </div>
+      </div>
     </div>
     }
-    @case ('APROVADA') {
 
-    }
-    @case ('REJEITADA') {
-    <div>
-      <button class="button-resgatar" onclick="alert('Serviço Passou para APROVADO')">Resgatar Serviço</button>
-    </div>
+    @if(visualizarRejeitar) {
+    <div id="modalRejeitar" class="modal">
+      <div class="modal-content">
+        <span class="close" (click)="visuRejeitar()">&times;</span>
 
-    }
-    @case ('ARRUMADA') {
-    <div>
-      <button class="button-pagar" routerLink="/pagamento">Pagar Serviço</button>
+        <h2>Rejeitar Serviço</h2>
+        <p>Informe o motivo da rejeição:</p>
 
-    </div>
-
-    }
-    @default {
-    <button class="button-verDetalhes">Ver Detalhes</button>
-    <button class="button-visualizar" routerLink="visualizar-servico">Solicitação</button>
-    }
-    }
-  </section>
-</div>
-
-@if(visualizarOrcamento) {
-<div id="modalOrcamento" class="modal">
-  <div class="modal-content">
-    <span class="close" (click)="visualizar()">&times;</span>
-
-    <h2>Orçamento</h2>
-    <p><strong>Solicitação:</strong> Troca de peça X</p>
-    <p><strong>Data:</strong> 21/09/2025</p>
-    <p><strong>Estado:</strong> Em análise</p>
-
-    <p class="orcado">
-      <strong>Preço Orçado:</strong> R$ 1.250,00
-    </p>
-
-    <div class="botoes">
-      <button class="button-rejeitar" (click)="visuRejeitar()">Rejeitar Serviço</button>
-      <button class="button-aprovar" onclick="alert('Serviço Aprovado no Valor R$ 1.250,00')" [routerLink]="['/']">
-        Aprovar Serviço
-      </button>
-    </div>
-  </div>
-</div>
-}
-
-@if(visualizarRejeitar) {
-<div id="modalRejeitar" class="modal">
-  <div class="modal-content">
-    <span class="close" (click)="visuRejeitar()">&times;</span>
-
-    <h2>Rejeitar Serviço</h2>
-    <p>Informe o motivo da rejeição:</p>
-
-    <textarea placeholder="Escreva aqui o motivo..." rows="4" [(ngModel)]="motivoRejeicao"
-      style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+        <textarea placeholder="Escreva aqui o motivo..." rows="4" [(ngModel)]="motivoRejeicao"
+          style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
 </textarea>
 
-    <div class="botoes">
-      <button class="button-aprovar" (click)="visuRejeitar()">Cancelar</button>
-      <button class="button-rejeitar" (click)="confirmarRejeicao()">Confirmar</button>
+        <div class="botoes">
+          <button class="button-aprovar" (click)="visuRejeitar()">Cancelar</button>
+          <button class="button-rejeitar" (click)="confirmarRejeicao()">Confirmar</button>
+        </div>
+      </div>
     </div>
-  </div>
+    }
+
+    }
+  </section>
 </div>
-}
