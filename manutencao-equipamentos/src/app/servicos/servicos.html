@@ -71,46 +71,42 @@
     </footer>
 </div>
 
-@if (isModalVisible) {
-    <div class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Confirmação</h3>
-            </div>
-            <div class="modal-body">
-                <p>{{ approvalMessage }}</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-modal-ok" (click)="confirmApproval()">OK</button>
-            </div>
+<div class="modal-overlay" *ngIf="isModalVisible">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Confirmação</h3>
+        </div>
+        <div class="modal-body">
+            <p>{{ approvalMessage }}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-modal-ok" (click)="confirmApproval()">OK</button>
         </div>
     </div>
-}
+</div>
 
-@if (isRejectionModalVisible) {
-    <div class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Motivo da Rejeição</h3>
-            </div>
-            <div class="modal-body">
-                <p>Por favor, descreva o motivo para rejeitar esta proposta de serviço.</p>
-                <textarea 
-                    class="rejection-reason-textarea" 
-                    rows="4" 
-                    placeholder="Ex: O valor está acima do esperado, preciso de mais detalhes sobre o serviço X..."
-                    [(ngModel)]="rejectionReason"
-                ></textarea>
-            </div>
-            <div class="modal-footer-rejection">
-                <button class="btn btn-modal-cancel" (click)="closeRejectionModal()">Cancelar</button>
-                <button class="btn btn-modal-reject" (click)="confirmRejection()" [disabled]="!rejectionReason.trim()">Confirmar Rejeição</button>
-            </div>
+<div class="modal-overlay" *ngIf="isRejectionModalVisible">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Motivo da Rejeição</h3>
+        </div>
+        <div class="modal-body">
+            <p>Por favor, descreva o motivo para rejeitar esta proposta de serviço.</p>
+            <textarea 
+                class="rejection-reason-textarea" 
+                rows="4" 
+                placeholder="Ex: O valor está acima do esperado, preciso de mais detalhes sobre o serviço X..."
+                [(ngModel)]="rejectionReason"
+            ></textarea>
+        </div>
+        <div class="modal-footer-rejection">
+            <button class="btn btn-modal-cancel" (click)="closeRejectionModal()">Cancelar</button>
+            <button class="btn btn-modal-reject" (click)="confirmRejection()" [disabled]="!rejectionReason.trim()">Confirmar Rejeição</button>
         </div>
     </div>
-}
+</div>
 
-@if (isRejectionConfirmationVisible) {
+<div class="modal-overlay" *ngIf="isRejectionConfirmationVisible">
     <div class="modal-content">
         <div class="modal-header">
             <h3>Concluído</h3>
@@ -122,4 +118,4 @@
             <button class="btn btn-modal-ok" (click)="closeRejectionConfirmation()">OK</button>
         </div>
     </div>
-}
+</div>
