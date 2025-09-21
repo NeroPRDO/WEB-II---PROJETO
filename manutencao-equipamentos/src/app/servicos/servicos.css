@@ -1,14 +1,15 @@
-/* Container Principal */
+/* =================================================== */
+/* ============== ESTRUTURA PRINCIPAL ============== */
+/* =================================================== */
 .container {
     padding: 0;
     background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    height: 60%;
     width: 100%;
     max-width: 1500px;
     overflow: hidden;
-    margin: 20px auto; /* <<< LINHA ADICIONADA/MODIFICADA */
+    margin: 20px auto;
 }
 
 header {
@@ -32,8 +33,32 @@ main {
     padding: 25px;
 }
 
-/* Detalhes da Solicitação */
-.request-details h2 {
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.details-column {
+    flex: 1.5;
+    min-width: 300px;
+}
+
+.services-column {
+    flex: 1;
+    min-width: 250px;
+}
+
+footer {
+    background-color: #f9f9f9;
+    padding: 20px 25px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* =================================================== */
+/* ============= BLOCOS DE CONTEÚDO ================ */
+/* =================================================== */
+.request-details h2, .services-details h2 {
     color: var(--color-roxo-5);
     border-bottom: 2px solid #f0f0f0;
     padding-bottom: 10px;
@@ -63,115 +88,9 @@ main {
     color: #666;
 }
 
-/* Novo container para centralizar o orçamento */
-.budget-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-/* Destaque do Orçamento (RF005) */
-.budget-highlight {
-    background-color: var(--color-roxo-1);
-    border-left: 6px solid var(--color-roxo-6);
-    text-align: center;
-    padding: 25px;
-    margin: 0;
-    border-radius: 5px;
-    width: 75%; /* Largura reduzida */
-    max-width: 900px; /* Define uma largura máxima */
-}
-
-
-.budget-highlight h3 {
-    margin: 0;
-    color: #555;
-    font-size: 1.1em;
-    font-weight: 500;
-}
-
-.budget-highlight .price {
-    font-size: 2.8em;
-    font-weight: 700;
-    color: #111111;
-    margin: 10px 0;
-}
-
-.budget-highlight small {
-    color: #666;
-}
-
-/* Botões de Ação */
-footer {
-    background-color: #f9f9f9;
-    padding: 20px 25px;
-    border-top: 1px solid #e0e0e0;
-}
-
-.action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.btn {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.btn-reject {
-    width: 20%;
-    background-color: #ff4d4f;
-    color: white;
-}
-
-.btn-approve {
-    width: 20%;
-    background-color: #52c41a;
-    color: white;
-}
-
-.main-content {
-    display: flex;
-    flex-wrap: wrap; /* Permite que as colunas quebrem em telas pequenas */
-    gap: 30px; /* Espaço entre as colunas */
-}
-
-/* Coluna da esquerda (Dados) */
-.details-column {
-    flex: 1.5; /* Faz esta coluna ser um pouco maior */
-    min-width: 300px;
-}
-
-/* Coluna da direita (Tabela) */
-.services-column {
-    flex: 1;
-    min-width: 250px;
-}
-
-/* Título da seção de serviços */
-.services-details h2 {
-    color: var(--color-roxo-5);
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-}
-
-/* Tabela de serviços */
 .services-table {
     width: 100%;
-    border-collapse: collapse; /* Remove espaço entre bordas */
+    border-collapse: collapse;
 }
 
 .services-table th, .services-table td {
@@ -190,47 +109,109 @@ footer {
     font-weight: 600;
 }
 
-.services-table tbody tr:nth-child(even) {
-    background-color: #f8f9fa; /* Cor de fundo alternada para melhor leitura */
-}
-
 .services-table tbody tr:hover {
     background-color: #e9ecef;
 }
 
-/* Alinhamento da coluna de preço */
 .price-col {
     text-align: right;
     font-weight: 500;
-    width: 100px; /* Largura fixa para alinhar os valores */
-    white-space: nowrap; /* Evita que o "R$" quebre a linha */
+    width: 100px;
 }
 
-/* O fundo escurecido que cobre a tela inteira */
+.budget-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.budget-highlight {
+    background-color: var(--color-roxo-1);
+    border-left: 6px solid var(--color-roxo-6);
+    text-align: center;
+    padding: 25px;
+    margin-top: 15px;
+    border-radius: 5px;
+    width: 75%;
+    max-width: 900px;
+}
+
+.budget-highlight h3 {
+    margin: 0 0 10px 0;
+    color: #555;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.budget-highlight .price {
+    font-size: 2.8em;
+    font-weight: 700;
+    color: #111111;
+    margin: 10px 0;
+}
+
+/* =================================================== */
+/* ================= BOTÕES DE AÇÃO ================ */
+/* =================================================== */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-approve {
+    width: 20%;
+    background-color: #52c41a;
+    color: white;
+}
+
+.btn-reject {
+    width: 20%;
+    background-color: #ff4d4f;
+    color: white;
+}
+
+/* =================================================== */
+/* ================= ESTILOS DO MODAL ================ */
+/* =================================================== */
 .modal-overlay {
-    position: fixed; /* Fica fixo na tela mesmo com rolagem */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Cor preta com 60% de opacidade */
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Garante que o modal fique na frente de tudo */
-    animation: fadeIn 0.3s ease; /* Animação suave de entrada */
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
 }
 
-/* A caixa de diálogo do modal */
 .modal-content {
     background-color: #ffffff;
     padding: 25px 30px;
     border-radius: 8px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
     width: 90%;
-    max-width: 450px; /* Largura máxima para o modal */
+    max-width: 450px;
     text-align: center;
-    animation: slideIn 0.4s ease-out; /* Animação de entrada */
+    animation: slideIn 0.4s ease-out;
 }
 
 .modal-header h3 {
@@ -250,11 +231,34 @@ footer {
     justify-content: center;
 }
 
-/* Estilo para o botão "OK" do modal */
+.modal-footer-rejection {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.rejection-reason-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    margin-top: 10px;
+}
+
+.rejection-reason-textarea:focus {
+    border-color: var(--color-roxo-5);
+    outline: none;
+    box-shadow: 0 0 5px rgba(121, 71, 228, 0.3);
+}
+
+/* --- Botões Específicos do Modal --- */
 .btn-modal-ok {
     padding: 12px 25px;
     width: 50%;
-    background-color: var(--aberta-3); /* Usando a cor do seu tema */
+    background-color: var(--aberta-3);
     color: white;
     border: none;
     border-radius: 5px;
@@ -269,47 +273,6 @@ footer {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-
-
-/* Animações simples para o modal */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from { transform: translateY(-30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* ... todos os estilos anteriores ... */
-
-/* Estilos para o campo de texto (textarea) no modal de rejeição */
-.rejection-reason-textarea {
-    width: 100%;
-    padding: 10px;
-    font-size: 1em;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    resize: vertical; /* Permite que o usuário redimensione na vertical */
-    margin-top: 10px;
-}
-
-.rejection-reason-textarea:focus {
-    border-color: var(--color-roxo-5);
-    outline: none;
-    box-shadow: 0 0 5px rgba(121, 71, 228, 0.3);
-}
-
-/* Estilo para o rodapé com dois botões */
-.modal-footer-rejection {
-    display: flex;
-    justify-content: flex-end; /* Alinha os botões à direita */
-    gap: 10px; /* Espaço entre os botões */
-    margin-top: 15px;
-}
-
-/* Botão de cancelar */
 .btn-modal-cancel {
     padding: 12px 25px;
     background-color: #f0f0f0;
@@ -326,13 +289,32 @@ footer {
     background-color: #e0e0e0;
 }
 
-/* Ajuste no botão principal do modal para caber no novo layout */
-.modal-footer-rejection .btn-modal-ok {
-    font-size: 1em; /* Ajuste de fonte para consistência */
-    width: auto; /* Largura automática */
-}
-
-.btn-modal-reject{
+.btn-modal-reject {
+    padding: 12px 25px;
     background-color: var(--rejeitada-alerta);
     color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-modal-reject:hover {
+    filter: brightness(0.9);
+    transform: translateY(-2px);
+}
+
+/* =================================================== */
+/* =================== ANIMAÇÕES =================== */
+/* =================================================== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
