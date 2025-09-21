@@ -141,110 +141,6 @@ footer {
     background-color: #52c41a;
     color: white;
 }
-.modalbtnreject{
-    width: 100%;
-    background-color: #ff4d4f;
-    color: white;
-}
-
-.modalbtnaprove{
-    width: 100%;
-    background-color: #52c41a;
-    color: white;
-}
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-}
-
-/* Esconde o modal por padrão */
-.modal-overlay.hidden {
-    opacity: 0;
-    pointer-events: none; /* Impede cliques no modal escondido */
-}
-
-/* Caixa de conteúdo do modal */
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    transform: translateY(0);
-    transition: transform 0.3s ease;
-}
-
-.modal-overlay.hidden .modal-content {
-    transform: translateY(-20px);
-}
-
-/* Cabeçalho do Modal */
-.modal-header {
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
-}
-.modal-header h2 {
-    margin: 0;
-    color: #333;
-    font-size: 1.5em;
-}
-.modal-header.approve-header h2 { color: #52c41a; }
-.modal-header.reject-header h2 { color: #ff4d4f; }
-
-/* Corpo do Modal */
-.modal-body p {
-    line-height: 1.6;
-    color: #555;
-}
-
-/* Área de texto para o motivo */
-#rejection-reason {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: 1em;
-    resize: vertical;
-}
-
-/* Rodapé com botões */
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-/* Botão de fechar (X) */
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #aaa;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-.close-btn:hover {
-    color: #333;
-}
-
 
 .main-content {
     display: flex;
@@ -310,4 +206,133 @@ footer {
     white-space: nowrap; /* Evita que o "R$" quebre a linha */
 }
 
-/* Novos estilos de botões para o modal */
+/* O fundo escurecido que cobre a tela inteira */
+.modal-overlay {
+    position: fixed; /* Fica fixo na tela mesmo com rolagem */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Cor preta com 60% de opacidade */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Garante que o modal fique na frente de tudo */
+    animation: fadeIn 0.3s ease; /* Animação suave de entrada */
+}
+
+/* A caixa de diálogo do modal */
+.modal-content {
+    background-color: #ffffff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 450px; /* Largura máxima para o modal */
+    text-align: center;
+    animation: slideIn 0.4s ease-out; /* Animação de entrada */
+}
+
+.modal-header h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.modal-body p {
+    font-size: 1.1em;
+    color: #555;
+    margin: 0 0 25px 0;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+/* Estilo para o botão "OK" do modal */
+.btn-modal-ok {
+    padding: 12px 25px;
+    width: 50%;
+    background-color: var(--aberta-3); /* Usando a cor do seu tema */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-modal-ok:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+
+
+/* Animações simples para o modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ... todos os estilos anteriores ... */
+
+/* Estilos para o campo de texto (textarea) no modal de rejeição */
+.rejection-reason-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical; /* Permite que o usuário redimensione na vertical */
+    margin-top: 10px;
+}
+
+.rejection-reason-textarea:focus {
+    border-color: var(--color-roxo-5);
+    outline: none;
+    box-shadow: 0 0 5px rgba(121, 71, 228, 0.3);
+}
+
+/* Estilo para o rodapé com dois botões */
+.modal-footer-rejection {
+    display: flex;
+    justify-content: flex-end; /* Alinha os botões à direita */
+    gap: 10px; /* Espaço entre os botões */
+    margin-top: 15px;
+}
+
+/* Botão de cancelar */
+.btn-modal-cancel {
+    padding: 12px 25px;
+    background-color: #f0f0f0;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-modal-cancel:hover {
+    background-color: #e0e0e0;
+}
+
+/* Ajuste no botão principal do modal para caber no novo layout */
+.modal-footer-rejection .btn-modal-ok {
+    font-size: 1em; /* Ajuste de fonte para consistência */
+    width: auto; /* Largura automática */
+}
+
+.btn-modal-reject{
+    background-color: var(--rejeitada-alerta);
+    color: #fff;
+}

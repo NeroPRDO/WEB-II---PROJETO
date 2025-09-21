@@ -29,12 +29,6 @@
                 <section class="services-details">
                     <h2>Serviços Inclusos</h2>
                     <table class="services-table">
-                        <thead>
-                            <tr>
-                                <th>Serviço</th>
-                                <th class="price-col">Valor</th>
-                            </tr>
-                        </thead>
                         <tbody>
                             <tr>
                                 <td>Diagnóstico completo de hardware e software</td>
@@ -71,8 +65,58 @@
 
     <footer>
         <div class="action-buttons">
-            <button  class="btn btn-reject">Rejeitar Proposta</button>
-            <button  class="btn btn-approve">Aprovar Serviço</button>
+            <button class="btn btn-reject" (click)="openRejectionModal()">Rejeitar Proposta</button>
+            <button class="btn btn-approve" (click)="openApprovalModal()">Aprovar Serviço</button>
         </div>
     </footer>
 </div>
+
+<div class="modal-overlay" *ngIf="isModalVisible">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Confirmação</h3>
+        </div>
+        <div class="modal-body">
+            <p>{{ approvalMessage }}</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-modal-ok" (click)="confirmApproval()">OK</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isRejectionModalVisible">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Motivo da Rejeição</h3>
+        </div>
+        <div class="modal-body">
+            <p>Por favor, descreva o motivo para rejeitar esta proposta de serviço.</p>
+            <textarea 
+                class="rejection-reason-textarea" 
+                rows="4" 
+                placeholder="Ex: O valor está acima do esperado, preciso de mais detalhes sobre o serviço X..."
+                [(ngModel)]="rejectionReason"
+            ></textarea>
+        </div>
+        <div class="modal-footer-rejection">
+            <button class="btn btn-modal-cancel" (click)="closeRejectionModal()">Cancelar</button>
+            <button class="btn btn-modal-reject" (click)="confirmRejection()" [disabled]="!rejectionReason.trim()">Confirmar Rejeição</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isRejectionConfirmationVisible">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Concluído</h3>
+        </div>
+        <div class="modal-body">
+            <p>Serviço Rejeitado.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-modal-ok" (click)="closeRejectionConfirmation()">OK</button>
+        </div>
+    </div>
+</div>
+
