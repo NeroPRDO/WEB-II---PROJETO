@@ -34,9 +34,9 @@ export const routes: Routes = [
     title: 'pagamento',
   },
   {
-    path: 'app-servicos',
+    path: 'servicos',
     component: Servicos,
-    title: 'app-servicos',
+    title: 'servicos',
   },
 
   {

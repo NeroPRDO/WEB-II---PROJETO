@@ -1,4 +1,313 @@
-.cointainer{
+/* Container Principal */
+.container {
+    padding: 0;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    height: 60%;
+    width: 100%;
+    max-width: 1500px;
+    overflow: hidden;
+    margin: 20px auto; /* <<< LINHA ADICIONADA/MODIFICADA */
+}
+
+header {
+    background-color: var(--color-roxo-5);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+header p {
+    margin: 5px 0 0;
+    opacity: 0.9;
+}
+
+main {
+    padding: 25px;
+}
+
+/* Detalhes da Solicitação */
+.request-details h2 {
+    color: var(--color-roxo-5);
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.request-details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.request-details li {
+    margin-bottom: 12px;
+    font-size: 1.0em;
+    line-height: 1.5;
+}
+
+.request-details li strong {
+    color: #555;
+    margin-right: 8px;
+}
+
+.request-details li p {
+    margin: 5px 0 0 0;
+    padding-left: 10px;
+    border-left: 3px solid #e0e0e0;
+    color: #666;
+}
+
+/* Novo container para centralizar o orçamento */
+.budget-wrapper {
+    width: 100%;
     display: flex;
     justify-content: center;
 }
+
+/* Destaque do Orçamento (RF005) */
+.budget-highlight {
+    background-color: var(--color-roxo-1);
+    border-left: 6px solid var(--color-roxo-6);
+    text-align: center;
+    padding: 25px;
+    margin: 0;
+    border-radius: 5px;
+    width: 75%; /* Largura reduzida */
+    max-width: 900px; /* Define uma largura máxima */
+}
+
+
+.budget-highlight h3 {
+    margin: 0;
+    color: #555;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.budget-highlight .price {
+    font-size: 2.8em;
+    font-weight: 700;
+    color: #111111;
+    margin: 10px 0;
+}
+
+.budget-highlight small {
+    color: #666;
+}
+
+/* Botões de Ação */
+footer {
+    background-color: #f9f9f9;
+    padding: 20px 25px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-reject {
+    width: 20%;
+    background-color: #ff4d4f;
+    color: white;
+}
+
+.btn-approve {
+    width: 20%;
+    background-color: #52c41a;
+    color: white;
+}
+.modalbtnreject{
+    width: 100%;
+    background-color: #ff4d4f;
+    color: white;
+}
+
+.modalbtnaprove{
+    width: 100%;
+    background-color: #52c41a;
+    color: white;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Esconde o modal por padrão */
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none; /* Impede cliques no modal escondido */
+}
+
+/* Caixa de conteúdo do modal */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.hidden .modal-content {
+    transform: translateY(-20px);
+}
+
+/* Cabeçalho do Modal */
+.modal-header {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.modal-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5em;
+}
+.modal-header.approve-header h2 { color: #52c41a; }
+.modal-header.reject-header h2 { color: #ff4d4f; }
+
+/* Corpo do Modal */
+.modal-body p {
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Área de texto para o motivo */
+#rejection-reason {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 1em;
+    resize: vertical;
+}
+
+/* Rodapé com botões */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Botão de fechar (X) */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-btn:hover {
+    color: #333;
+}
+
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap; /* Permite que as colunas quebrem em telas pequenas */
+    gap: 30px; /* Espaço entre as colunas */
+}
+
+/* Coluna da esquerda (Dados) */
+.details-column {
+    flex: 1.5; /* Faz esta coluna ser um pouco maior */
+    min-width: 300px;
+}
+
+/* Coluna da direita (Tabela) */
+.services-column {
+    flex: 1;
+    min-width: 250px;
+}
+
+/* Título da seção de serviços */
+.services-details h2 {
+    color: var(--color-roxo-5);
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/* Tabela de serviços */
+.services-table {
+    width: 100%;
+    border-collapse: collapse; /* Remove espaço entre bordas */
+}
+
+.services-table th, .services-table td {
+    border: 1px solid #e9ecef;
+    padding: 12px;
+    text-align: left;
+    font-size: 0.95em;
+}
+
+.services-table thead {
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.services-table th {
+    font-weight: 600;
+}
+
+.services-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Cor de fundo alternada para melhor leitura */
+}
+
+.services-table tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Alinhamento da coluna de preço */
+.price-col {
+    text-align: right;
+    font-weight: 500;
+    width: 100px; /* Largura fixa para alinhar os valores */
+    white-space: nowrap; /* Evita que o "R$" quebre a linha */
+}
+
+/* Novos estilos de botões para o modal */

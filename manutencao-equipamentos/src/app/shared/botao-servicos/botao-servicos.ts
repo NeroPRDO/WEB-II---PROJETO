@@ -51,8 +51,4 @@ export class BotaoServicos {
   rejectService(): void {
     this.onReject.emit(this.serviceData);
   }
-
-  showBudget(): void {
-    this.onShowBudget.emit(this.serviceData);
-  }
 }

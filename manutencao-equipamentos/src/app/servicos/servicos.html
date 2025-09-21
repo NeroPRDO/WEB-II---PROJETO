@@ -1,4 +1,78 @@
 <app-nav></app-nav>
-<div class="cointainer">
-    <app-botao-servicos></app-botao-servicos>
+<div class="container">
+    <header>
+        <h1>Orçamento de Suporte Técnico</h1>
+        <p>Revise os detalhes do chamado e a proposta técnica para a solução.</p>
+    </header>
+
+    <main>
+        <div class="main-content">
+            <div class="details-column">
+                <section class="request-details">
+                    <h2>Dados do Chamado</h2>
+                    <ul>
+                        <li><strong>Nº do Chamado:</strong> <span>#TI-0925-334</span></li>
+                        <li><strong>Serviço Solicitado:</strong> <span>Remoção de Vírus e Otimização de Sistema</span></li>
+                        <li><strong>Data da Abertura:</strong> <span>21/09/2025</span></li>
+                        <li><strong>Cliente:</strong> <span>Escritório de Contabilidade Central</span></li>
+                        <li><strong>Técnico Responsável:</strong> <span>Ana Oliveira</span></li>
+                        <li><strong>Empresa Prestadora:</strong> <span>Soluções Tech-IT Ltda.</span></li>
+                        <li>
+                            <strong>Diagnóstico do Problema:</strong>
+                            <p>O computador principal da recepção está extremamente lento, apresentando pop-ups inesperados e travando ao abrir planilhas. Análise preliminar indica infecção por malware e excesso de arquivos temporários.</p>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="services-column">
+                <section class="services-details">
+                    <h2>Serviços Inclusos</h2>
+                    <table class="services-table">
+                        <thead>
+                            <tr>
+                                <th>Serviço</th>
+                                <th class="price-col">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Diagnóstico completo de hardware e software</td>
+                                <td class="price-col">R$ 80,00</td>
+                            </tr>
+                            <tr>
+                                <td>Remoção de Malware, Spyware e Adware</td>
+                                <td class="price-col">R$ 120,00</td>
+                            </tr>
+                            <tr>
+                                <td>Otimização de inicialização do Windows</td>
+                                <td class="price-col">R$ 50,00</td>
+                            </tr>
+                            <tr>
+                                <td>Limpeza de registros e arquivos temporários</td>
+                                <td class="price-col">R$ 30,00</td>
+                            </tr>
+                            <tr>
+                                <td>Total:</td>
+                                <td class="price-col">R$ 280,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <div class="budget-wrapper">
+                <section class="budget-highlight">
+                    <h3>PROPOSTA TÉCNICA E VALOR TOTAL</h3>
+                    <p class="price">R$ 280,00</p>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="action-buttons">
+            <button  class="btn btn-reject">Rejeitar Proposta</button>
+            <button  class="btn btn-approve">Aprovar Serviço</button>
+        </div>
+    </footer>
 </div>

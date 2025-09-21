@@ -1,14 +1,20 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { NavComponent } from '../shared/Nav/nav';
-import { BotaoServicos } from '../shared/botao-servicos/botao-servicos';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-servicos',
-  imports: [RouterLink,NavComponent,BotaoServicos],
+  standalone: true, // Adicionado para componentes sem um NgModule específico
+  imports: [
+    CommonModule, // Necessário para diretivas como [class.hidden]
+    FormsModule,
+    NavComponent,RouterLink],
   templateUrl: './servicos.html',
   styleUrl: './servicos.css'
 })
-export class Servicos {
 
+export class Servicos {
+  
 }
