@@ -39,8 +39,7 @@
     @switch (solicitacao) {
     @case ('ORÇADA') {
     <div>
-      <button class="button-rejeitar">Rejeitar</button>
-      <button class="button-aprovar">Aprovar</button>
+      <button class="button-aprovar" (click)="visualizar()">visualizar orçamento</button>
     </div>
     }
     @case ('APROVADA') {
@@ -66,3 +65,47 @@
     }
   </section>
 </div>
+
+@if(visualizarOrcamento) {
+<div id="modalOrcamento" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="visualizar()">&times;</span>
+
+    <h2>Orçamento</h2>
+    <p><strong>Solicitação:</strong> Troca de peça X</p>
+    <p><strong>Data:</strong> 21/09/2025</p>
+    <p><strong>Estado:</strong> Em análise</p>
+
+    <p class="orcado">
+      <strong>Preço Orçado:</strong> R$ 1.250,00
+    </p>
+
+    <div class="botoes">
+      <button class="button-rejeitar" (click)="visuRejeitar()">Rejeitar Serviço</button>
+      <button class="button-aprovar" onclick="alert('Serviço Aprovado no Valor R$ 1.250,00')" [routerLink]="['/']">
+        Aprovar Serviço
+      </button>
+    </div>
+  </div>
+</div>
+}
+
+@if(visualizarRejeitar) {
+<div id="modalRejeitar" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="visuRejeitar()">&times;</span>
+
+    <h2>Rejeitar Serviço</h2>
+    <p>Informe o motivo da rejeição:</p>
+
+    <textarea placeholder="Escreva aqui o motivo..." rows="4" [(ngModel)]="motivoRejeicao"
+      style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+</textarea>
+
+    <div class="botoes">
+      <button class="button-aprovar" (click)="visuRejeitar()">Cancelar</button>
+      <button class="button-rejeitar" (click)="confirmarRejeicao()">Confirmar</button>
+    </div>
+  </div>
+</div>
+}
