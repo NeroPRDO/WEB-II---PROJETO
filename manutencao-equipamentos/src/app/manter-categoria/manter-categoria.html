@@ -1,0 +1,85 @@
+<app-nav></app-nav>
+
+<div class="container m-top">
+    <div class="row justify-content-center painel-funcionario">
+        <div class="col-3">
+            <painel-acoes-funcionario />
+        </div>
+        <div class="col-8">
+            <panel>
+                <div class="title-row">
+                    <h3 class="">Categorias</h3>
+                    <button (click)="openAdicionarCategoria()" class="btn btn-verde">Adicionar</button>
+                </div>
+                <ng-template #templateEditar let-row let-emitter="emitter">
+                    <div class="template-center">
+                        <button class="btn btn-branco" (click)="emitter.emit(row)">editar</button>
+                    </div>
+                </ng-template>
+                <ng-template #templateNome let-row>
+                    <div class="template-nome">
+                        {{ row.nome }}
+                    </div>
+                </ng-template>
+                <ng-template #templateCodigo let-row>
+                    <div class="template-center">
+                        {{ row.codigo }}
+                    </div>
+                </ng-template>
+                <app-table-chamado (action)="openEditarCategoria($event)" [colunas]="[
+                    { id: 'codigo', header: 'codigo', render: templateCodigo, headerStyle: 'col-2 text-center' },
+                    { id: 'nome', header: 'nome' },
+                    { id: 'acao', header: 'acao', render: templateEditar, headerStyle: 'col-2 text-center'}
+                    ]" [data]="data" />
+            </panel>
+        </div>
+    </div>
+    @if (modalEditarCategoriaVisible) {
+    <app-modal (closeModalEvent)="closeEditarCategoria()">
+        <h4>Editar Categoria</h4>
+
+        <form [formGroup]="updateCatForm" (ngSubmit)="updateCategoria()">
+            <div class="fundo-modal gap">
+                <div class="fundo-modal gap">
+                    <span>Nome</span>
+                    <input class="base-input" formControlName="nome">
+                </div>
+            </div>
+            <div class="btn-div p-top">
+                <button (click)="openRemoverCategoria()" type="button" class="btn btn-vermelho">remover</button>
+                <button type="submit" class="btn btn-verde">salvar</button>
+            </div>
+        </form>
+    </app-modal>
+    }
+
+    @if (modalRemoverCategoriaVisible) {
+    <app-modal (closeModalEvent)="closeRemoverCategoria()">
+        <h3>Remover Categoria?</h3>
+        <p>Tem certeza que deseja remover a categoria "{{ selectedCategoria.nome }}"?</p>
+        <div class="btn-div">
+            <button (click)="removeCategoriaByID(selectedCategoria.codigo)" class="btn btn-vermelho">remover</button>
+            <button (click)="closeRemoverCategoria()" class="btn btn-verde">cancelar</button>
+        </div>
+    </app-modal>
+    }
+
+    @if (modalAdicionarCategoriaVisible) {
+
+    <app-modal (closeModalEvent)="closeAdicionarCategoria()">
+        <h4>Adicionar Categoria</h4>
+
+        <form [formGroup]="addCatForm" (ngSubmit)="addCategoria()">
+            <div class="fundo-modal gap">
+                <span>Nome</span>
+                <input class="base-input" formControlName="nome">
+            </div>
+            <div class="btn-div p-top">
+                <button (click)="closeAdicionarCategoria()" type="button" class="btn btn-vermelho">cancelar</button>
+                <button type="submit" class="btn btn-verde" [disabled]="!addCatForm.valid">salvar</button>
+            </div>
+        </form>
+    </app-modal>
+    }
+
+</div>

@@ -124,10 +124,9 @@
 }
 
 body {
-
   margin: 0;
   /* reset */
   padding: 0;
   /* reset */
-
+  background-color: var(--color-roxo-1);
 }

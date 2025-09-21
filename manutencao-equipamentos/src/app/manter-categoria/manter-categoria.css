@@ -151,6 +151,12 @@ h3 {
     border: 2px solid black;
 }
 
+
+.template-nome {
+    display: flex;
+    width: 50%;
+}
+
 .template-center {
     display: flex;
     justify-content: center;

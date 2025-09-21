@@ -1,19 +1,12 @@
 <app-nav></app-nav>
 
-<div class="container">
+<div class="container m-top">
     <div class="row justify-content-center painel-funcionario">
         <div class="col-3">
-            <panel>
-                <div class="acoes-funcionario">
-                    <btn-gradient message="Ver Solicitacoes"></btn-gradient>
-                    <btn-gradient message="Manter Funcionarios"></btn-gradient>
-                    <btn-gradient message="Gerar Relatorio"></btn-gradient>
-                </div>
-            </panel>
+            <painel-acoes-funcionario />
         </div>
         <div class="col-8">
             <panel>
-
                 <h3 class="text-center">Chamados Abertos</h3>
 
                 <div class="filtros-chamados">
@@ -24,24 +17,30 @@
                         <option value="2">Periodo</option>
                     </select>
                 </div>
+                <ng-template #templateEditar let-row let-emitter="emitter">
+                    <div class="template-center">
+                        <button class="btn btn-branco" (click)="emitter.emit(row)">editar</button>
+                    </div>
+                </ng-template>
                 <ng-template #templateCodigo let-row>
-                    <div class="codigo">{{ row.codigo }}</div>
+                    <div class="template-center">
+                        {{ row.codigo }}
+                    </div>
                 </ng-template>
-
-                <ng-template #templateAcao let-row>
-                    <span class="acao">orcamento</span>
-                </ng-template>
-
-                <app-table-chamado
-                [colunas]="[
-                    { id: 'codigo', header: 'codigo', render: templateCodigo },
+                <app-table-chamado (action)="openOrcamentoModal($event)" [colunas]="[
+                    { id: 'codigo', header: 'codigo', render: templateCodigo, headerStyle: 'col-2 text-center' },
                     { id: 'cliente', header: 'cliente' },
                     { id: 'descricao', header: 'descricao'},
-                    { id: 'data_chamado', header: 'data'},
-                    { id: 'acao', header: 'acao', render: templateAcao}
-                ]"
-                [data]="data"
-                />
+                    { id: 'data_chamado', header: 'data', headerStyle: 'col-2'},
+                    { id: 'acao', header: 'acao', render: templateEditar, headerStyle: 'col-2 text-center'}
+                ]" [data]="data" />
             </panel>
         </div>
     </div>
+    @if (orcamentoModalVisible) {
+    <app-modal (closeModalEvent)="closeOrcamentoModal()">
+        <app-efetuar-orcamento [id]="selectedChamado"></app-efetuar-orcamento>
+    </app-modal>
+    }
+
+</div>

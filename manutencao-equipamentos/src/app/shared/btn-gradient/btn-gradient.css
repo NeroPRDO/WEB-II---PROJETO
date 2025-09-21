@@ -22,7 +22,7 @@
 .btn-border-hide:hover div.btn-border {
     padding: 4px;
     transition: 0.3s;
-    
+
 }
 
 .btn {
@@ -38,5 +38,4 @@
     text-align: center;
     align-items: center;
     width: 100%;
-
 }

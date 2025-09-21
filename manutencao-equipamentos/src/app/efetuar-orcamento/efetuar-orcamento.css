@@ -1,16 +1,12 @@
-.container {
-    display: flex;
-    justify-content: center;
-    padding: 2rem 1rem;
+:host {
+    --color-roxo-1: #f4eff8;
+    /* Lightest purple */
+    --color-roxo-5: #8242be;
+    /* Main purple */
 }
 
-.content {
-    background: #fff;
-    border-radius: 15px;
-    max-width: 1000px;
+.container {
     width: 100%;
-    padding: 24px;
-    box-shadow: 0 4px 8px rgba(130, 66, 190, 0.5);
 }
 
 .title {
@@ -28,6 +24,8 @@
 }
 
 .card {
+    box-sizing: border-box;
+    max-width: 100%;
     border: 1px solid rgba(0, 0, 0, .08);
     border-radius: 12px;
     padding: 16px;
@@ -45,8 +43,12 @@
     margin-bottom: .5rem;
 }
 
-.row {
+.info-row {
     margin: .25rem 0;
+    font-size: 0.9rem;
+    /* FIX: Prevents long unbroken text (like emails) from overflowing the card */
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .form {
@@ -69,6 +71,7 @@
 .form-input-group input,
 .form-input-group textarea {
     width: 100%;
+    box-sizing: border-box;
     border: none;
     background-color: #ecf0f1;
     border-radius: 8px;
@@ -84,21 +87,23 @@
 
 .actions {
     display: flex;
+    flex-wrap: wrap;
+    /* Allows buttons to wrap on small screens */
     gap: 1rem;
     margin-top: .5rem;
 }
 
-/* Reuso do padrão de botões do projeto */
 .btn {
     border-radius: 15px;
     text-transform: uppercase;
     color: #fff;
     font-size: 10px;
-    padding: 10px 50px;
+    padding: 10px 20px;
     cursor: pointer;
     font-weight: bold;
     width: 150px;
     border: none;
+    text-align: center;
 }
 
 .btn-primary {
@@ -109,9 +114,7 @@
 }
 
 .btn-primary:hover {
-    background-color: #fff;
-    color: var(--color-roxo-5);
-    border: 1px solid var(--color-roxo-5);
+    background-color: var(--color-roxo-1);
 }
 
 .btn-second {
@@ -121,13 +124,12 @@
 }
 
 .btn-second:hover {
-    background-color: #fff;
-    color: var(--color-roxo-5);
-    border: 1px solid var(--color-roxo-5);
+    background-color: #6a359c;
+    /* A slightly darker purple */
 }
 
-/* responsivo */
-@media (max-width: 860px) {
+/* FIX: Makes the two-column grid stack into a single column on smaller screens */
+@media (max-width: 768px) {
     .grid {
         grid-template-columns: 1fr;
     }

@@ -1,9 +1,9 @@
 <div class="table-responsive px-3">
-  <table class="table">
+  <table class="table table-fixed">
     <thead>
       <tr>
         @for (coluna of colunas; track coluna.id) {
-        <th scope="col">{{ coluna.header }}</th>
+        <th [ngClass]="coluna.headerStyle" scope="col">{{ coluna.header }}</th>
         }
       </tr>
     </thead>
@@ -13,16 +13,10 @@
       <tr>
         @for (coluna of colunas; track coluna.id) {
         <td>
-          @if (coluna.id === 'acao') {
-          <!-- Substitui o texto "orcamento" por botão -->
-          <button class="btn btn-second btn-xs" [routerLink]="['/func/orcamento', row.id]">
-            Efetuar Orçamento
-          </button>
-          } @else if (coluna.render) {
-          <ng-container
-            [ngTemplateOutlet]="coluna.render"
-            [ngTemplateOutletContext]="{ $implicit: row }"
-          ></ng-container>
+          @if (coluna.render) {
+          <ng-container [ngTemplateOutlet]="coluna.render"
+            [ngTemplateOutletContext]="{ $implicit: row, emitter: action }">
+          </ng-container>
           } @else {
           {{ row[coluna.id] }}
           }

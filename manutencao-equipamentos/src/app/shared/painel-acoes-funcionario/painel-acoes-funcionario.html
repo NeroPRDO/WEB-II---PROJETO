@@ -1,0 +1,9 @@
+<panel>
+    <div class="acoes-funcionario">
+        @for (btn of buttons; track btn.routerLink) {
+        @if (btn.routerLink != "/" + currentRoute) {
+        <btn-gradient [routerLink]="btn.routerLink" message="{{btn.buttonMessage}}"></btn-gradient>
+        }
+        }
+    </div>
+</panel>

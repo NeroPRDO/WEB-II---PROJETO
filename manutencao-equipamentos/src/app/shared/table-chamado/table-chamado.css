@@ -7,15 +7,15 @@ tbody tr:hover {
 }
 
 tbody tr:hover td {
-    color: var(--color-rosa-4)
+    color: var(--color-roxo-5)
 }
 
-table tbody tr:nth-child(odd) td{
-    background-color: #f6f6f6 !important;
+table tbody tr:nth-child(odd) td {
+    background-color: #f6f6f6;
 }
 
-tbody td {
-    align-items: center;
+.table tr td {
+    border-bottom-width: 0 !important;
 }
 
 td div.codigo {
@@ -34,7 +34,7 @@ td div.aberta {
 }
 
 tbody tr:hover td {
-    background-color: #f3f3f3;
+    background-color: var(--color-roxo-1) !important;
     transition: 0.3s;
 }
 
@@ -60,4 +60,8 @@ td button {
     padding: 2px 5px 2px 5px;
     color: var(--color-rosa-3) !important;
     background-color: transparent;
+}
+
+.table-fixed {
+    table-layout: fixed;
 }

@@ -1,0 +1,47 @@
+/* The dark, semi-transparent background that covers the whole screen */
+.modal-overlay {
+    position: fixed;
+    /* Crucial: This makes it float over the page */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* Cover the full viewport width */
+    height: 100vh;
+    /* Cover the full viewport height */
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Essential: Puts the modal on top of all other content */
+}
+
+/* The white box in the middle */
+.modal-content {
+    background: white;
+    padding: 25px 35px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    /* Needed for the close button positioning */
+    max-width: 500px;
+    width: 90%;
+}
+
+/* The 'X' close button in the corner */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #aaa;
+    line-height: 1;
+}
+
+.close-button:hover {
+    color: #333;
+}
