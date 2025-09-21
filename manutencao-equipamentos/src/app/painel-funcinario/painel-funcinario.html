@@ -39,7 +39,7 @@
     </div>
     @if (orcamentoModalVisible) {
     <app-modal (closeModalEvent)="closeOrcamentoModal()">
-        <app-efetuar-orcamento [id]="selectedChamado"></app-efetuar-orcamento>
+        <app-efetuar-orcamento (close)="closeOrcamentoModal()" [id]="selectedChamado"></app-efetuar-orcamento>
     </app-modal>
     }
 

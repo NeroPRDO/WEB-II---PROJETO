@@ -27,7 +27,7 @@ export class PainelAcoesFuncionario {
 
   buttons: ActionButton[] = [
     {
-      routerLink: "/painel",
+      routerLink: "/func",
       buttonMessage: "Painel"
     },
     {

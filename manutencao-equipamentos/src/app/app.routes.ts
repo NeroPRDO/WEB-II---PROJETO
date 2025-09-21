@@ -15,6 +15,9 @@ import { Servicos } from './servicos/servicos';
 import { ManutencaoComponent } from './manutencao/manutencao';
 import { Pagamento } from './pagamento/pagamento';
 
+import { ManterFuncionario } from './manter-funcionario/manter-funcionario';
+import { ManterCategoria } from './manter-categoria/manter-categoria';
+
 export const routes: Routes = [
 
   {
@@ -64,9 +67,9 @@ export const routes: Routes = [
   },
 
   {
-      path: 'visualizar-servico',
-      component: VisualizarServico, //Dar uma olhada RF008
-      title: 'visualizar-servico',
+    path: 'visualizar-servico',
+    component: VisualizarServico, //Dar uma olhada RF008
+    title: 'visualizar-servico',
   },
 
   {
@@ -99,6 +102,16 @@ export const routes: Routes = [
     title: 'painel-funcionario'
   },
 
+  {
+    path: 'func/funcionarios',
+    component: ManterFuncionario,
+    title: 'manter-funcionario'
+  },
+  {
+    path: 'func/categorias',
+    component: ManterCategoria,
+    title: "manter-categoria"
+  },
   {
     path: 'func/manutencao',
     component: ManutencaoComponent,

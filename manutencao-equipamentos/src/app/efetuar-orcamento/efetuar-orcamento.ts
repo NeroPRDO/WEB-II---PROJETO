@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -43,6 +43,12 @@ export class EfetuarOrcamento {
   @Input() id: string = "";
 
   dados: any;
+
+  @Output() close = new EventEmitter<void>();
+
+  cancelar() {
+    this.close.emit();
+  }
 
   // MOCKS (trocar por dados da API quando integrar backend)
   clientes: Cliente[] = [
