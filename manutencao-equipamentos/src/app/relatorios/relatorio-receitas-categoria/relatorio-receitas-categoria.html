@@ -1,0 +1,32 @@
+<div class="relatorio-wrapper">
+  <section class="card header-cat">
+    <h2>RF020 — Receitas por Categoria (desde sempre)</h2>
+    <div class="actions">
+      <a class="btn sec" routerLink="/func/relatorios/receitas">← Voltar ao relatório por período</a>
+      <button class="btn print" (click)="gerarPDF()">Gerar PDF</button>
+    </div>
+  </section>
+
+  <section class="card tabela">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Categoria</th>
+          <th class="num">Total (R$)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let l of linhas">
+          <td>{{ l.categoria }}</td>
+          <td class="num">{{ l.total | number:'1.2-2' }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>Total Geral</th>
+          <th class="num">{{ totalGeral() | number:'1.2-2' }}</th>
+        </tr>
+      </tfoot>
+    </table>
+  </section>
+</div>
