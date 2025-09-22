@@ -46,41 +46,90 @@
     </div>
   </section>
 
-  <!-- AÇÕES DO FUNCIONÁRIO -->
-  <aside class="card acoes">
-    <h2>Ações do Funcionário</h2>
+<aside class="card acoes">
+  <h2>Ações do Funcionário</h2>
 
-    <div class="btns">
-      <button class="primary" (click)="iniciarEfetuar()">Efetuar Manutenção</button>
-      <button class="sec" (click)="iniciarRedirecionar()">Redirecionar (RF015)</button>
+  <div class="btns">
+    <button
+      class="primary"
+      [class.active]="modo === 'efetuar'"
+      (click)="setModo('efetuar')">
+      Efetuar Manutenção
+    </button>
+
+    <button
+      class="sec"
+      [class.active]="modo === 'redirecionar'"
+      (click)="setModo('redirecionar')">
+      Redirecionar
+    </button>
+
+    <button
+      class="sec"
+      [class.active]="modo === 'finalizar'"
+      (click)="setModo('finalizar')">
+      Finalizar
+    </button>
+  </div>
+
+  <!-- FORMULÁRIO: EFETUAR -->
+  <form *ngIf="modo === 'efetuar'" (ngSubmit)="salvarManutencao()" class="form-manutencao">
+    <label for="descricao">Descrição da Manutenção <span class="req">*</span></label>
+    <textarea id="descricao" name="descricao" [(ngModel)]="descricao" required></textarea>
+
+    <label for="orientacoes">Orientações para o Cliente <span class="req">*</span></label>
+    <textarea id="orientacoes" name="orientacoes" [(ngModel)]="orientacoes" required></textarea>
+
+    <div class="meta-info">
+      <p><strong>Funcionário:</strong> {{ funcionario.nome }}</p>
+      <p><strong>Data/Hora atual:</strong> {{ formatDate() }}</p>
     </div>
 
-    <!-- FORMULÁRIO APARECE SÓ QUANDO MODO = 'efetuar' -->
-    <form *ngIf="modo === 'efetuar'" (ngSubmit)="salvarManutencao()" class="form-manutencao">
-      <label for="descricao">Descrição da Manutenção <span class="req">*</span></label>
-      <textarea id="descricao" name="descricao" [(ngModel)]="descricao" required></textarea>
-
-      <label for="orientacoes">Orientações para o Cliente <span class="req">*</span></label>
-      <textarea id="orientacoes" name="orientacoes" [(ngModel)]="orientacoes" required></textarea>
-
-      <div class="meta-info">
-        <p><strong>Funcionário:</strong> {{ funcionario.nome }}</p>
-        <p><strong>Data/Hora atual:</strong> {{ formatDate() }}</p>
-      </div>
-
-      <div class="form-actions">
-        <button type="submit" class="primary">Salvar Manutenção</button>
-        <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
-      </div>
-
-      <p class="error" *ngIf="error">{{ error }}</p>
-    </form>
-
-    <div *ngIf="modo === 'visualizar' && solicitacao?.status === 'ARRUMADA'" class="resumo">
-      <p><strong>Última manutenção:</strong>
-        {{ solicitacao.ultimaManutencao?.dataHora ? (solicitacao.ultimaManutencao.dataHora | date:'short') : '' }}
-        por {{ solicitacao.ultimaManutencao?.funcionario }}
-      </p>
+    <div class="form-actions">
+      <button type="submit" class="primary">Salvar Manutenção</button>
+      <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
     </div>
-  </aside>
-</div>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </form>
+
+  <!-- FORMULÁRIO: REDIRECIONAR -->
+  <form *ngIf="modo === 'redirecionar'" (ngSubmit)="redirecionar()" class="form-manutencao">
+    <label for="destino">Redirecionar para</label>
+    <select id="destino"
+            name="destino"
+            class="form-select"
+            [(ngModel)]="funcionarioDestino"
+            required>
+      <option value="" disabled selected>Selecione um funcionário</option>
+      <option *ngFor="let f of funcionarios"
+              [value]="f"
+              [disabled]="f === solicitacao?.funcionarioOrigem">
+        {{ f }} <span *ngIf="f === solicitacao?.funcionarioOrigem">(origem)</span>
+      </option>
+    </select>
+
+    <div class="meta-info">
+      <p><strong>Origem:</strong> {{ solicitacao?.funcionarioOrigem }}</p>
+      <p *ngIf="funcionarioDestino"><strong>Destino:</strong> {{ funcionarioDestino }}</p>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="primary">Confirmar Redirecionamento</button>
+      <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
+    </div>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </form>
+
+  <!-- FINALIZAR -->
+  <div *ngIf="modo === 'finalizar'">
+    <p><strong>Status atual:</strong> {{ solicitacao?.status }}</p>
+    <p class="hist-orient">Ao confirmar, a solicitação será marcada como FINALIZADA.</p>
+
+    <div class="form-actions">
+      <button type="button" class="primary" (click)="finalizar()">Confirmar Finalização</button>
+      <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
+    </div>
+  </div>
+</aside>

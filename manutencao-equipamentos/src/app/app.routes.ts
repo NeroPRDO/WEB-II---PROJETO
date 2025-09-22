@@ -124,6 +124,23 @@ export const routes: Routes = [
     title: 'detalhe-manutencao'
   },
 
+  {
+  path: 'func/manutencao/:id/efetuar',
+  component: ManutencaoComponent,
+  title: 'efetuar-manutencao'
+},
+{
+  path: 'func/manutencao/:id/redirecionar',
+  component: ManutencaoComponent,
+  title: 'redirecionar-manutencao'
+},
+{
+  path: 'func/manutencao/:id/finalizar',
+  component: ManutencaoComponent,
+  title: 'finalizar-manutencao'
+},
+
+
   // === Perfil do Funcionário === RASCUNHO
 
   {
