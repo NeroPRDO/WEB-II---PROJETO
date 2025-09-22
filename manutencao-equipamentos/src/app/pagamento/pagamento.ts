@@ -32,9 +32,10 @@ export class Pagamento {
   confirmarPagamento(): void {
     const agora = new Date();
     const horaFormatada = agora.toLocaleTimeString('pt-BR');
+    const dataFormatada = agora.toLocaleDateString('pt-Br');
     
     // O alert() funciona da mesma forma
-    alert(`Pagamento Confirmado e Registrado às ${horaFormatada}!`);
+    alert(`Pagamento Confirmado e Registrado ${dataFormatada} às ${horaFormatada}!`);
     this.router.navigate(['/../']);
   }
 }
