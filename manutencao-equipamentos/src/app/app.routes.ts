@@ -14,7 +14,8 @@ import { EfetuarOrcamento } from './efetuar-orcamento/efetuar-orcamento';
 import { Servicos } from './servicos/servicos';
 import { ManutencaoComponent } from './manutencao/manutencao';
 import { Pagamento } from './pagamento/pagamento';
-
+import { RelatorioReceitas } from './relatorios/relatorios-receitas/relatorio-receitas';
+import { RelatorioReceitasCategoria } from './relatorios/relatorio-receitas-categoria/relatorio-receitas-categoria';
 import { ManterFuncionario } from './manter-funcionario/manter-funcionario';
 import { ManterCategoria } from './manter-categoria/manter-categoria';
 
@@ -138,6 +139,17 @@ export const routes: Routes = [
   path: 'func/manutencao/:id/finalizar',
   component: ManutencaoComponent,
   title: 'finalizar-manutencao'
+},
+
+  {
+  path: 'func/relatorios/receitas',
+  component: RelatorioReceitas,
+  title: 'relatorio-receitas'
+},
+{
+  path: 'func/relatorios/receitas-categoria',
+  component: RelatorioReceitasCategoria,
+  title: 'relatorio-receitas-categoria'
 },
 
 
