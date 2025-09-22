@@ -1,70 +1,117 @@
 <app-nav></app-nav>
 <div class="container">
-        <form action="">
-        <div class="row">
-            <div class="column">
-                <h3 class="title">Endereço de Cobrança</h3>
-                <div class="input-box">
-                    <span>Nome (Completo) :</span>
-                    <input type="text" placeholder="ex: Razer Montaño">
-                </div>
-                    <div class="input-box">
-                        <span>Email :</span>
-                        <input type="email" placeholder="example@example.com">
+    <header>Pagamento</header>
+    <form>
+        <div *ngIf="!isSecondStep" class="form first">
+            <div class="details personal">
+                <span class="title">Informações de Contato</span>
+                <div class="fields">
+                    <div class="input-field">
+                        <label>Nome</label>
+                        <input type="text" placeholder="Digite seu nome">
                     </div>
-                    <div class="input-box">
-                        <span>Endereço :</span>
-                        <input type="text" placeholder="Rua e Bairro">
+                    <div class="input-field">
+                        <label>Sobrenome</label>
+                        <input type="text" placeholder="Digite seu sobrenome">
                     </div>
-                    <div class="input-box">
-                        <span>Cidade :</span>
-                        <input type="text" placeholder="Curitiba">
+                    <div class="input-field">
+                        <label>Email</label>
+                        <input type="email" placeholder="Digite seu email">
                     </div>
-
-                    <div class="flex">
-                        <div class="input-box">
-                            <span>Estado :</span>
-                            <input type="text" placeholder="Paraná">
-                        </div>
-                        <div class="input-box">
-                            <span>CEP :</span>
-                            <input type="number" placeholder="80680-300">
-                        </div>
+                    <div class="input-field">
+                        <label>Número de Celular</label>
+                        <input type="tel" placeholder="Digite seu celular">
                     </div>
-            </div>
-
-                <div class="column">
-                    <h3 class="title">Dados de Pagamento:</h3>
-                    <div class="input-box">
-                        <span>Bandeiras aceitas :</span>
-                        <img src="imgcards.png" alt="">
+                    <div class="input-field">
+                        <label>Pessoa</label>
+                        <select>
+                            <option disabled selected>Selecione</option>
+                            <option>Pessoa Física</option>
+                            <option>Pessoa Juridica</option>
+                        </select>
                     </div>
-                    <div class="input-box">
-                        <span>Nome:</span>
-                        <input type="text" placeholder="Razer Montaño">
-                    </div>
-                    <div class="input-box">
-                        <span>Número do Cartão de Credito :</span>
-                        <input type="number" placeholder="1111 2222 3333 4444">
-                    </div>
-                    <div class="input-box">
-                        <span>Mês de vencimento :</span>
-                        <input type="text" placeholder="Setembro">
-                    </div>
-                
-                    <div class="flex">
-                        <div class="input-box">
-                            <span>Ano de vencimento :</span>
-                            <input type="number" placeholder="2025">
-                        </div>
-                        <div class="input-box">
-                            <span>CVV :</span>
-                            <input type="number" placeholder="123">
-                        </div>
+                    <div class="input-field">
+                        <label>CPF / CNPJ</label>
+                        <input type="text" placeholder="Digite seu CPF ou CNPJ">
                     </div>
                 </div>
             </div>
+            <div class="details adress">
+                <span class="title">Endereço de Cobrança</span>
+                <div class="fields">
+                     <div class="input-field">
+                        <label>CEP</label>
+                        <input type="text" placeholder="Digite o CEP">
+                    </div>
+                    <div class="input-field">
+                        <label>Rua</label>
+                        <input type="text" placeholder="Endereço (Rua, Avenida,..) ">
+                    </div>
+                    <div class="input-field">
+                        <label>Número</label>
+                        <input type="number" placeholder="Digite o número da residência">
+                    </div>
+                    <div class="input-field">
+                        <label>Bairro</label>
+                        <input type="text" placeholder="Digite o bairro">
+                    </div>
+                    <div class="input-field">
+                        <label>Cidade</label>
+                        <input type="text" placeholder="Digite o nome da cidade">
+                    </div>
+                    <div class="input-field">
+                        <label>Estado</label>
+                        <input type="text" placeholder="Digite o nome do estado">
+                    </div>
+                </div>
+                <button class="nextBtn" type="button" (click)="proximo()">
+                    <span class="btnText">Próximo</span>
+                    <i class="uil uil-navigator"></i>
+                </button>
+            </div>
+        </div>
 
-            <button type="submit" class="btn">Confirmar</button>
-        </form>
-    </div>
+        <div *ngIf="isSecondStep" class="form second">
+            <div class="details payment">
+                <span class="title">Detalhes de Pagamento</span>
+                <div class="fields">
+                    <div class="input-field">
+                        <label>Nome do Titular do Cartão</label>
+                        <input type="text" placeholder="Digite o nome no cartão">
+                    </div>
+                    <div class="input-field">
+                        <label>Número do Cartão</label>
+                        <input type="text" placeholder="Digite o número do cartão">
+                    </div>
+                    <div class="input-field">
+                        <label>Bandeira</label>
+                        <input type="text" placeholder="Visa,MasterCard,...">
+                    </div>
+                    <div class="input-field">
+                        <label>Mês de Validade</label>
+                        <input type="number" placeholder="Digite o mês">
+                    </div>
+                    <div class="input-field">
+                        <label>Ano de Validade</label>
+                        <input type="number" placeholder="Digite o ano">
+                    </div>
+                    <div class="input-field">
+                        <label>CVV</label>
+                        <input type="number" placeholder="CVV">
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="backBtn" (click)="voltar()">
+                        <i class="uil uil-navigator"></i>
+                        <span class="btnText">Voltar</span>
+                    </div>
+                    <button class="submit" type="button" (click)="confirmarPagamento()">
+                        <span class="btnText">Pagar</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

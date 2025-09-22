@@ -2,17 +2,12 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NavComponent } from '../shared/Nav/nav';
 import { CommonModule } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-servicos',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    NavComponent,
-    RouterLink
-  ],
+  imports: [CommonModule, FormsModule, NavComponent],
   templateUrl: './servicos.html',
   styleUrl: './servicos.css'
 })
