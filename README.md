@@ -283,6 +283,26 @@ npm start
 ---
 
 
+## Problemas comuns no npm install
+
+- Erro ENOENT: no such file or directory, open '.../package.json'
+Certifique-se de que você está na pasta correta (onde existe package.json — manutencao-equipamentos/).
+
+```bash
+ls / dir para confirmar.
+```
+
+
+## Cache corrompido:
+
+```bash
+npm cache clean --force
+npm install
+```
+
+---
+
+
 ## 🎯 Objetivos
 
 - Gerenciar solicitações de manutenção de equipamentos eletrônicos.  
