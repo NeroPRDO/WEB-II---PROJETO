@@ -237,6 +237,48 @@ Este projeto consiste no desenvolvimento de uma aplicação web utilizando Angul
                         visualizar-servico.ts
 ```
 
+---
+
+
+# 🚀 Guia de Instalação e Execução
+
+## Pré-requisitos
+- Node.js **v22.18.0 LTS**
+- npm **10.9.3**
+- Git instalado
+- Angular 
+
+Verifique versões:
+```bash
+node -v
+npm -v
+```
+
+## Clonar o projeto
+```bash
+git clone https://github.com/Dasko7b/WEB-II---PROJETO.git
+cd WEB-II---PROJETO/manutencao-equipamentos
+```
+
+## Instalar dependências
+```bash
+npm install
+```
+
+## Rodar servidor de desenvolvimento
+```bash
+npm start
+```
+> Acesse: [http://localhost:4200](http://localhost:4200)
+
+## Rotas principais
+- `/` → Dashboard
+- `/login` → Login
+- `/cadastro-atendimento` → Cadastro de chamado
+- `/func` → Painel do Funcionário
+- `/func/relatorios/receitas` → Relatório de Receitas
+- `/func/relatorios/receitas-categoria` → Relatório por Categoria
+
 
 ---
 
