@@ -26,8 +26,17 @@ Este projeto consiste no desenvolvimento de uma aplicação web utilizando Angul
 ```
 \---WEB-II---PROJETO
     |   README.md
-    |   
+    |
     \---manutencao-equipamentos
+        |   .editorconfig
+        |   .gitignore
+        |   angular.json
+        |   package-lock.json
+        |   package.json
+        |   README.md
+        |   tsconfig.app.json
+        |   tsconfig.json
+        |   tsconfig.spec.json
         |
         +---public
         |       favicon.ico
@@ -62,7 +71,6 @@ Este projeto consiste no desenvolvimento de uma aplicação web utilizando Angul
                 +---cadastro
                 |       cadastro.css
                 |       cadastro.html
-                |       cadastro.spec.ts
                 |       cadastro.ts
                 |
                 +---cadastro-atendimento
@@ -91,8 +99,19 @@ Este projeto consiste no desenvolvimento de uma aplicação web utilizando Angul
                 +---login
                 |       login.css
                 |       login.html
-                |       login.spec.ts
                 |       login.ts
+                |
+                +---manter-categoria
+                |       manter-categoria.css
+                |       manter-categoria.html
+                |       manter-categoria.spec.ts
+                |       manter-categoria.ts
+                |
+                +---manter-funcionario
+                |       manter-funcionario.css
+                |       manter-funcionario.html
+                |       manter-funcionario.spec.ts
+                |       manter-funcionario.ts
                 |
                 +---manutencao
                 |       manutencao.css
@@ -112,74 +131,110 @@ Este projeto consiste no desenvolvimento de uma aplicação web utilizando Angul
                 |       painel-funcinario.spec.ts
                 |       painel-funcinario.ts
                 |
+                +---relatorios
+                |   +---relatorio-receitas-categoria
+                |   |       relatorio-receitas-categoria.css
+                |   |       relatorio-receitas-categoria.html
+                |   |       relatorio-receitas-categoria.spec.ts
+                |   |       relatorio-receitas-categoria.ts
+                |   |
+                |   \---relatorios-receitas
+                |           relatorio-receitas.css
+                |           relatorio-receitas.html
+                |           relatorio-receitas.spec.ts
+                |           relatorio-receitas.ts
+                |
+                +---services
+                |       solicitacao.ts
+                |
                 +---servicos
                 |       servicos.css
                 |       servicos.html
                 |       servicos.spec.ts
                 |       servicos.ts
                 |
-                \---shared
-                    +---botao-servicos
-                    |       botao-servicos.css
-                    |       botao-servicos.html
-                    |       botao-servicos.spec.ts
-                    |       botao-servicos.ts
-                    |
-                    +---btn-gradient
-                    |       btn-gradient.css
-                    |       btn-gradient.html
-                    |       btn-gradient.spec.ts
-                    |       btn-gradient.ts
-                    |
-                    +---btn-login
-                    |       btn-login.css
-                    |       btn-login.html
-                    |       btn-login.spec.ts
-                    |       btn-login.ts
-                    |
-                    +---btn-seta
-                    |       btn-seta.css
-                    |       btn-seta.html
-                    |       btn-seta.spec.ts
-                    |       btn-seta.ts
-                    |
-                    +---footer-component
-                    |       footer.component.css
-                    |       footer.component.html
-                    |       footer.component.ts
-                    |
-                    +---icons
-                    |       icons.css
-                    |       icons.html
-                    |       icons.ts
-                    |
-                    +---link-text
-                    |       link-text.component.css
-                    |       link-text.component.html
-                    |       link-text.component.ts
-                    |
-                    +---Modal
-                    |       modal.css
-                    |       modal.html
-                    |       modal.spec.ts
-                    |       modal.ts
-                    |
-                    +---Nav
-                    |       nav.css
-                    |       nav.html
-                    |       nav.ts
-                    |
-                    +---panel
-                    |       panel.css
-                    |       panel.html
-                    |       panel.spec.ts
-                    |       panel.ts
-                    |
-                    \---table-chamado
-                            table-chamado.css
-                            table-chamado.html
-                            table-chamado.spec.ts
-                            table-chamado.ts
+                +---shared
+                |   +---botao-servicos
+                |   |       botao-servicos.css
+                |   |       botao-servicos.html
+                |   |       botao-servicos.spec.ts
+                |   |       botao-servicos.ts
+                |   |
+                |   +---btn-gradient
+                |   |       btn-gradient.css
+                |   |       btn-gradient.html
+                |   |       btn-gradient.spec.ts
+                |   |       btn-gradient.ts
+                |   |
+                |   +---btn-login
+                |   |       btn-login.css
+                |   |       btn-login.html
+                |   |       btn-login.spec.ts
+                |   |       btn-login.ts
+                |   |
+                |   +---btn-seta
+                |   |       btn-seta.css
+                |   |       btn-seta.html
+                |   |       btn-seta.spec.ts
+                |   |       btn-seta.ts
+                |   |
+                |   +---footer-component
+                |   |       footer.component.css
+                |   |       footer.component.html
+                |   |       footer.component.ts
+                |   |
+                |   +---icons
+                |   |       icons.css
+                |   |       icons.html
+                |   |       icons.ts
+                |   |
+                |   +---link-text
+                |   |       link-text.component.css
+                |   |       link-text.component.html
+                |   |       link-text.component.ts
+                |   |
+                |   +---Modal
+                |   |       modal.css
+                |   |       modal.html
+                |   |       modal.spec.ts
+                |   |       modal.ts
+                |   |
+                |   +---Nav
+                |   |       nav.css
+                |   |       nav.html
+                |   |       nav.ts
+                |   |
+                |   +---novo-modal
+                |   |       novo-modal.css
+                |   |       novo-modal.html
+                |   |       novo-modal.spec.ts
+                |   |       novo-modal.ts
+                |   |
+                |   +---painel-acoes-funcionario
+                |   |       painel-acoes-funcionario.css
+                |   |       painel-acoes-funcionario.html
+                |   |       painel-acoes-funcionario.spec.ts
+                |   |       painel-acoes-funcionario.ts
+                |   |
+                |   +---panel
+                |   |       panel.css
+                |   |       panel.html
+                |   |       panel.spec.ts
+                |   |       panel.ts
+                |   |
+                |   +---relatorios
+                |   |       relatorio-receitas.service.ts
+                |   |
+                |   \---table-chamado
+                |           table-chamado.css
+                |           table-chamado.html
+                |           table-chamado.spec.ts
+                |           table-chamado.ts
+                |
+                \---visualizar-servico
+                        visualizar-servico.css
+                        visualizar-servico.html
+                        visualizar-servico.ts
 ```
 
 
