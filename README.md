@@ -374,7 +374,9 @@ ng version
 # Conclusão
 
 O sistema “Manutenção de Equipamentos” foi desenvolvido com foco em usabilidade, organização estrutural e cumprimento dos requisitos funcionais solicitados pela disciplina de Desenvolvimento Web II.
-A aplicação busca representar de forma fiel o fluxo real de manutenção, desde o cadastro até a finalização do serviço, reforçando a importância do versionamento, modularização e documentação no desenvolvimento front-end.
+
+A aplicação busca representar de forma fiel o fluxo real de manutenção, desde o cadastro até a finalização do serviço, reforçando a importância do versionamento, modularização e documentação no 
+desenvolvimento front-end.
 
 ---
 
