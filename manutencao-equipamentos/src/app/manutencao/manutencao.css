@@ -1,117 +1,298 @@
+/* ====== ESTILOS GERAIS ====== */
 .manutencao-wrapper {
   display: grid;
   grid-template-columns: 1fr 360px;
   gap: 22px;
-  padding: 18px;
+  padding: 20px;
   align-items: start;
-  font-family: Inter, Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
+  background: #f7f8fa;
+  transition: all 0.3s ease;
 }
 
 .card {
   background: #ffffff;
-  border-radius: 10px;
-  padding: 18px;
+  border-radius: 12px;
+  padding: 20px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);
   border: 1px solid #e8e8f2;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* detalhes / header */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+
+/* ====== HEADER / DETALHES ====== */
 .header {
   display: flex;
   gap: 16px;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
+
 .equip-img {
-  width: 90px;
-  height: 60px;
+  width: 95px;
+  height: 65px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid #ddd;
+  transition: transform 0.3s ease;
 }
+
+.equip-img:hover {
+  transform: scale(1.05);
+}
+
 .title h1 {
   margin: 0;
   font-size: 28px;
+  font-weight: 700;
+  color: #222;
 }
+
 .title p.sub {
-  margin: 2px 0 0;
+  margin: 4px 0 0;
   color: #666;
   font-size: 13px;
 }
 
+/* ====== CONTAINER CENTRAL ====== */
 .manutencao-container {
-  max-width: 600px;
+  max-width: 640px;
   margin: auto;
   background: #f8f9fa;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: background 0.3s ease;
+}
+
+.manutencao-container:hover {
+  background: #f6f7f9;
 }
 
 .solicitacao-detalhes {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
-.redirecionar-box, .finalizar-box {
-  margin: 15px 0;
+/* ====== REDIRECIONAR E FINALIZAR ====== */
+.redirecionar-box,
+.finalizar-box {
+  margin: 18px 0;
 }
 
 .redirecionar-box select {
   margin: 0 10px;
-  padding: 5px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  transition: border 0.2s ease;
 }
 
+.redirecionar-box select:focus {
+  border-color: #8242be;
+}
+
+/* ====== BOTÕES ====== */
 .btn-finalizar {
   background: #28a745;
-  color: white;
-  padding: 8px 14px;
+  color: #fff;
+  padding: 10px 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  transition: background 0.25s ease, transform 0.2s ease;
 }
 
 .btn-finalizar:hover {
   background: #218838;
+  transform: translateY(-2px);
 }
 
-.historico {
-  margin-top: 20px;
-  padding: 10px;
-  background: #fff;
+button {
+  padding: 10px 14px;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.25s ease;
 }
 
-/* info */
-.info h3 { margin-top: 8px; }
-.status { color: #2b2b2b; font-weight: 700; background: #f3f0ff; padding: 4px 8px; border-radius: 6px; }
+button.primary {
+  background: #8242be;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(130, 66, 190, 0.3);
+}
 
-/* histórico */
-.historico { list-style: none; padding-left: 0; margin: 0; }
-.historico li { padding: 8px 0; border-bottom: 1px dashed #eee; }
-.hist-meta { font-size: 12px; color: #444; }
-.hist-desc { margin-top: 6px; font-weight: 500; }
-.hist-orient { margin-top: 4px; color: #555; font-size: 13px; }
+button.primary:hover {
+  background: #6d33a3;
+  box-shadow: 0 4px 10px rgba(130, 66, 190, 0.4);
+  transform: translateY(-1px);
+}
 
-/* ações (coluna direita) */
-.acoes h2 { margin-top: 0; }
-.btns { display: flex; gap: 10px; margin-bottom: 12px; }
-button { padding: 9px 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; }
-button.primary { background: #8242be; color: #fff; }
-button.sec { background: transparent; border: 1px solid #ddd; color: #333; }
+button.sec {
+  background: transparent;
+  border: 1px solid #ddd;
+  color: #333;
+}
 
-/* formulário */
-.form-manutencao label { display: block; margin-top: 8px; font-weight: 600; }
-.form-manutencao textarea { width: 100%; min-height: 80px; margin-top: 6px; padding: 8px; border-radius: 6px; border: 1px solid #ccc; resize: vertical; }
-.form-actions { display: flex; gap: 10px; margin-top: 12px; }
-.meta-info p { margin: 8px 0 0; font-size: 13px; color: #333; }
+button.sec:hover {
+  border-color: #bbb;
+  color: #000;
+}
 
-.error { color: #b00020; margin-top: 8px; font-weight: 600; }
+/* ====== HISTÓRICO ====== */
+.historico {
+  margin-top: 24px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  list-style: none;
+  padding-left: 0;
+}
 
+.historico li {
+  padding: 10px 0;
+  border-bottom: 1px dashed #eee;
+}
+
+.historico li:last-child {
+  border-bottom: none;
+}
+
+.hist-meta {
+  font-size: 12px;
+  color: #555;
+}
+
+.hist-desc {
+  margin-top: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+.hist-orient {
+  margin-top: 4px;
+  color: #555;
+  font-size: 13px;
+}
+
+/* ====== INFO ====== */
+.info h3 {
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+.status {
+  color: #2b2b2b;
+  font-weight: 700;
+  background: #f3f0ff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* ====== FORMULÁRIO ====== */
+.form-manutencao label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.form-manutencao textarea {
+  width: 100%;
+  min-height: 90px;
+  margin-top: 6px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  transition: border 0.25s ease, box-shadow 0.25s ease;
+}
+
+.form-manutencao textarea:focus {
+  border-color: #8242be;
+  box-shadow: 0 0 4px rgba(130, 66, 190, 0.3);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.meta-info p {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #333;
+}
+
+.error {
+  color: #b00020;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+/* ====== AÇÕES / LADO DIREITO ====== */
+.acoes h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+/* ====== RESPONSIVIDADE ====== */
 @media (max-width: 880px) {
   .manutencao-wrapper {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
-  .acoes { order: 2; }
-  .detalhes { order: 1; }
+
+  .acoes {
+    order: 2;
+  }
+
+  .detalhes {
+    order: 1;
+  }
+
+  .equip-img {
+    width: 80px;
+    height: 55px;
+  }
+
+  .manutencao-container {
+    padding: 18px;
+  }
+
+  .btn-finalizar,
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .title h1 {
+    font-size: 22px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status {
+    font-size: 13px;
+  }
 }
