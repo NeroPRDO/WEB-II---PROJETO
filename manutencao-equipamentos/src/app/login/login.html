@@ -8,19 +8,41 @@
         </div>
         <div class="second-column">
             <h2 class="title title-second">Login</h2>
-            <form class="form">
+            
+            <form class="form" #formLogin="ngForm">
 
-                <label class="label-input" for="">
-                    <input type="email" placeholder="Email">
+                <label class="label-input" for="email">
+                    <input type="email" 
+                           placeholder="Email" 
+                           name="email" 
+                           [(ngModel)]="login.email" 
+                           #email="ngModel" 
+                           required>
                 </label>
+                <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert-danger">
+                    <div *ngIf="email.errors['required']">
+                        O e-mail é obrigatório.
+                    </div>
+                </div>
 
-                <label class="label-input" for="">
-                    <input type="password" placeholder="Senha">
+                <label class="label-input" for="senha">
+                    <input type="password" 
+                           placeholder="Senha"
+                           name="senha"
+                           [(ngModel)]="login.senha"
+                           #senha="ngModel"
+                           required>
                 </label>
+                <div *ngIf="senha.errors && (senha.dirty || senha.touched)" class="alert-danger">
+                    <div *ngIf="senha.errors['required']">
+                        A senha é obrigatória.
+                    </div>
+                </div>
 
-
-                <button class="btn btn-second" routerLink="/">Entrar</button>
+                <button class="btn btn-second" 
+                        (click)="logar()" 
+                        [disabled]="!formLogin.form.valid">
+                    Entrar
+                </button>
             </form>
-        </div><!-- second column -->
-    </div><!-- first content -->
-</div>
+        </div></div></div>
