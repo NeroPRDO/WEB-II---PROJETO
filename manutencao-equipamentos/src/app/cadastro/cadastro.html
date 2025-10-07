@@ -1,49 +1,62 @@
 <div class="container">
-        <div class="content first-content">
-            <div class="first-column">
-                <h2 class="title title-primary">Bem vindo, Novamente</h2>
-                <p class="description description-primary">Para se conectar na sua conta</p>
-                <p class="description description-primary">Entre com as suas informações pessoais</p>
-                <button class="btn btn-primary" routerLink="/login">login</button>
-            </div>    
-            <div class="second-column">
-                <h2 class="title title-second">criar conta</h2>
-                <form class="form">
-                    <label class="label-input" for="">
-                        <input type="text" placeholder="CPF">
-                    </label>
+    <div class="content first-content">
+        <div class="first-column">
+            <h2 class="title title-primary">Bem vindo, Novamente</h2>
+            <p class="description description-primary">Para se conectar na sua conta</p>
+            <p class="description description-primary">Entre com as suas informações pessoais</p>
+            <button class="btn btn-primary" routerLink="/login">login</button>
+        </div>
+        <div class="second-column">
+            <h2 class="title title-second">criar conta</h2>
+            <form class="form" (ngSubmit)="onSubmit()">
+                <label class="label-input">
+                    <input type="text" placeholder="CPF" name="cpf">
+                </label>
 
-                    <label class="label-input" for="">
-                        <input type="text" placeholder="Nome">
-                    </label>
+                <label class="label-input">
+                    <input type="text" placeholder="Nome" name="nome">
+                </label>
 
-                    <label class="label-input" for="">
-                        <input type="email" placeholder="E-mail">
-                    </label>
+                <label class="label-input">
+                    <input type="email" placeholder="E-mail" name="email">
+                </label>
 
-                    <label class="label-input" for="">
-                        <input type="text" placeholder="CEP">
-                    </label>
-                    
-                    <label class="label-input" for="">
-                        <input type="text" placeholder="Cidade">
-                    </label>
+                <label class="label-input">
+                    <input type="text" placeholder="CEP" name="cep" [value]="cep()"
+                        (input)="cep.set($any($event.target).value); buscarCep($any($event.target).value)"
+                        maxlength="9">
+                </label>
 
-                    <label class="label-input" for="">
-                        <input type="text" placeholder="Rua">
-                    </label>
+                <label class="label-input">
+                    <input type="text" placeholder="Rua" name="rua" [value]="logradouro()"
+                        (input)="logradouro.set($any($event.target).value)">
+                </label>
 
-                    <label class="label-input" for="">
-                        <input type="text" placeholder="Número">
-                    </label>
-                    <label class="label-input" for="">
-                        <input type="text" placeholder="Telefone">
-                    </label>
-                    
-                    
-                    <button class="btn btn-second" routerLink="/login">Cadastrar</button>        
-                </form>
-            </div><!-- second column -->
-        </div><!-- first content -->
-    </div>
- 
+                <label class="label-input">
+                    <input type="text" placeholder="Bairro" name="bairro" [value]="bairro()"
+                        (input)="bairro.set($any($event.target).value)">
+                </label>
+
+                <label class="label-input">
+                    <input type="text" placeholder="Cidade" name="cidade" [value]="localidade()"
+                        (input)="localidade.set($any($event.target).value)">
+                </label>
+
+                <label class="label-input">
+                    <input type="text" placeholder="UF" name="uf" [value]="uf()"
+                        (input)="uf.set($any($event.target).value)" maxlength="2">
+                </label>
+
+                <label class="label-input">
+                    <input type="text" placeholder="Número" name="numero">
+                </label>
+
+                <label class="label-input">
+                    <input type="text" placeholder="Telefone" name="telefone">
+                </label>
+
+                <button type="submit" class="btn btn-second">Cadastrar</button>
+            </form>
+        </div><!-- second column -->
+    </div><!-- first content -->
+</div>
