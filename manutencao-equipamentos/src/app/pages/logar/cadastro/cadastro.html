@@ -8,55 +8,81 @@
         </div>
         <div class="second-column">
             <h2 class="title title-second">criar conta</h2>
-            <form class="form" (ngSubmit)="onSubmit()">
-                <label class="label-input">
-                    <input type="text" mask="000.000.000-00" placeholder="CPF" name="cpf" maxlength="14">
-                </label>
+
+            <form class="form" #cadastroForm="ngForm" (ngSubmit)="onSubmit()">
 
                 <label class="label-input">
-                    <input type="text" placeholder="Nome" name="nome">
+                    <input type="text" mask="000.000.000-00" placeholder="CPF" name="cpf" [(ngModel)]="cadastroData.cpf" #cpf="ngModel" required>
                 </label>
+                <div *ngIf="cpf.errors && (cpf.dirty || cpf.touched)" class="alert-danger">
+                    <div *ngIf="cpf.errors['required']">CPF é obrigatório.</div>
+                </div>
 
                 <label class="label-input">
-                    <input type="email" placeholder="E-mail" name="email">
+                    <input type="text" placeholder="Nome" name="nome" [(ngModel)]="cadastroData.nome" #nome="ngModel" required>
                 </label>
+                <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert-danger">
+                    <div *ngIf="nome.errors['required']">Nome é obrigatório.</div>
+                </div>
 
                 <label class="label-input">
-                    <input type="text" mask="00000-000" placeholder="CEP" name="cep" [value]="cep()"
-                        (input)="cep.set($any($event.target).value); buscarCep($any($event.target).value)"
-                        maxlength="9">
+                    <input type="email" placeholder="E-mail" name="email" [(ngModel)]="cadastroData.email" #email="ngModel" required>
                 </label>
+                <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert-danger">
+                    <div *ngIf="email.errors['required']">E-mail é obrigatório.</div>
+                </div>
 
                 <label class="label-input">
-                    <input type="text" placeholder="Rua" name="rua" [value]="logradouro()"
-                        (input)="logradouro.set($any($event.target).value)">
+                    <input type="text" mask="00000-000" placeholder="CEP" name="cep" [(ngModel)]="cadastroData.cep" #cep="ngModel" (blur)="buscarCep()" maxlength="9" required>
                 </label>
+                 <div *ngIf="cep.errors && (cep.dirty || cep.touched)" class="alert-danger">
+                    <div *ngIf="cep.errors['required']">CEP é obrigatório.</div>
+                </div>
 
                 <label class="label-input">
-                    <input type="text" placeholder="Bairro" name="bairro" [value]="bairro()"
-                        (input)="bairro.set($any($event.target).value)">
+                    <input type="text" placeholder="Rua" name="rua" [(ngModel)]="cadastroData.logradouro" #logradouro="ngModel" required>
                 </label>
+                 <div *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)" class="alert-danger">
+                    <div *ngIf="logradouro.errors['required']">Rua é obrigatória.</div>
+                </div>
 
                 <label class="label-input">
-                    <input type="text" placeholder="Cidade" name="cidade" [value]="localidade()"
-                        (input)="localidade.set($any($event.target).value)">
+                    <input type="text" placeholder="Bairro" name="bairro" [(ngModel)]="cadastroData.bairro" #bairro="ngModel" required>
                 </label>
+                 <div *ngIf="bairro.errors && (bairro.dirty || bairro.touched)" class="alert-danger">
+                    <div *ngIf="bairro.errors['required']">Bairro é obrigatório.</div>
+                </div>
 
                 <label class="label-input">
-                    <input type="text" placeholder="UF" name="uf" [value]="uf()"
-                        (input)="uf.set($any($event.target).value)" maxlength="2">
+                    <input type="text" placeholder="Cidade" name="cidade" [(ngModel)]="cadastroData.localidade" #localidade="ngModel" required>
                 </label>
+                 <div *ngIf="localidade.errors && (localidade.dirty || localidade.touched)" class="alert-danger">
+                    <div *ngIf="localidade.errors['required']">Cidade é obrigatória.</div>
+                </div>
 
                 <label class="label-input">
-                    <input type="text" placeholder="Número" name="numero">
+                    <input type="text" placeholder="UF" name="uf" [(ngModel)]="cadastroData.uf" #uf="ngModel" maxlength="2" required>
                 </label>
+                 <div *ngIf="uf.errors && (uf.dirty || uf.touched)" class="alert-danger">
+                    <div *ngIf="uf.errors['required']">UF é obrigatório.</div>
+                </div>
 
                 <label class="label-input">
-                    <input type="text" mask="(00) 0 0000-0000" placeholder="Telefone" name="telefone">
+                    <input type="text" placeholder="Número" name="numero" [(ngModel)]="cadastroData.numero" #numero="ngModel" required>
                 </label>
+                 <div *ngIf="numero.errors && (numero.dirty || numero.touched)" class="alert-danger">
+                    <div *ngIf="numero.errors['required']">Número é obrigatório.</div>
+                </div>
 
-                <button type="submit" class="btn btn-second">Cadastrar</button>
+                <label class="label-input">
+                    <input type="text" mask="(00) 0 0000-0000" placeholder="Telefone" name="telefone" [(ngModel)]="cadastroData.telefone" #telefone="ngModel" required>
+                </label>
+                 <div *ngIf="telefone.errors && (telefone.dirty || telefone.touched)" class="alert-danger">
+                    <div *ngIf="telefone.errors['required']">Telefone é obrigatório.</div>
+                </div>
+
+                <button type="submit" class="btn btn-second" [disabled]="!cadastroForm.form.valid">Cadastrar</button>
             </form>
-        </div><!-- second column -->
-    </div><!-- first content -->
+        </div>
+    </div>
 </div>

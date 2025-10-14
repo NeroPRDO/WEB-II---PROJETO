@@ -1,37 +1,49 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; // Mantenha este import
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common'; // Importe para usar *ngIf
 import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [RouterLink, FormsModule, HttpClientModule, NgxMaskDirective],
+  // Adicione CommonModule e mantenha os outros
+  imports: [RouterLink, FormsModule, HttpClientModule, NgxMaskDirective, CommonModule],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css'
 })
 export class Cadastro {
-  cep = signal('');
-  logradouro = signal('');
-  bairro = signal('');
-  localidade = signal('');
-  uf = signal('');
+  // Objeto para agrupar todos os dados do formulário
+  cadastroData = {
+    cpf: '',
+    nome: '',
+    email: '',
+    cep: '',
+    logradouro: '',
+    bairro: '',
+    localidade: '',
+    uf: '',
+    numero: '',
+    telefone: ''
+  };
 
   constructor(private http: HttpClient) { }
 
-  buscarCep(cepInput: string) {
-    const cep = cepInput.replace(/\D/g, '');
+  buscarCep() {
+    // Usamos o valor do objeto cadastroData
+    const cep = this.cadastroData.cep.replace(/\D/g, '');
 
     if (cep.length === 8) {
       this.http.get(`https://viacep.com.br/ws/${cep}/json/`)
         .subscribe({
           next: (data: any) => {
             if (!data.erro) {
-              this.logradouro.set(data.logradouro);
-              this.bairro.set(data.bairro);
-              this.localidade.set(data.localidade);
-              this.uf.set(data.uf);
+              // Atualiza as propriedades do nosso objeto
+              this.cadastroData.logradouro = data.logradouro;
+              this.cadastroData.bairro = data.bairro;
+              this.cadastroData.localidade = data.localidade;
+              this.cadastroData.uf = data.uf;
             } else {
               this.limparEndereco();
               alert('CEP não encontrado!');
@@ -49,19 +61,14 @@ export class Cadastro {
   }
 
   private limparEndereco() {
-    this.logradouro.set('');
-    this.bairro.set('');
-    this.localidade.set('');
-    this.uf.set('');
+    this.cadastroData.logradouro = '';
+    this.cadastroData.bairro = '';
+    this.cadastroData.localidade = '';
+    this.cadastroData.uf = '';
   }
 
   onSubmit() {
-    console.log('Dados do formulário:', {
-      cep: this.cep(),
-      logradouro: this.logradouro(),
-      bairro: this.bairro(),
-      cidade: this.localidade(),
-      uf: this.uf()
-    });
+    console.log('Dados do formulário enviados:', this.cadastroData);
+    // Aqui você enviaria os dados para sua API de backend
   }
 }
