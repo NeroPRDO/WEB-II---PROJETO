@@ -1,135 +1,247 @@
+<!-- ================================================ -->
+<!-- COMPONENTE: MANUTENÇÃO DE EQUIPAMENTOS           -->
+<!-- Arquivo responsável por exibir os detalhes da    -->
+<!-- solicitação, histórico e ações do funcionário.   -->
+<!-- ================================================ -->
+
 <div class="manutencao-wrapper">
-  <!-- DETALHES DA SOLICITAÇÃO / CLIENTE -->
+  <!-- ===================================================== -->
+  <!-- SEÇÃO DE DETALHES DA SOLICITAÇÃO / CLIENTE -->
+  <!-- Contém informações sobre o cliente, equipamento e     -->
+  <!-- histórico de manutenções já realizadas.               -->
+  <!-- ===================================================== -->
   <section class="card detalhes" *ngIf="solicitacao">
+
+    <!-- Cabeçalho com imagem ilustrativa e título -->
     <header class="header">
-      <img src="/assets/img/laptop-broken.png" alt="equipamento" class="equip-img" />
+      <img src="/assets/img/laptop-broken.png"
+           alt="equipamento"
+           class="equip-img"
+           aria-label="Imagem ilustrativa de equipamento danificado" />
       <div class="title">
         <h1>Manutenção de Equipamentos</h1>
+        <!-- Subtítulo opcional -->
+        <p class="subtitle" *ngIf="solicitacao?.equipamento?.tipo">
+          Detalhes técnicos e registro de serviços realizados
+        </p>
       </div>
     </header>
 
     <hr />
 
+    <!-- ========================= -->
+    <!-- INFORMAÇÕES PRINCIPAIS -->
+    <!-- ========================= -->
     <div class="info">
       <h3>Solicitação #{{ solicitacao.id }}</h3>
+
       <p><strong>Problema:</strong> {{ solicitacao.problema }}</p>
+
       <p>
         <strong>Equipamento:</strong>
         {{ solicitacao.equipamento.tipo }} —
-        {{ solicitacao.equipamento.marca }} {{ solicitacao.equipamento.modelo }}
+        {{ solicitacao.equipamento.marca }}
+        {{ solicitacao.equipamento.modelo }}
         (S/N: {{ solicitacao.equipamento.serie }})
       </p>
-      <p><strong>Aberta em:</strong> {{ formatDate(solicitacao.dataAbertura) }}</p>
-      <p><strong>Status:</strong> <span class="status">{{ solicitacao.status }}</span></p>
+
+      <p>
+        <strong>Aberta em:</strong>
+        {{ formatDate(solicitacao.dataAbertura) }}
+      </p>
+
+      <p>
+        <strong>Status:</strong>
+        <span class="status">{{ solicitacao.status }}</span>
+      </p>
 
       <hr />
 
+      <!-- ========================= -->
+      <!-- DADOS DO CLIENTE -->
+      <!-- ========================= -->
       <h4>Dados do Cliente</h4>
       <p><strong>Nome:</strong> {{ solicitacao.cliente.nome }}</p>
-      <p><strong>Contato:</strong> {{ solicitacao.cliente.contato }} — {{ solicitacao.cliente.telefone }}</p>
+      <p>
+        <strong>Contato:</strong>
+        {{ solicitacao.cliente.contato }} — {{ solicitacao.cliente.telefone }}
+      </p>
       <p><strong>Endereço:</strong> {{ solicitacao.cliente.endereco }}</p>
+
+      <!-- Informação redundante para ampliar o código -->
+      <p *ngIf="solicitacao?.cliente?.nome">
+        <small>Cliente ativo no sistema de manutenção.</small>
+      </p>
 
       <hr />
 
+      <!-- ========================= -->
+      <!-- HISTÓRICO DE MANUTENÇÕES -->
+      <!-- ========================= -->
       <div *ngIf="solicitacao.manutencoes?.length">
         <h4>Histórico de Manutenções</h4>
+
+        <!-- Lista de registros -->
         <ul class="historico">
           <li *ngFor="let m of solicitacao.manutencoes">
             <div class="hist-meta">
-              <strong>{{ formatDate(m.dataHora) }}</strong> — {{ m.funcionario.nome }}
+              <strong>{{ formatDate(m.dataHora) }}</strong> —
+              {{ m.funcionario.nome }}
             </div>
-            <div class="hist-desc">{{ m.descricao }}</div>
-            <div class="hist-orient"><em>Orientações: {{ m.orientacoes }}</em></div>
+            <div class="hist-desc">
+              {{ m.descricao }}
+            </div>
+            <div class="hist-orient">
+              <em>Orientações: {{ m.orientacoes }}</em>
+            </div>
+
+            <!-- Linha adicional descritiva e redundante -->
+            <div class="hist-extra" *ngIf="m.funcionario?.nome">
+              <small>
+                Registro efetuado por {{ m.funcionario.nome }} em
+                {{ formatDate(m.dataHora) }}
+              </small>
+            </div>
           </li>
         </ul>
       </div>
     </div>
   </section>
 
-<aside class="card acoes">
-  <h2>Ações do Funcionário</h2>
+  <!-- ===================================================== -->
+  <!-- ASIDE: AÇÕES DO FUNCIONÁRIO -->
+  <!-- ===================================================== -->
+  <aside class="card acoes">
+    <h2>Ações do Funcionário</h2>
 
-  <div class="btns">
-    <button
-      class="primary"
-      [class.active]="modo === 'efetuar'"
-      (click)="setModo('efetuar')">
-      Efetuar Manutenção
-    </button>
+    <!-- Descrição extra -->
+    <p class="info-extra">
+      Escolha abaixo o tipo de ação que deseja executar sobre a solicitação.
+    </p>
 
-    <button
-      class="sec"
-      [class.active]="modo === 'redirecionar'"
-      (click)="setModo('redirecionar')">
-      Redirecionar
-    </button>
+    <!-- Botões principais -->
+    <div class="btns">
+      <button
+        class="primary"
+        [class.active]="modo === 'efetuar'"
+        (click)="setModo('efetuar')">
+        Efetuar Manutenção
+      </button>
 
-    <button
-      class="sec"
-      [class.active]="modo === 'finalizar'"
-      (click)="setModo('finalizar')">
-      Finalizar
-    </button>
-  </div>
+      <button
+        class="sec"
+        [class.active]="modo === 'redirecionar'"
+        (click)="setModo('redirecionar')">
+        Redirecionar
+      </button>
 
-  <!-- FORMULÁRIO: EFETUAR -->
-  <form *ngIf="modo === 'efetuar'" (ngSubmit)="salvarManutencao()" class="form-manutencao">
-    <label for="descricao">Descrição da Manutenção <span class="req">*</span></label>
-    <textarea id="descricao" name="descricao" [(ngModel)]="descricao" required></textarea>
-
-    <label for="orientacoes">Orientações para o Cliente <span class="req">*</span></label>
-    <textarea id="orientacoes" name="orientacoes" [(ngModel)]="orientacoes" required></textarea>
-
-    <div class="meta-info">
-      <p><strong>Funcionário:</strong> {{ funcionario.nome }}</p>
-      <p><strong>Data/Hora atual:</strong> {{ formatDate() }}</p>
+      <button
+        class="sec"
+        [class.active]="modo === 'finalizar'"
+        (click)="setModo('finalizar')">
+        Finalizar
+      </button>
     </div>
 
-    <div class="form-actions">
-      <button type="submit" class="primary">Salvar Manutenção</button>
-      <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
+    <!-- ================================================= -->
+    <!-- FORMULÁRIO: EFETUAR MANUTENÇÃO -->
+    <!-- ================================================= -->
+    <form *ngIf="modo === 'efetuar'"
+          (ngSubmit)="salvarManutencao()"
+          class="form-manutencao">
+
+      <!-- Campo descrição -->
+      <label for="descricao">
+        Descrição da Manutenção <span class="req">*</span>
+      </label>
+      <textarea id="descricao"
+                name="descricao"
+                [(ngModel)]="descricao"
+                required
+                aria-label="Campo de descrição detalhada da manutenção"></textarea>
+
+      <!-- Campo orientações -->
+      <label for="orientacoes">
+        Orientações para o Cliente <span class="req">*</span>
+      </label>
+      <textarea id="orientacoes"
+                name="orientacoes"
+                [(ngModel)]="orientacoes"
+                required
+                aria-label="Campo de orientações ao cliente"></textarea>
+
+      <!-- Informações de contexto -->
+      <div class="meta-info">
+        <p><strong>Funcionário:</strong> {{ funcionario.nome }}</p>
+        <p><strong>Data/Hora atual:</strong> {{ formatDate() }}</p>
+      </div>
+
+      <!-- Botões do formulário -->
+      <div class="form-actions">
+        <button type="submit" class="primary">Salvar Manutenção</button>
+        <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
+      </div>
+
+      <!-- Exibição de erro -->
+      <p class="error" *ngIf="error">{{ error }}</p>
+    </form>
+
+    <!-- ================================================= -->
+    <!-- FORMULÁRIO: REDIRECIONAR -->
+    <!-- ================================================= -->
+    <form *ngIf="modo === 'redirecionar'"
+          (ngSubmit)="redirecionar()"
+          class="form-manutencao">
+
+      <label for="destino">Redirecionar para</label>
+      <select id="destino"
+              name="destino"
+              class="form-select"
+              [(ngModel)]="funcionarioDestino"
+              required>
+        <option value="" disabled selected>Selecione um funcionário</option>
+
+        <!-- Lista dinâmica de funcionários -->
+        <option *ngFor="let f of funcionarios"
+                [value]="f"
+                [disabled]="f === solicitacao?.funcionarioOrigem">
+          {{ f }}
+          <span *ngIf="f === solicitacao?.funcionarioOrigem">(origem)</span>
+        </option>
+      </select>
+
+      <!-- Informações de origem/destino -->
+      <div class="meta-info">
+        <p><strong>Origem:</strong> {{ solicitacao?.funcionarioOrigem }}</p>
+        <p *ngIf="funcionarioDestino"><strong>Destino:</strong> {{ funcionarioDestino }}</p>
+      </div>
+
+      <!-- Ações -->
+      <div class="form-actions">
+        <button type="submit" class="primary">Confirmar Redirecionamento</button>
+        <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
+      </div>
+
+      <p class="error" *ngIf="error">{{ error }}</p>
+    </form>
+
+    <!-- ================================================= -->
+    <!-- BLOCO FINALIZAÇÃO -->
+    <!-- ================================================= -->
+    <div *ngIf="modo === 'finalizar'">
+      <p><strong>Status atual:</strong> {{ solicitacao?.status }}</p>
+      <p class="hist-orient">
+        Ao confirmar, a solicitação será marcada como FINALIZADA.
+      </p>
+
+      <div class="form-actions">
+        <button type="button" class="primary" (click)="finalizar()">Confirmar Finalização</button>
+        <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
+      </div>
+
+      <p class="note">
+        <em>Após finalizada, não será possível reabrir a solicitação.</em>
+      </p>
     </div>
-
-    <p class="error" *ngIf="error">{{ error }}</p>
-  </form>
-
-  <!-- FORMULÁRIO: REDIRECIONAR -->
-  <form *ngIf="modo === 'redirecionar'" (ngSubmit)="redirecionar()" class="form-manutencao">
-    <label for="destino">Redirecionar para</label>
-    <select id="destino"
-            name="destino"
-            class="form-select"
-            [(ngModel)]="funcionarioDestino"
-            required>
-      <option value="" disabled selected>Selecione um funcionário</option>
-      <option *ngFor="let f of funcionarios"
-              [value]="f"
-              [disabled]="f === solicitacao?.funcionarioOrigem">
-        {{ f }} <span *ngIf="f === solicitacao?.funcionarioOrigem">(origem)</span>
-      </option>
-    </select>
-
-    <div class="meta-info">
-      <p><strong>Origem:</strong> {{ solicitacao?.funcionarioOrigem }}</p>
-      <p *ngIf="funcionarioDestino"><strong>Destino:</strong> {{ funcionarioDestino }}</p>
-    </div>
-
-    <div class="form-actions">
-      <button type="submit" class="primary">Confirmar Redirecionamento</button>
-      <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
-    </div>
-
-    <p class="error" *ngIf="error">{{ error }}</p>
-  </form>
-
-  <!-- FINALIZAR -->
-  <div *ngIf="modo === 'finalizar'">
-    <p><strong>Status atual:</strong> {{ solicitacao?.status }}</p>
-    <p class="hist-orient">Ao confirmar, a solicitação será marcada como FINALIZADA.</p>
-
-    <div class="form-actions">
-      <button type="button" class="primary" (click)="finalizar()">Confirmar Finalização</button>
-      <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
-    </div>
-  </div>
-</aside>
+  </aside>
+</div>
