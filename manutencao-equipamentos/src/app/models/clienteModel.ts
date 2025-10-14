@@ -1,13 +1,13 @@
-export class Cliente {
-  constructor(
-    public id: number,
-    public nome: string,
-    public email: string,
-    public ativo: boolean
-  ) {}
-
-  getNomeCompleto(): string {
-    return this.nome.toUpperCase();
-  }
+export interface Cliente {
+  id?: number;
+  cpf: string;
+  nome: string;
+  email: string;
+  cep: string;
+  rua: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
+  numero: string;
+  telefone: string;
 }
-//exemplo de model, futuramente usaremos para instaciar com dados da api, ou para tipar dados
