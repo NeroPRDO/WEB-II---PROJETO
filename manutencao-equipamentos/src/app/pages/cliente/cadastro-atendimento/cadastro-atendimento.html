@@ -8,28 +8,36 @@
       <div class="form-input-group">
         <label for="descricaoEquipamento">Descrição do Equipamento</label>
         <input type="text" id="descricaoEquipamento" formControlName="descricaoEquipamento" class="form-control" placeholder="Ex: Notebook Dell Inspiron">
-        <div *ngIf="solicitacaoForm.get('descricaoEquipamento')?.invalid && solicitacaoForm.get('descricaoEquipamento')?.touched" class="text-danger">
+        @if (solicitacaoForm.get('descricaoEquipamento')?.invalid && solicitacaoForm.get('descricaoEquipamento')?.touched) {
+        <div class="text-danger">
           A descrição do equipamento é obrigatória e deve ter no máximo 30 caracteres.
         </div>
+        }
       </div>
 
       <div class="form-input-group">
         <label for="categoriaEquipamento">Categoria do Equipamento</label>
         <select id="categoriaEquipamento" formControlName="categoriaEquipamento" class="form-select">
           <option value="" disabled selected>Selecione a categoria</option>
-          <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+          @for (categoria of categorias; track categoria) {
+          <option [value]="categoria">{{ categoria }}</option>
+          }
         </select>
-        <div *ngIf="solicitacaoForm.get('categoriaEquipamento')?.invalid && solicitacaoForm.get('categoriaEquipamento')?.touched" class="text-danger">
+        @if (solicitacaoForm.get('categoriaEquipamento')?.invalid && solicitacaoForm.get('categoriaEquipamento')?.touched) {
+        <div class="text-danger">
           A categoria do equipamento é obrigatória.
         </div>
+        }
       </div>
 
       <div class="form-input-group">
         <label for="descricaoDefeito">Descrição do Defeito</label>
         <textarea id="descricaoDefeito" formControlName="descricaoDefeito" class="form-control" rows="4" placeholder="Detalhe o problema do seu equipamento"></textarea>
-        <div *ngIf="solicitacaoForm.get('descricaoDefeito')?.invalid && solicitacaoForm.get('descricaoDefeito')?.touched" class="text-danger">
+        @if (solicitacaoForm.get('descricaoDefeito')?.invalid && solicitacaoForm.get('descricaoDefeito')?.touched) {
+        <div class="text-danger">
           A descrição do defeito é obrigatória.
         </div>
+        }
       </div>
 
       <div class="d-grid gap-2">

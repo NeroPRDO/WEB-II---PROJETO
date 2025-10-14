@@ -19,11 +19,13 @@
                            #email="ngModel" 
                            required>
                 </label>
-                <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert-danger">
-                    <div *ngIf="email.errors['required']">
-                        O e-mail é obrigatório.
-                    </div>
+                @if (email.errors && (email.dirty || email.touched)) {
+                <div class="alert-danger">
+                    @if (email.errors['required']){
+                    <div> O e-mail é obrigatório.</div>
+                    }
                 </div>
+                }
 
                 <label class="label-input" for="senha">
                     <input type="password" 
@@ -33,11 +35,13 @@
                            #senha="ngModel"
                            required>
                 </label>
-                <div *ngIf="senha.errors && (senha.dirty || senha.touched)" class="alert-danger">
-                    <div *ngIf="senha.errors['required']">
-                        A senha é obrigatória.
-                    </div>
+                @if (senha.errors && (senha.dirty || senha.touched)) {
+                <div class="alert-danger">
+                    @if (senha.errors['required']) {
+                    <div> A senha é obrigatória.</div>
+                    }
                 </div>
+                }
 
                 <button class="btn btn-second" 
                         (click)="logar()" 
@@ -45,4 +49,6 @@
                     Entrar
                 </button>
             </form>
-        </div></div></div>
+        </div>
+    </div>
+</div>

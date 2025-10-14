@@ -2,7 +2,8 @@
 <div class="container">
     <header>Pagamento</header>
     <form>
-        <div *ngIf="!isSecondStep" class="form first">
+        @if (!isSecondStep) {
+        <div class="form first">
             <div class="details personal">
                 <span class="title">Informações de Contato</span>
                 <div class="fields">
@@ -20,20 +21,26 @@
                     </div>
                     <div class="input-field">
                         <label>Número de Celular</label>
-                        <input type="tel" placeholder="Digite seu celular">
+                        <input type="tel" mask="(00) 0 0000-0000" placeholder="Digite seu celular">
                     </div>
                     <div class="input-field">
                         <label>Pessoa</label>
-                        <select>
-                            <option disabled selected>Selecione</option>
-                            <option>Pessoa Física</option>
-                            <option>Pessoa Juridica</option>
+                        <select [(ngModel)]="tipoPessoa" name="tipoPessoa">
+                            <option value="fisica">Pessoa Física</option>
+                            <option value="juridica">Pessoa Jurídica</option>
                         </select>
                     </div>
+                    @if (tipoPessoa === 'fisica') {
                     <div class="input-field">
-                        <label>CPF / CNPJ</label>
-                        <input type="text" placeholder="Digite seu CPF ou CNPJ">
+                        <label>CPF</label>
+                        <input type="text" mask="000.000.000-00" placeholder="Digite seu CPF" maxlength="14">
                     </div>
+                    } @else {
+                    <div class="input-field">
+                        <label>CNPJ</label>
+                        <input type="text" mask="00.000.000/0000-00" placeholder="Digite seu CNPJ" maxlength="18">
+                    </div>
+                    }
                 </div>
             </div>
             <div class="details adress">
@@ -70,8 +77,9 @@
                 </button>
             </div>
         </div>
-
-        <div *ngIf="isSecondStep" class="form second">
+    }
+    @if (isSecondStep) {
+        <div class="form second">
             <div class="details payment">
                 <span class="title">Detalhes de Pagamento</span>
                 <div class="fields">
@@ -81,11 +89,11 @@
                     </div>
                     <div class="input-field">
                         <label>Número do Cartão</label>
-                        <input type="text" placeholder="Digite o número do cartão">
+                        <input type="text" mask="0000 0000 0000 0000" placeholder="Digite o número do cartão" maxlength="19">
                     </div>
                     <div class="input-field">
                         <label>Bandeira</label>
-                        <input type="text" placeholder="Visa,MasterCard,...">
+                        <input type="text" placeholder="Visa, MasterCard, ...">
                     </div>
                     <div class="input-field">
                         <label>Mês de Validade</label>
@@ -112,6 +120,6 @@
                 </div>
             </div>
         </div>
-
+    }
     </form>
 </div>

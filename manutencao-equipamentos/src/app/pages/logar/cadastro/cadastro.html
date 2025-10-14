@@ -10,7 +10,7 @@
             <h2 class="title title-second">criar conta</h2>
             <form class="form" (ngSubmit)="onSubmit()">
                 <label class="label-input">
-                    <input type="text" placeholder="CPF" name="cpf">
+                    <input type="text" mask="000.000.000-00" placeholder="CPF" name="cpf" maxlength="14">
                 </label>
 
                 <label class="label-input">
@@ -22,7 +22,7 @@
                 </label>
 
                 <label class="label-input">
-                    <input type="text" placeholder="CEP" name="cep" [value]="cep()"
+                    <input type="text" mask="00000-000" placeholder="CEP" name="cep" [value]="cep()"
                         (input)="cep.set($any($event.target).value); buscarCep($any($event.target).value)"
                         maxlength="9">
                 </label>
@@ -52,7 +52,7 @@
                 </label>
 
                 <label class="label-input">
-                    <input type="text" placeholder="Telefone" name="telefone">
+                    <input type="text" mask="(00) 0 0000-0000" placeholder="Telefone" name="telefone">
                 </label>
 
                 <button type="submit" class="btn btn-second">Cadastrar</button>

@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { NavComponent } from '../../../shared/Nav/nav';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { NavComponent } from '../../../shared/Nav/nav';
+import { NgxMaskDirective } from "ngx-mask";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-pagamento',
   standalone: true, 
-  imports: [NavComponent,CommonModule],
+  imports: [NavComponent, CommonModule, NgxMaskDirective, FormsModule],
   templateUrl: './pagamento.html',
   styleUrl: './pagamento.css'
 })
 export class Pagamento {
   // Variável para controlar a exibição da segunda etapa do formulário
   isSecondStep: boolean = false;
+
+  // Variável para guardar a seleção
+  tipoPessoa = 'fisica';
 
   // O construtor permite o Router para navegação
   constructor(private router: Router) {}

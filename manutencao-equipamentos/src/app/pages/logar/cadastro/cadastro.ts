@@ -2,11 +2,12 @@ import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [RouterLink, FormsModule, HttpClientModule],
+  imports: [RouterLink, FormsModule, HttpClientModule, NgxMaskDirective],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css'
 })
