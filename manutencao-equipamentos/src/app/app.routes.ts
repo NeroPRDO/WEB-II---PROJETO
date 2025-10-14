@@ -1,23 +1,23 @@
 import { Routes } from '@angular/router';
-import { Dashboard } from './dashboard/dashboard';
-import { Login } from './login/login';
-import { CadastroAtendimento } from './cadastro-atendimento/cadastro-atendimento';
-import { Orcamento } from './atendimento/orcamento/orcamento'
-import { VisualizarSolicitacao } from './atendimento/visualizar-solicitacao/visualizar-solicitacao';
-import { VisualizarServico } from './visualizar-servico/visualizar-servico';
-import { PainelFuncinario } from './painel-funcinario/painel-funcinario';
-import { Historico } from './historico/historico';
-import { Cadastro } from './cadastro/cadastro';
-import { EfetuarOrcamento } from './efetuar-orcamento/efetuar-orcamento';
-//import { Sobre } from './sobre/sobre';
-//import { Contato } from './contato/contato';
-import { Servicos } from './servicos/servicos';
-import { ManutencaoComponent } from './manutencao/manutencao';
-import { Pagamento } from './pagamento/pagamento';
-import { RelatorioReceitas } from './relatorios/relatorios-receitas/relatorio-receitas';
-import { RelatorioReceitasCategoria } from './relatorios/relatorio-receitas-categoria/relatorio-receitas-categoria';
-import { ManterFuncionario } from './manter-funcionario/manter-funcionario';
-import { ManterCategoria } from './manter-categoria/manter-categoria';
+import { Login } from './pages/logar/login/login';
+import { CadastroAtendimento } from './pages/cliente/cadastro-atendimento/cadastro-atendimento';
+import { Orcamento } from './pages/funcionario/atendimento/orcamento/orcamento'
+import { VisualizarSolicitacao } from './pages/funcionario/atendimento/visualizar-solicitacao/visualizar-solicitacao';
+import { VisualizarServico } from './pages/cliente/visualizar-servico/visualizar-servico';
+
+import { Historico } from './pages/cliente/historico/historico';
+import { Cadastro } from './pages/logar/cadastro/cadastro';
+import { EfetuarOrcamento } from './pages/funcionario/efetuar-orcamento/efetuar-orcamento';
+import { Servicos } from './pages/cliente/servicos/servicos';
+import { ManutencaoComponent } from './pages/funcionario/manutencao/manutencao';
+import { Pagamento } from './pages/cliente/pagamento/pagamento';
+import { RelatorioReceitasCategoria } from './pages/funcionario/relatorios/relatorio-receitas-categoria/relatorio-receitas-categoria';
+
+import { ManterCategoria } from './pages/funcionario/manter-categoria/manter-categoria';
+import { Dashboard } from './pages/cliente/dashboard/dashboard';
+import { PainelFuncinario } from './pages/funcionario/painel-funcinario/painel-funcinario';
+import { ManterFuncionario } from './pages/funcionario/manter-funcionario/manter-funcionario';
+import { RelatorioReceitas } from './pages/funcionario/relatorios/relatorios-receitas/relatorio-receitas';
 
 export const routes: Routes = [
 
