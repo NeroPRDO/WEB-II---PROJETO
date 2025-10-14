@@ -56,7 +56,7 @@ export class PainelFuncinario implements OnInit {
     { "id": "2", "codigo": "456", "cliente": "Bruno Oliveira", "descricao": "Computador da recepção está muito lento e travando.", "data_chamado": "11/10/2025", "estado": "PAGA" },
     { "id": "3", "codigo": "789", "cliente": "Juliana Lima", "descricao": "Monitor secundário não está dando imagem, cabo já foi trocado.", "data_chamado": "13/10/2025", "estado": "APROVADA" },
     { "id": "4", "codigo": "456", "cliente": "Rafael Martins", "descricao": "Notebook não conecta na rede Wi-Fi do escritório.", "data_chamado": "13/10/2025", "estado": "REJEITADA" },
-    { "id": "5", "codigo": "789", "cliente": "Letícia Pereira", "descricao": "Scanner da multifuncional está digitalizando com uma faixa preta.", "data_chamado": "14/10/2025", "estado": "ORÇADA" },
+    { "id": "5", "codigo": "789", "cliente": "Leticia Pereira", "descricao": "Scanner da multifuncional está digitalizando com uma faixa preta.", "data_chamado": "14/10/2025", "estado": "ORÇADA" },
     { "id": "6", "codigo": "123", "cliente": "Ricardo Almeida", "descricao": "O nobreak do servidor está apitando sem parar, mesmo com energia.", "data_chamado": "14/10/2025", "estado": "ABERTA" },
     { "id": "7", "codigo": "951", "cliente": "Lucas Ferreira", "descricao": "Mouse sem fio parou de funcionar, troca de pilha não resolveu.", "data_chamado": "14/10/2025", "estado": "ABERTA" },
     { "id": "8", "codigo": "357", "cliente": "Camila Rocha", "descricao": "Solicitação de instalação do pacote Adobe no computador do marketing.", "data_chamado": "14/10/2025", "estado": "ABERTA" },

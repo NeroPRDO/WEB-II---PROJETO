@@ -28,9 +28,8 @@
                     </div>
                 </ng-template>
                 <app-table-chamado (action)="openOrcamentoModal($event)" [colunas]="[
-                    { id: 'codigo', header: 'CODIGO', render: templateCodigo, headerStyle: 'col-2 text-center' },
-                    { id: 'cliente', header: 'CLIENTE' },
-                    { id: 'estado', header: 'ESTADO'},
+                    { id: 'cliente', header: 'CLIENTE'},
+                    { id: 'estado', header: 'ESTADO',  headerStyle: 'col-2'},
                     { id: 'descricao', header: 'DESCRIÇÃO'},
                     { id: 'data_chamado', header: 'DATA', headerStyle: 'col-2'},
                     { id: 'acao', header: 'AÇÃO', render: templateEditar, headerStyle: 'col-2 text-center'}
