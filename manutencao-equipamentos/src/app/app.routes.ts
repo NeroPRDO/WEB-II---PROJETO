@@ -152,6 +152,12 @@ export const routes: Routes = [
   title: 'relatorio-receitas-categoria'
 },
 
+{
+  path: 'func/relatorios',
+  loadComponent: () =>
+  import('./pages/funcionario/relatorios-home/relatorios-home').then(
+        (m) => m.RelatoriosHomeComponent      ),
+ },
 
   // === Perfil do Funcionário === RASCUNHO
 
