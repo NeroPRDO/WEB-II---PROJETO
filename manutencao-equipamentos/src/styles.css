@@ -122,6 +122,86 @@
   /*Background para Cliente*/
   --bg-cliente: linear-gradient(135deg, #f8d1ec, #d7e8fc, #e1f6f9);
 }
+.dark-mode {
+  /* Roxo escuro como base */
+  --color-roxo-1: #121122; /* fundo principal */
+  --color-roxo-2: #1c1a33; /* fundo de cards */
+  --color-roxo-3: #2b2652; /* bordas / detalhes */
+  --color-roxo-4: #6e5bbf; /* destaque */
+  --color-roxo-5: #a67ae9; /* cor primária clara */
+  --color-roxo-6: #cdb3ff; /* texto de destaque */
+  --color-roxo-7: #e7dbff; /* texto claro */
+  --color-roxo-1-alt: #1c1a33;
+
+  /* Rosa ajustado para contraste */
+  --color-rosa-1: #b57ce3;
+  --color-rosa-2: #8b46b8;
+  --color-rosa-3: #732f9e;
+  --color-rosa-extra: #8b46b8;
+
+  /* Estados */
+  --aberta-1: #082f49;
+  --aberta-2: #38bdf8;
+  --aberta-3: #e0f2fe;
+  --aberta-duplicada: #0284c7;
+
+  --orcada-1: #3b0764;
+  --orcada-2: #c084fc;
+  --orcada-3: #ede9fe;
+  --orcada-extra: #a855f7;
+
+  --aprovada-1: #052e16;
+  --aprovada-2: #4ade80;
+  --aprovada-3: #dcfce7;
+  --aprovada-ok: #22c55e;
+
+  --rejeitada-1: #450a0a;
+  --rejeitada-2: #f87171;
+  --rejeitada-3: #fee2e2;
+  --rejeitada-alerta: #ef4444;
+
+  --arrumada-1: #042f2e;
+  --arrumada-2: #2dd4bf;
+  --arrumada-3: #f0fdfa;
+  --arrumada-check: #14b8a6;
+
+  --paga-1: #422006;
+  --paga-2: #facc15;
+  --paga-3: #fef9c3;
+  --paga-alt: #eab308;
+
+  --finalizada-1: #1f2937;
+  --finalizada-2: #9ca3af;
+  --finalizada-3: #f3f4f6;
+  --finalizada-dark: #e5e7eb;
+
+  /* Feedback */
+  --success-light: #14532d;
+  --success: #4ade80;
+  --success-dark: #dcfce7;
+
+  --warning-light: #78350f;
+  --warning: #facc15;
+  --warning-dark: #fef9c3;
+
+  --info-light: #1e3a8a;
+  --info: #60a5fa;
+  --info-dark: #dbeafe;
+
+  --error-light: #7f1d1d;
+  --error: #f87171;
+  --error-dark: #fee2e2;
+
+  /* Transparências */
+  --color-roxo-5-50: rgba(166, 122, 233, 0.5);
+  --color-roxo-5-25: rgba(166, 122, 233, 0.25);
+  --color-roxo-5-75: rgba(166, 122, 233, 0.75);
+  --color-roxo-5-full: rgba(166, 122, 233, 1);
+
+  /* Background para Cliente (versão dark) */
+  --bg-cliente: linear-gradient(135deg, #1b152a, #221c3b, #1f1840);
+}
+ 
 
 body {
   margin: 0;
