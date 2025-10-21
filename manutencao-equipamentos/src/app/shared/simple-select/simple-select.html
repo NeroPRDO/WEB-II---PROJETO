@@ -1,0 +1,11 @@
+ <div>
+    <label for="generic-select">
+        {{ label }}:
+    </label>
+    <select id="generic-select" (change)="onSelectionChange($event)">
+        <option value="" disabled selected>Select your option</option>
+        @for (option of options; track option.value) {
+          <option [value]="option.value">{{ option.label }}</option>
+        }
+    </select>
+</div>
