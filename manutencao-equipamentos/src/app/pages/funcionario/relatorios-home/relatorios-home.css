@@ -1,0 +1,108 @@
+/* ====== Contêiner e grid (igual densidade do app) ====== */
+.relatorio-wrapper {
+    /* centralização e largura semelhante às demais páginas */
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 18px;
+    display: grid;
+    gap: 16px;
+}
+
+/* ====== Cards no padrão claro do projeto ====== */
+.relatorio-wrapper .card {
+    background: var(--card-bg, #fff);
+    border-radius: 10px;
+    padding: 16px;
+    border: 1px solid #e8e8f2;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
+}
+
+/* Cabeçalho da página (mesmo alinhamento visual do "Chamados Abertos") */
+.header-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-row h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    text-align: left;
+    /* use center se quiser reproduzir exatamente o título centralizado */
+}
+
+.subtitle {
+    margin: 4px 0 0;
+    color: #555;
+}
+
+/* ====== Cartões de opções (grid responsivo) ====== */
+.grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.item header h3 {
+    margin: 0 0 6px 0;
+    font-size: 1.1rem;
+    color: #2c2c2c;
+}
+
+.item .desc {
+    margin: 0;
+    color: #555;
+}
+
+.item-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+}
+
+/* ====== Botões no padrão do projeto ====== */
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: all .15s ease;
+}
+
+.btn.primary {
+    background: var(--color-roxo-5, #8242be);
+    color: #fff;
+}
+
+.btn.primary:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+.btn.primary:active {
+    transform: translateY(0);
+}
+
+.btn.sec {
+    background: #f8f7fc;
+    border-color: #e3dff1;
+    color: #5a34a3;
+}
+
+.btn.sec:hover {
+    background: #f1eef9;
+}
+

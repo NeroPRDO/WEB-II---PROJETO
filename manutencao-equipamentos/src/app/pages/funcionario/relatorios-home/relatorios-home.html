@@ -1,0 +1,39 @@
+<div class="relatorio-wrapper">
+  <section class="card header">
+    <div class="header-row">
+      <div>
+        <h2>Relatórios do Funcionário</h2>
+        <p class="subtitle">Selecione qual relatório deseja abrir.</p>
+      </div>
+      <div class="actions">
+        <a class="btn sec" routerLink="/func">← Painel do funcionário</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid">
+    <article class="card item">
+      <header>
+        <h3>RF019 — Receitas (por período)</h3>
+        <p class="desc">Filtre por intervalo de datas, veja totais e gere o PDF.</p>
+      </header>
+      <footer class="item-actions">
+        <a class="btn primary" routerLink="/func/relatorios/receitas"
+          >Abrir relatório por período</a
+        >
+      </footer>
+    </article>
+
+    <article class="card item">
+      <header>
+        <h3>RF020 — Receitas por categoria</h3>
+        <p class="desc">Consolidado por categoria (desde sempre) com opção de PDF.</p>
+      </header>
+      <footer class="item-actions">
+        <a class="btn primary" routerLink="/func/relatorios/receitas-categoria"
+          >Abrir por categoria</a
+        >
+      </footer>
+    </article>
+  </section>
+</div>
