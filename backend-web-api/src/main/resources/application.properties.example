@@ -1,0 +1,11 @@
+# CONFIGURACAO PADRAO
+spring.application.name=backend-web-api
+spring.jpa.hibernate.ddl-auto=update # Configuracao do JPA / Hibernate
+spring.datasource.url=jdbc:postgresql://localhost:5432/webDois # URL do banco/nome do banco
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Credenciais /!\ MUDAR SENHA PARA A SUA SENHA DO POSTGRES /!\
+spring.datasource.username=
+spring.datasource.password=
+
+
