@@ -33,9 +33,6 @@ public class CategoriaController {
 
     @GetMapping
     public List<Categoria> buscarTodos() {
-<<<<<<< HEAD
-        return categoriaService.list();
-=======
         return categoriaService.buscarTodos();
     }
 
@@ -47,18 +44,12 @@ public class CategoriaController {
         } else {
             return ResponseEntity.notFound().build();
         }
->>>>>>> df892fe182c1f8cc482115120fc6af7ca5dbff88
     }
 
     @PostMapping
     public ResponseEntity<Categoria> inserir(@RequestBody Categoria categoria) {
         try {
-<<<<<<< HEAD
-            Categoria novaCategoria = (Categoria) categoriaService.create(categoria);
-            // Retorna 201 Created com a nova categoria no corpo
-=======
             Categoria novaCategoria = categoriaService.inserir(categoria);
->>>>>>> df892fe182c1f8cc482115120fc6af7ca5dbff88
             return ResponseEntity.status(HttpStatus.CREATED).body(novaCategoria);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -68,15 +59,9 @@ public class CategoriaController {
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> alterar(@PathVariable Long id, @RequestBody Categoria categoria) {
         try {
-<<<<<<< HEAD
-            Categoria categoriaAtualizada = (Categoria) categoriaService.update(categoria);
-            return ResponseEntity.ok(categoriaAtualizada); // Retorna 200 OK com a categoria atualizada
-        } catch (RuntimeException e) {
-=======
             Categoria categoriaAtualizada = categoriaService.alterar(id, categoria);
             return ResponseEntity.ok(categoriaAtualizada);
         } catch (EntityNotFoundException e) {
->>>>>>> df892fe182c1f8cc482115120fc6af7ca5dbff88
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -86,19 +71,12 @@ public class CategoriaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
         try {
-<<<<<<< HEAD
-            categoriaService.delete(id);
-            return ResponseEntity.noContent().build(); // Retorna 204 
-        } catch (RuntimeException e) {
-            // (não encontrou), retorna 404 Not Found
-=======
             categoriaService.excluir(id);
             return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
->>>>>>> df892fe182c1f8cc482115120fc6af7ca5dbff88
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
-             return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 }
