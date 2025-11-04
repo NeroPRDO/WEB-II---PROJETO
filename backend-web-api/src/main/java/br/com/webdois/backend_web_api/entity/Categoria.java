@@ -33,4 +33,8 @@ public class Categoria {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
