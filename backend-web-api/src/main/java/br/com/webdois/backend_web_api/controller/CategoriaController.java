@@ -29,23 +29,13 @@ public class CategoriaController {
 
     @GetMapping
     public List<Categoria> buscarTodos() {
-        return categoriaService.buscarTodos();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Categoria> buscarPorId(@PathVariable Integer id) {
-        Optional<Categoria> categoria = categoriaService.buscarPorId(id);
-        if (categoria.isPresent()) {
-            return ResponseEntity.ok(categoria.get()); // Retorna 200 OK com a categoria
-        } else {
-            return ResponseEntity.notFound().build(); // Retorna 404 Not Found
-        }
+        return categoriaService.list();
     }
 
     @PostMapping
     public ResponseEntity<Categoria> inserir(@RequestBody Categoria categoria) {
         try {
-            Categoria novaCategoria = categoriaService.inserir(categoria);
+            Categoria novaCategoria = (Categoria) categoriaService.create(categoria);
             // Retorna 201 Created com a nova categoria no corpo
             return ResponseEntity.status(HttpStatus.CREATED).body(novaCategoria);
         } catch (Exception e) {
@@ -57,13 +47,11 @@ public class CategoriaController {
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> alterar(@PathVariable Integer id, @RequestBody Categoria categoria) {
         try {
-            Categoria categoriaAtualizada = categoriaService.alterar(id, categoria);
+            Categoria categoriaAtualizada = (Categoria) categoriaService.update(categoria);
             return ResponseEntity.ok(categoriaAtualizada); // Retorna 200 OK com a categoria atualizada
         } catch (RuntimeException e) {
-            // (não encontrou), retorna 404 Not Found
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            // Outros erros
             return ResponseEntity.badRequest().build();
         }
     }
@@ -71,7 +59,7 @@ public class CategoriaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Integer id) {
         try {
-            categoriaService.excluir(id);
+            categoriaService.delete(id);
             return ResponseEntity.noContent().build(); // Retorna 204 
         } catch (RuntimeException e) {
             // (não encontrou), retorna 404 Not Found
