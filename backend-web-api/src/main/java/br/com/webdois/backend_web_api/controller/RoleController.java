@@ -31,7 +31,7 @@ public class RoleController {
         return roleService.create(role);
     }
 
-     @GetMapping
+    @GetMapping
     List<Role> list() {
         return roleService.list();
     }
