@@ -1,6 +1,7 @@
 package br.com.webdois.backend_web_api.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -33,5 +34,9 @@ public class SolicitacaoService {
     public List<Solicitacao> delete(long id) {
         solicitacaoRepository.deleteById(id);
         return list();
+    }
+
+    public Optional<Solicitacao> findById(long id) {
+        return solicitacaoRepository.findById(id);
     }
 }
