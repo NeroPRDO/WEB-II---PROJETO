@@ -19,12 +19,6 @@ export class VisualizarServico {
   // O construtor injeta o serviço de solicitações
   constructor(private solicitacaoService: SolicitacaoService) { }
 
-  ngOnInit() {
-    // Pega os dados da service e os armazena no array de solicitações
-    this.solicitacoes = this.solicitacaoService.getSolicitacoes();
-  }
-
-
   // Variáveis para controlar a visibilidade dos modais
   visualizarOrcamento = false;
   visualizarRejeitar = false;

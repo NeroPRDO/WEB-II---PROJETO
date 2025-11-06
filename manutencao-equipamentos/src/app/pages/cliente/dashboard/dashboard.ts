@@ -73,8 +73,4 @@ export class Dashboard {
     }
   ];
 
-  enviar(solicitacao: any) {
-
-    this.solicitacaoService.setSolicitacoes([solicitacao]);
-  }
 }
