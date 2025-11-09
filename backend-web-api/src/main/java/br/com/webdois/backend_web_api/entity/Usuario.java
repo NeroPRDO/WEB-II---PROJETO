@@ -3,6 +3,8 @@ package br.com.webdois.backend_web_api.entity;
 import java.sql.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,7 +29,10 @@ public class Usuario {
     private String bairro;
     private String cidade;
     private String estado;
-    private String role;//Futuramento implementar roles com camadas propias e tabelas proprias
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     private Boolean ativo;
     private Date dataCriacao;
     private Date dataAtualizacao;
@@ -144,14 +149,6 @@ public class Usuario {
         this.estado = estado;
     }
 
-    public String getRole() {
-        return this.role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Boolean isAtivo() {
         return this.ativo;
     }
@@ -178,6 +175,14 @@ public class Usuario {
 
     public void setDataAtualizacao(Date dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public Role getRole() {
+        return this.role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
 }

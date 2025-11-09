@@ -1,42 +1,76 @@
 package br.com.webdois.backend_web_api.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.webdois.backend_web_api.dtos.SolicitacaoDTO;
+import br.com.webdois.backend_web_api.dtos.SolicitacaoResponseDTO;
+import br.com.webdois.backend_web_api.dtos.UsuarioSolicitacaoDTO;
 import br.com.webdois.backend_web_api.entity.Solicitacao;
+import br.com.webdois.backend_web_api.entity.Usuario;
 import br.com.webdois.backend_web_api.repository.SolicitacaoRepository;
+import br.com.webdois.backend_web_api.repository.UsuarioRepository;
 
 @Service
 public class SolicitacaoService {
-    SolicitacaoRepository solicitacaoRepository;
+    @Autowired
+    private SolicitacaoRepository solicitacaoRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public SolicitacaoService(SolicitacaoRepository solicitacaoRepository) {
         this.solicitacaoRepository = solicitacaoRepository;
     }
 
-    public List<Solicitacao> create(Solicitacao solicitacao) {
+    public Solicitacao criarSolicitacao(SolicitacaoDTO dto) {
+        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        Solicitacao solicitacao = new Solicitacao();
+        solicitacao.setDescricao(dto.getDescricao());
+        solicitacao.setEstadoChamado(dto.getEstadoChamado());
+        solicitacao.setDataHora(LocalDateTime.now());
+        solicitacao.setUsuario(usuario);
+
+        return solicitacaoRepository.save(solicitacao);
+    }
+
+    public List<SolicitacaoResponseDTO> list() {
+        List<Solicitacao> solicitacoes = solicitacaoRepository.findAll();
+
+        return solicitacoes.stream()
+                .map(s -> new SolicitacaoResponseDTO(
+                        s.getId(),
+                        s.getDataHora(),
+                        s.getDescricao(),
+                        s.getEstadoChamado().name(),
+                        new UsuarioSolicitacaoDTO(s.getUsuario())))
+                .toList();
+    }
+
+    public List<SolicitacaoResponseDTO> update(Solicitacao solicitacao) {
         solicitacaoRepository.save(solicitacao);
         return list();
     }
 
-    public List<Solicitacao> list() {
-        return solicitacaoRepository.findAll();
-    }
-
-    public List<Solicitacao> update(Solicitacao solicitacao) {
-        solicitacaoRepository.save(solicitacao);
-        return list();
-    }
-
-    public List<Solicitacao> delete(long id) {
+    public List<SolicitacaoResponseDTO> delete(long id) {
         solicitacaoRepository.deleteById(id);
         return list();
     }
 
-    public Optional<Solicitacao> findById(long id) {
-        return solicitacaoRepository.findById(id);
+    public SolicitacaoResponseDTO findById(Long id) {
+        Solicitacao solicitacao = solicitacaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Solicitação não encontrada"));
+
+        return new SolicitacaoResponseDTO(
+                solicitacao.getId(),
+                solicitacao.getDataHora(),
+                solicitacao.getDescricao(),
+                solicitacao.getEstadoChamado().name(),
+                new UsuarioSolicitacaoDTO(solicitacao.getUsuario()));
     }
 }

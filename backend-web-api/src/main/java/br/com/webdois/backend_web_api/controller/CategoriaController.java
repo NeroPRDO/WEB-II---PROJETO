@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.webdois.backend_web_api.entity.Categoria;
 import br.com.webdois.backend_web_api.service.CategoriaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/categorias")
-
+@Tag(name = "Categoria", description = "Endpoints para gerenciamento de categoria")
 public class CategoriaController {
 
     private final CategoriaService categoriaService;

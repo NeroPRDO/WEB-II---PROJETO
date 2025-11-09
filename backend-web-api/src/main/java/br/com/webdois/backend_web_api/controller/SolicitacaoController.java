@@ -1,7 +1,6 @@
 package br.com.webdois.backend_web_api.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.webdois.backend_web_api.dtos.SolicitacaoDTO;
+import br.com.webdois.backend_web_api.dtos.SolicitacaoResponseDTO;
 import br.com.webdois.backend_web_api.entity.Solicitacao;
 import br.com.webdois.backend_web_api.service.SolicitacaoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/Solicitacoes")
+@Tag(name = "Solicitações", description = "Endpoints para gerenciamento de Solicitações de Chamados")
 public class SolicitacaoController {
     private SolicitacaoService solicitacaoService;
 
@@ -26,31 +29,28 @@ public class SolicitacaoController {
     }
 
     @PostMapping
-    List<Solicitacao> create(@RequestBody Solicitacao solicitacao) {
-        return solicitacaoService.create(solicitacao);
+    public ResponseEntity<Solicitacao> criarSolicitacao(@RequestBody SolicitacaoDTO dto) {
+        Solicitacao solicitacao = solicitacaoService.criarSolicitacao(dto);
+        return ResponseEntity.ok(solicitacao);
     }
 
     @GetMapping
-    List<Solicitacao> list() {
-        return solicitacaoService.list();
+    public ResponseEntity<List<SolicitacaoResponseDTO>> list() {
+        return ResponseEntity.ok(solicitacaoService.list());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Solicitacao> getById(@PathVariable("id") long id) {
-        Optional<Solicitacao> solicitacao = solicitacaoService.findById(id);
-
-        return solicitacao
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<SolicitacaoResponseDTO> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(solicitacaoService.findById(id));
     }
 
     @PutMapping
-    List<Solicitacao> update(@RequestBody Solicitacao solicitacao) {
+    List<SolicitacaoResponseDTO> update(@RequestBody Solicitacao solicitacao) {
         return solicitacaoService.update(solicitacao);
     }
 
     @DeleteMapping("{id}")
-    List<Solicitacao> delete(@PathVariable("id") long id) {
+    List<SolicitacaoResponseDTO> delete(@PathVariable("id") long id) {
         return solicitacaoService.delete(id);
     }
 

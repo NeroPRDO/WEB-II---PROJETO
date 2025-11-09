@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.webdois.backend_web_api.entity.Usuario;
 import br.com.webdois.backend_web_api.service.UsuarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/usuarios")
+@Tag(name = "Usuarios", description = "Endpoints para gerenciamento de Usuários")
 public class UsuarioController {
 
     private UsuarioService usuarioService;
