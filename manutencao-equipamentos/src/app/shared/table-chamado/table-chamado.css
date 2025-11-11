@@ -39,6 +39,8 @@ tbody tr:hover td {
 }
 
 tbody tr td {
+    align-items: center;
+    vertical-align: middle !important;
     transition: 0.3s;
 }
 

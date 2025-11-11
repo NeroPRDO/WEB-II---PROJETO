@@ -1,70 +1,66 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { Panel } from '../../../shared/panel/panel';
 import { NavComponent } from '../../../shared/Nav/nav';
 import { TableChamado } from '../../../shared/table-chamado/table-chamado';
 import { ModalComponent } from '../../../shared/novo-modal/novo-modal';
-import { EfetuarOrcamento } from '../efetuar-orcamento/efetuar-orcamento';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormControl } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PainelAcoesFuncionario } from '../../../shared/painel-acoes-funcionario/painel-acoes-funcionario';
 
-export interface Categoria {
-  codigo: string;
-  nome: string;
-}
+import { CategoriaService, CategoriaResponse, CategoriaRequest } from '../../../services/categoriaService';
 
 @Component({
   selector: 'app-manter-Categoria',
-  imports: [RouterLink, Panel, FormsModule, ReactiveFormsModule, NavComponent, TableChamado, ModalComponent, EfetuarOrcamento, PainelAcoesFuncionario],
+  standalone: true,
+  imports: [
+    Panel, FormsModule, ReactiveFormsModule, NavComponent,
+    TableChamado, ModalComponent, PainelAcoesFuncionario
+  ],
   templateUrl: './manter-Categoria.html',
   styleUrl: './manter-Categoria.css'
 })
-export class ManterCategoria {
-  modalAdicionarCategoriaVisible = false;
-  modalRemoverCategoriaVisible = false;
-  modalEditarCategoriaVisible = false;
+export class ManterCategoria implements OnInit {
+  modalAdicionarCategoriaVisible: boolean = false;
+  modalRemoverCategoriaVisible: boolean = false;
+  modalEditarCategoriaVisible: boolean = false;
 
-  selectedCategoria: any = null;
+  data: CategoriaResponse[] = [];
+  selectedCategoria: CategoriaResponse | null = null;
 
   addCatForm!: FormGroup;
   updateCatForm!: FormGroup;
 
-  ngOnInit() {
+  constructor(private categoriaService: CategoriaService) { }
+
+  ngOnInit(): void {
     this.addCatForm = new FormGroup({
-      nome: new FormControl(''),
-    })
+      nomeCategoria: new FormControl('', Validators.required),
+      ativo: new FormControl(true)
+    });
 
     this.updateCatForm = new FormGroup({
-      nome: new FormControl(''),
-    })
+      nomeCategoria: new FormControl('', Validators.required),
+      ativo: new FormControl(true)
+    });
 
+    this.loadCategorias();
   }
 
-  data: Categoria[] = [
-    {
-      "codigo": "1",
-      "nome": "Impressora",
-    },
-    {
-      "codigo": "2",
-      "nome": "Celular",
-    },
-    {
-      "codigo": "3",
-      "nome": "Notebook",
-    }
-  ]
+  loadCategorias(): void {
+    this.categoriaService.getAll().subscribe({
+      next: (categorias: CategoriaResponse[]) => {
+        this.data = categorias;
+      },
+      error: (err: any) => console.error('Erro ao carregar categorias', err)
+    });
+  }
 
-  openEditarCategoria(row: any) {
+  openEditarCategoria(row: CategoriaResponse): void {
     this.selectedCategoria = row;
     this.updateCatForm.patchValue(this.selectedCategoria);
     this.modalEditarCategoriaVisible = true;
   }
 
-  closeEditarCategoria() {
+  closeEditarCategoria(): void {
     this.modalEditarCategoriaVisible = false;
     this.selectedCategoria = null;
   }
@@ -74,55 +70,62 @@ export class ManterCategoria {
     this.modalRemoverCategoriaVisible = true
   }
 
-  closeRemoverCategoria() {
+  closeRemoverCategoria(): void {
     this.modalRemoverCategoriaVisible = false;
-    this.modalEditarCategoriaVisible = true;
+    this.selectedCategoria = null;
   }
 
-  openAdicionarCategoria() {
+  openAdicionarCategoria(): void {
+    this.addCatForm.reset({ ativo: true });
     this.modalAdicionarCategoriaVisible = true;
   }
 
-  closeAdicionarCategoria() {
+  closeAdicionarCategoria(): void {
     this.modalAdicionarCategoriaVisible = false;
   }
 
-  removeCategoriaByID(id: string) {
-    console.log(id);
-    this.data = this.data.filter(Categoria => Categoria.codigo != id);
-    this.selectedCategoria = null;
-    this.modalEditarCategoriaVisible = false;
-    this.modalRemoverCategoriaVisible = false;
+  removeCategoriaByID(id: number): void {
+    this.categoriaService.remove(id).subscribe({
+      next: (): void => {
+        this.data = this.data.filter(c => c.id !== id);
+        this.selectedCategoria = null;
+        this.closeRemoverCategoria();
+      },
+      error: (err: any) => console.error('Erro ao remover categoria', err)
+    });
   }
 
-  updateCategoria() {
-    if (this.updateCatForm.invalid) {
+  updateCategoria(): void {
+    if (this.updateCatForm.invalid || !this.selectedCategoria) {
       return;
     }
-    let updatedData = {
-      ...this.updateCatForm.value,
-      codigo: this.selectedCategoria.codigo
-    };
-    this.removeCategoriaByID(this.selectedCategoria.codigo)
-    this.data.push(updatedData);
-    this.data.sort((a, b) => parseInt(a.codigo) - parseInt(b.codigo));
-    this.closeEditarCategoria()
+
+    const requestData: CategoriaRequest = this.updateCatForm.value as CategoriaRequest;
+    const id: number = this.selectedCategoria.id;
+
+    this.categoriaService.update(id, requestData).subscribe({
+      next: (updatedCat: CategoriaResponse): void => {
+        this.data = this.data.map(c => c.id === id ? updatedCat : c);
+        this.closeEditarCategoria();
+      },
+      error: (err: any) => console.error('Erro ao atualizar categoria', err)
+    });
   }
 
-  addCategoria() {
+  addCategoria(): void {
     if (this.addCatForm.invalid) {
       return;
     }
 
-    let newID = parseInt(this.data[this.data.length - 1].codigo) + 1;
-    console.log(newID);
-    let newCategoria = {
-      ...this.addCatForm.value,
-      codigo: newID
-    }
+    const requestData: CategoriaRequest = this.addCatForm.value as CategoriaRequest;
 
-    this.data.push(newCategoria);
-    this.closeAdicionarCategoria()
-    this.addCatForm.reset();
+    this.categoriaService.create(requestData).subscribe({
+      next: (newCat: CategoriaResponse): void => {
+        this.data.push(newCat);
+        this.closeAdicionarCategoria();
+        this.addCatForm.reset({ ativo: true });
+      },
+      error: (err: any) => console.error('Erro ao adicionar categoria', err)
+    });
   }
 }
