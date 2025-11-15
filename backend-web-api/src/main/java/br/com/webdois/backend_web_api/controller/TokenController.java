@@ -19,10 +19,11 @@ import br.com.webdois.backend_web_api.dtos.LoginResponseDTO;
 import br.com.webdois.backend_web_api.dtos.RegisterRequestDTO;
 import br.com.webdois.backend_web_api.entity.Usuario;
 import br.com.webdois.backend_web_api.repository.UsuarioRepository;
-
+import io.swagger.v3.oas.annotations.tags.Tag;
 import br.com.webdois.backend_web_api.entity.Role;
 
 @RestController
+@Tag(name = "Autenticação", description = "Aqui você pode logar e registrar clientes")
 public class TokenController {
     private final JwtEncoder jwtEncoder;
     private final UsuarioRepository usuarioRepository;
