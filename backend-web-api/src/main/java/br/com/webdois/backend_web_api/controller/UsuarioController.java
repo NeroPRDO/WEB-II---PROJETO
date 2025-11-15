@@ -2,6 +2,8 @@ package br.com.webdois.backend_web_api.controller;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import br.com.webdois.backend_web_api.service.UsuarioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
+@EnableMethodSecurity
 @RequestMapping("/usuarios")
 @Tag(name = "Usuarios", description = "Endpoints para gerenciamento de Usuários")
 public class UsuarioController {
@@ -27,6 +30,7 @@ public class UsuarioController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('SCOPE_FUNCIONARIO')")
     List<Usuario> create(@RequestBody Usuario usuario) {
         return usuarioService.create(usuario);
     }

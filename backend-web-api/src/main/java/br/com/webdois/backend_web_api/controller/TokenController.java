@@ -1,0 +1,96 @@
+package br.com.webdois.backend_web_api.controller;
+
+
+import java.time.LocalDateTime;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.webdois.backend_web_api.dtos.LoginRequestDTO;
+import br.com.webdois.backend_web_api.dtos.LoginResponseDTO;
+import br.com.webdois.backend_web_api.dtos.RegisterRequestDTO;
+import br.com.webdois.backend_web_api.entity.Usuario;
+import br.com.webdois.backend_web_api.repository.UsuarioRepository;
+
+import br.com.webdois.backend_web_api.entity.Role;
+
+@RestController
+public class TokenController {
+    private final JwtEncoder jwtEncoder;
+    private final UsuarioRepository usuarioRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public TokenController(JwtEncoder jwtEncoder, UsuarioRepository usuarioRepository,
+            BCryptPasswordEncoder passwordEncoder) {
+        this.jwtEncoder = jwtEncoder;
+        this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @PostMapping("/Auth/login")
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequest) {
+        var user = usuarioRepository.findByEmail(loginRequest.getEmail());
+
+        if (user.isEmpty() || !user.get().isLoginCorrect(loginRequest, passwordEncoder)) {
+            throw new BadCredentialsException("login inválido");
+        }
+
+        var now = java.time.Instant.now();
+        var expiresIn = 300L;
+
+        var scope = user.get().getRole().name();
+
+        var claims = JwtClaimsSet.builder()
+                .issuer("sistema-manutencao")
+                .subject(user.get().getId().toString())
+                .issuedAt(now)
+                .expiresAt(now.plusSeconds(expiresIn))
+                .claim("scope", scope)  
+                .build();
+
+        var jwtValue = jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+        return ResponseEntity.ok(new LoginResponseDTO(jwtValue, expiresIn));
+
+    }
+
+    @PostMapping("/Auth/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO dto) {
+
+        if (usuarioRepository.findByEmail(dto.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().body("Email já cadastrado");
+        }
+
+        Usuario novo = new Usuario();
+        novo.setNome(dto.getNome());
+        novo.setEmail(dto.getEmail());
+        novo.setSenha(passwordEncoder.encode(dto.getSenha()));
+        novo.setCpf(dto.getCpf());
+        novo.setDataNascimento(dto.getDataNascimento());
+        novo.setTelefone(dto.getTelefone());
+        novo.setCep(dto.getCep());
+        novo.setLogradouro(dto.getLogradouro());
+        novo.setNumero(dto.getNumero());
+        novo.setComplemento(dto.getComplemento());
+        novo.setBairro(dto.getBairro());
+        novo.setCidade(dto.getCidade());
+        novo.setEstado(dto.getEstado());
+
+        // usuarios registrado com auto cadastro vão sempre ser clientes
+        novo.setRole(Role.CLIENTE);
+
+        novo.setAtivo(true);
+        novo.setDataCriacao(LocalDateTime.now().toLocalDate());
+
+        usuarioRepository.save(novo);
+
+        return ResponseEntity.ok("Usuário registrado com sucesso!");
+    }
+}

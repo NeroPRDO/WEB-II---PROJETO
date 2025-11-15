@@ -1,7 +1,10 @@
 package br.com.webdois.backend_web_api.entity;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import br.com.webdois.backend_web_api.dtos.LoginRequestDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -20,7 +23,7 @@ public class Usuario {
     private String email;
     private String senha;
     private String cpf;
-    private Date dataNascimento;
+    private LocalDate  dataNascimento;
     private String telefone;
     private String cep;
     private String logradouro;
@@ -34,8 +37,8 @@ public class Usuario {
     private Role role;
 
     private Boolean ativo;
-    private Date dataCriacao;
-    private Date dataAtualizacao;
+    private LocalDate dataCriacao;
+    private LocalDate dataAtualizacao;
 
     public Long getId() {
         return this.id;
@@ -77,11 +80,11 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate  getDataNascimento() {
         return this.dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate  dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -161,19 +164,19 @@ public class Usuario {
         this.ativo = ativo;
     }
 
-    public Date getDataCriacao() {
+    public LocalDate getDataCriacao() {
         return this.dataCriacao;
     }
 
-    public void setDataCriacao(Date dataCriacao) {
+    public void setDataCriacao(LocalDate dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public Date getDataAtualizacao() {
+    public LocalDate getDataAtualizacao() {
         return this.dataAtualizacao;
     }
 
-    public void setDataAtualizacao(Date dataAtualizacao) {
+    public void setDataAtualizacao(LocalDate dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
     }
 
@@ -184,5 +187,7 @@ public class Usuario {
     public void setRole(Role role) {
         this.role = role;
     }
-
+    public boolean isLoginCorrect(LoginRequestDTO loginRequest, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequest.getSenha(), this.senha);
+    }
 }
