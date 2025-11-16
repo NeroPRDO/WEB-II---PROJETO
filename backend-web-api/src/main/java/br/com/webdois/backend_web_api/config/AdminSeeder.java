@@ -26,7 +26,7 @@ public class AdminSeeder {
 
                 admin.setNome("Administrador");
                 admin.setEmail(adminEmail);
-                admin.setSenha(passwordEncoder.encode("123456"));  // senha padrão
+                admin.setSenha(passwordEncoder.encode("123456"));
                 admin.setCpf("00000000000");
                 admin.setTelefone("11999999999");
                 admin.setCep("00000-000");
