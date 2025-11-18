@@ -5,17 +5,18 @@
 [![Angular](https://img.shields.io/badge/angular-20.1.6-red)](https://angular.io/)
 [![Status](https://img.shields.io/badge/status-development-yellow)]()
 
-## Sumário
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Guia de Instalação e Execução](#guia-de-instalacao-e-execucao)
-- [Rotas Principais](#rotas-principais)
-- [Solução de Problemas](#solucao-de-problemas)
-- [Objetivos](#objetivos)
-- [Funcionalidades e Requisitos](#funcionalidades-e-requisitos)
-- [Requisitos Não-Funcionais](#requisitos-nao-funcionais)
-- [Versionamento das Ferramentas](#versionamento-das-ferramentas)
-- [Árvore de Arquivos (Atual)](#arvore-de-arquivos-atual)
-- [Autoria](#autoria)
+## 📚 Sumário
+
+1. [Sobre o Projeto](#sobre-o-projeto)
+2. [Arquitetura do Sistema](#arquitetura-do-sistema)
+3. [Instalação e Execução](#🚀-guia-de-instalação-e-execução)
+4. [Rotas da Aplicação](#🧭-rotas-principais)
+5. [Objetivos](#🎯-objetivos)
+6. [Funcionalidades e Requisitos](#🛠️-funcionalidades-e-requisitos)
+7. [Requisitos Não-Funcionais](#⚙️-requisitos-não-funcionais)
+8. [Solução de Problemas Comuns](#🩺-solução-de-problemas)
+9. [Estrutura de Diretórios](#🌲-árvore-de-arquivos-atual)
+10. [Autoria](#👥-autoria)
 
 ---
 
@@ -24,6 +25,14 @@
 
   Aplicação web em **Angular** para o gerenciamento e controle do fluxo de atendimento de **manutenção de equipamentos eletrônicos**. O objetivo é simular do **cadastro da solicitação** até a **entrega do equipamento**, cobrindo o ciclo completo de atendimento com visão para **cliente** e **funcionário**.
 
+
+---
+
+## 🏗 Arquitetura do Sistema
+
+- **Frontend**: SPA em Angular organizada em modelos, serviços, componentes dinâmicos e páginas modulares.
+- **Backend**: API REST Java com controllers, services e repositories.
+- **Padrões**: Componentização, DTOs, validação e modularização.
 
 ---
 
@@ -561,3 +570,8 @@ Projeto desenvolvido por (GRR/Nome — GitHub):
 - GRR20243415 / **Matheus José Chaves de Lima** — [mateoclima](https://github.com/mateoclima)  
 - GRR20240844 / **Pedro Eduardo Dall Agnol** — [NeroPRDO](https://github.com/NeroPRDO)  
 - GRR20241337 / **Thiago de Lima de Assis Cordeiro** — [Thiago-cordeiro](https://github.com/Thiago-cordeiro)
+---
+> 📢 **Aviso:**  
+> - Este projeto foi desenvolvido exclusivamente para fins acadêmicos e de aprendizado no contexto da disciplina de Desenvolvimento Web II.  
+> - Não possui finalidade comercial e não deve ser utilizado como solução definitiva em ambientes de produção.  
+> - Algumas funcionalidades, regras de negócio e práticas de segurança podem ter sido simplificadas com o objetivo de estudo.
