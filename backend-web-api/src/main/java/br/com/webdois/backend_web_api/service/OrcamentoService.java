@@ -1,0 +1,47 @@
+package br.com.webdois.backend_web_api.service;
+
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import br.com.webdois.backend_web_api.dtos.OrcamentoRequestDTO;
+import br.com.webdois.backend_web_api.entity.Orcamento;
+import br.com.webdois.backend_web_api.entity.Solicitacao;
+import br.com.webdois.backend_web_api.entity.Usuario;
+import br.com.webdois.backend_web_api.repository.OrcamentoRepository;
+import br.com.webdois.backend_web_api.repository.SolicitacaoRepository;
+import br.com.webdois.backend_web_api.repository.UsuarioRepository;
+
+@Service
+public class OrcamentoService {
+    @Autowired
+    private SolicitacaoRepository solicitacaoRepository;
+
+    @Autowired
+    private OrcamentoRepository orcamentoRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public Orcamento criarOrcamento(OrcamentoRequestDTO dto){
+        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        Usuario funcionario = usuarioRepository.findById(dto.getFuncionarioId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        Solicitacao solicitacao = solicitacaoRepository.findById(dto.getSolicitaoId())
+                .orElseThrow(() -> new RuntimeException("Solicitação não encontrado"));
+
+        Orcamento orcamento = new Orcamento();
+        orcamento.setSolicitacao(solicitacao);
+        orcamento.setFuncionario(funcionario);
+        orcamento.setUsuario(usuario);
+
+        orcamento.setData_orcamento(LocalDateTime.now());
+        orcamento.setDesc_Solicitacao(dto.getDesc_Solicitacao());
+        orcamento.setValorOrcamento(dto.getValorOrcamento());
+        
+        return orcamentoRepository.save(orcamento);
+    }
+}
