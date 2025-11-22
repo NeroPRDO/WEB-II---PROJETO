@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -36,6 +38,17 @@ public class Orcamento {
 
     @Column(precision = 10, scale = 2)
     private BigDecimal valorOrcamento;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoOrcamento estadoOrcamento;
+
+    public EstadoOrcamento getEstadoOrcamento() {
+        return this.estadoOrcamento;
+    }
+
+    public void setEstadoOrcamento(EstadoOrcamento estadoOrcamento) {
+        this.estadoOrcamento = estadoOrcamento;
+    }
 
     public BigDecimal getValorOrcamento() {
         return this.valorOrcamento;

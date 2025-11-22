@@ -4,5 +4,6 @@ public enum EstadoChamado {
     ABERTO,
     EM_ANDAMENTO,
     CONCLUIDO,
-    CANCELADO
+    CANCELADO, 
+    ORCADO
 }
