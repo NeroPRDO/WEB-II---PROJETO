@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { NavComponent } from '../../../shared/Nav/nav'; 
 import { RouterLink, RouterModule } from '@angular/router'; 
-import { SolicitacaoService } from '../../../services/solicitacao'; 
+import { SolicitacaoService } from '../../../services/solicitacaoService'; 
 import { FormsModule } from '@angular/forms'; 
 
 @Component({
