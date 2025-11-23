@@ -38,12 +38,13 @@ export const routes: Routes = [
 
   // Rotas Cliente
   {
-    path: '',
+    path: 'dashboard',
     component: Dashboard,
     title: 'dashboard',
     canActivate: [authGuard],      // Proteger
     data: { role: 'CLIENTE' }       // Definir role
   },
+  
   {
     path: 'pagamento',
     component: Pagamento,
@@ -209,8 +210,6 @@ export const routes: Routes = [
         data: { role: 'FUNCIONARIO' }
  },
 
- { path: '**', redirectTo: 'login' },
-
   // === Perfil do Funcionário === RASCUNHO
 
   {
@@ -234,17 +233,5 @@ export const routes: Routes = [
     title: 'func-cadastro-atendimento'
   },
 
-  /*  
-    { 
-      path: 'sobre', 
-      component: Sobre, 
-      title: 'sobre' 
-    },
-  
-    { 
-      path: 'contato', 
-      component: Contato, 
-      title: 'contato' 
-    },
-  */
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

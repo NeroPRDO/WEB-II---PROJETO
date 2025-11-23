@@ -9,7 +9,7 @@
         <div class="second-column">
             <h2 class="title title-second">criar conta</h2>
 
-            <form class="form" #cadastroForm="ngForm" (ngSubmit)="onSubmit()">
+            <form class="form" #cadastroForm="ngForm" (ngSubmit)="cadastrarUsuario()">
 
                 <label class="label-input">
                     <input type="text" mask="000.000.000-00" placeholder="CPF" name="cpf" [(ngModel)]="cadastroData.cpf" #cpf="ngModel" required>

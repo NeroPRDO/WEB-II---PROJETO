@@ -1,74 +1,121 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // Mantenha este import
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common'; // Importe para usar *ngIf
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms'; 
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { CommonModule } from '@angular/common'; 
 import { NgxMaskDirective } from 'ngx-mask';
+import { ClienteService } from '../../../services/clienteService';
+import { CadastroData } from '../../../models/cadastroModel'; 
+
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  // Adicione CommonModule e mantenha os outros
-  imports: [RouterLink, FormsModule, HttpClientModule, NgxMaskDirective, CommonModule],
+  // Removido HttpClientModule, pois o HttpClient é fornecido via app.config.ts
+  imports: [RouterLink, FormsModule, NgxMaskDirective, CommonModule], 
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css'
 })
 export class Cadastro {
-  // Objeto para agrupar todos os dados do formulário
-  cadastroData = {
-    cpf: '',
-    nome: '',
-    email: '',
-    cep: '',
-    logradouro: '',
-    bairro: '',
-    localidade: '',
-    uf: '',
-    numero: '',
-    telefone: ''
-  };
+    // Injeção de dependências
+    private clienteService = inject(ClienteService);
+    private router = inject(Router);
+    private http = inject(HttpClient); // Injeta HttpClient para a busca de CEP
 
-  constructor(private http: HttpClient) { }
+    // Objeto para agrupar todos os dados do formulário
+    cadastroData: CadastroData = {
+      nome: '',
+      email: '',
+      cpf: '', 
+      dataNascimento: '',
+      telefone: '',
+      cep: '',
+      logradouro: '',
+      numero: '',
+      complemento: '',
+      bairro: '',
+      cidade: '',
+      estado: '', 
+      localidade: '',
+      uf: ''
+    };
 
-  buscarCep() {
-    // Usamos o valor do objeto cadastroData
-    const cep = this.cadastroData.cep.replace(/\D/g, '');
+    /**
+     * Executa a submissão do formulário: validação e chamada à API de Cadastro.
+     */
+    cadastrarUsuario(): void {
+        // Validação básica
+        if (!this.cadastroData.nome || !this.cadastroData.email || !this.cadastroData.cpf || !this.cadastroData.telefone) {
+            alert('Preencha pelo menos os campos obrigatórios!');
+            return;
+        }
 
-    if (cep.length === 8) {
-      this.http.get(`https://viacep.com.br/ws/${cep}/json/`)
-        .subscribe({
-          next: (data: any) => {
-            if (!data.erro) {
-              // Atualiza as propriedades do nosso objeto
-              this.cadastroData.logradouro = data.logradouro;
-              this.cadastroData.bairro = data.bairro;
-              this.cadastroData.localidade = data.localidade;
-              this.cadastroData.uf = data.uf;
-            } else {
-              this.limparEndereco();
-              alert('CEP não encontrado!');
+
+        // O objeto cadastroData já implementa CadastroRequest e pode ser enviado
+        this.clienteService.cadastrar(this.cadastroData).subscribe({
+            next: (response) => {
+                console.log('Cadastro realizado com sucesso:', response);
+                alert('Cadastro efetuado com sucesso! Sua senha provisória foi enviada por e-mail.');
+                this.router.navigate(['/login']); 
+            },
+            error: (error: HttpErrorResponse) => {
+                console.error('Erro no cadastro:', error);
+                
+                let errorMessage = 'Falha ao cadastrar. Tente novamente.';
+                
+                // Trata erro de email já cadastrado (exemplo baseado no status 400 do Spring)
+                if (error.status === 400 && error.error) {
+                     // Assume que a mensagem de erro está no corpo da resposta (error.error)
+                     errorMessage = error.error; 
+                }
+                
+                alert(errorMessage);
             }
-          },
-          error: (error) => {
-            this.limparEndereco();
-            console.error('Erro ao buscar CEP:', error);
-            alert('Erro ao buscar CEP. Tente novamente.');
-          }
         });
-    } else if (cep.length === 0) {
-      this.limparEndereco();
     }
-  }
 
-  private limparEndereco() {
-    this.cadastroData.logradouro = '';
-    this.cadastroData.bairro = '';
-    this.cadastroData.localidade = '';
-    this.cadastroData.uf = '';
-  }
+    /**
+     * Busca o endereço automaticamente usando a API ViaCEP quando o campo CEP é preenchido.
+     */
+    buscarCep(): void {
+        // Remove caracteres não numéricos
+        const cep = this.cadastroData.cep.replace(/\D/g, '');
 
-  onSubmit() {
-    console.log('Dados do formulário enviados:', this.cadastroData);
-    // Aqui você enviaria os dados para sua API de backend
-  }
+        if (cep.length === 8) {
+            // Chamada à API ViaCEP (não requer interceptor pois é uma API externa)
+            this.http.get(`https://viacep.com.br/ws/${cep}/json/`)
+                .subscribe({
+                    next: (data: any) => {
+                        if (!data.erro) {
+                            // Mapeia os dados do ViaCEP para o objeto do formulário
+                            this.cadastroData.logradouro = data.logradouro;
+                            this.cadastroData.bairro = data.bairro;
+                            this.cadastroData.localidade = data.localidade;
+                            this.cadastroData.uf = data.uf;
+                            // Foca no campo de número após preencher o restante
+                            const numeroInput = document.getElementById('inputNumero') as HTMLInputElement;
+                            if (numeroInput) numeroInput.focus();
+                        } else {
+                            this.limparEndereco();
+                            alert('CEP não encontrado!');
+                        }
+                    },
+                    error: (error) => {
+                        this.limparEndereco();
+                        console.error('Erro ao buscar CEP:', error);
+                        alert('Erro ao buscar CEP. Tente novamente.');
+                    }
+                });
+        } else if (cep.length === 0) {
+            this.limparEndereco();
+        }
+    }
+
+
+    private limparEndereco(): void {
+        this.cadastroData.logradouro = '';
+        this.cadastroData.bairro = '';
+        this.cadastroData.localidade = '';
+        this.cadastroData.uf = '';
+    }
 }
