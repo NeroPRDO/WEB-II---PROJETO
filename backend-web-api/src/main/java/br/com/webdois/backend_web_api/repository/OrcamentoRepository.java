@@ -9,4 +9,5 @@ import br.com.webdois.backend_web_api.entity.Orcamento;
 
 public interface OrcamentoRepository extends JpaRepository<Orcamento, Long> {
     List<Orcamento> findByUsuarioId(Long usuarioId);
+    List<Orcamento> findBySolicitacaoId(Long solicitacaoId);
 }

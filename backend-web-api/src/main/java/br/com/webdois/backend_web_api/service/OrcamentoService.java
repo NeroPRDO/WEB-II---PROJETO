@@ -102,4 +102,11 @@ public class OrcamentoService {
                 return orcamentoRepository.save(orcamento);
         }
 
+        public List<OrcamentoResponseDTO> listarOrcamentosPorSolicitacao(Long solicitacaoId) {
+                List<Orcamento> orcamentos = orcamentoRepository.findBySolicitacaoId(solicitacaoId);
+
+                return orcamentos.stream()
+                                .map(this::toDTO)
+                                .collect(Collectors.toList());
+        }
 }

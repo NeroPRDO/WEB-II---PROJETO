@@ -40,8 +40,8 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/{id_solicitacao}")
-    public ResponseEntity<SolicitacaoResponseDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(solicitacaoService.findById(id));
+    public ResponseEntity<SolicitacaoResponseDTO> buscarPorId(@PathVariable Long id_solicitacao) {
+        return ResponseEntity.ok(solicitacaoService.findById(id_solicitacao));
     }
 
     @PutMapping
