@@ -2,6 +2,7 @@ package br.com.webdois.backend_web_api.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,4 +74,22 @@ public class SolicitacaoService {
                 solicitacao.getEstadoChamado().name(),
                 new UsuarioSolicitacaoDTO(solicitacao.getUsuario()));
     }
+
+    public SolicitacaoResponseDTO toDTO(Solicitacao solicitacao) {
+        return new SolicitacaoResponseDTO(
+                solicitacao.getId(),
+                solicitacao.getDataHora(),
+                solicitacao.getDescricao(),
+                solicitacao.getEstadoChamado().name(),
+                new UsuarioSolicitacaoDTO(solicitacao.getUsuario()));
+    }
+
+    public List<SolicitacaoResponseDTO> listarSolicitacaoPorCliente(Long usuarioId) {
+        List<Solicitacao> solicitacaos = solicitacaoRepository.findByUsuarioId(usuarioId);
+
+        return solicitacaos.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
 }

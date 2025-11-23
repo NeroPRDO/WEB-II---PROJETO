@@ -39,7 +39,7 @@ public class SolicitacaoController {
         return ResponseEntity.ok(solicitacaoService.list());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id_solicitacao}")
     public ResponseEntity<SolicitacaoResponseDTO> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(solicitacaoService.findById(id));
     }
@@ -54,4 +54,8 @@ public class SolicitacaoController {
         return solicitacaoService.delete(id);
     }
 
+    @GetMapping("/usuario/{usuarioId}")
+    public List<SolicitacaoResponseDTO> listarPorUsuario(@PathVariable Long usuarioId) {
+        return solicitacaoService.listarSolicitacaoPorCliente(usuarioId);
+    }
 }
