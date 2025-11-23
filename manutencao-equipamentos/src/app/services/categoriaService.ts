@@ -34,4 +34,8 @@ export class CategoriaService {
     remove(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
+
+    getById(id: number): Observable<CategoriaResponse> {
+    return this.http.get<CategoriaResponse>(`${this.apiUrl}/${id}`);
+}
 }

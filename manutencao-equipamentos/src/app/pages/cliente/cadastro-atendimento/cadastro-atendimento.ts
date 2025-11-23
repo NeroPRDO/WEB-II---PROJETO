@@ -6,12 +6,14 @@ import { CategoriaResponse, CategoriaService } from '../../../services/categoria
 import { HttpErrorResponse } from '@angular/common/http';
 import { SolicitacaoService } from '../../../services/solicitacao';
 import { solicitacaoPostModel } from '../../../models/solicitacaoPostModel';
+import { Router } from '@angular/router';
+import { Dashboard } from '../dashboard/dashboard';
 
 
 @Component({
   selector: 'app-cadastro-atendimento',
   standalone: true,
-  imports: [NavComponent, CommonModule, ReactiveFormsModule],
+  imports: [Dashboard,NavComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './cadastro-atendimento.html',
   styleUrls: ['./cadastro-atendimento.css']
 })
@@ -21,6 +23,7 @@ export class CadastroAtendimento {
   solicitacaoForm!: FormGroup;
   categoriaService = inject(CategoriaService)
   solicitacaoService = inject(SolicitacaoService)
+  private router = inject(Router);
   // Dados de teste para as categorias de equipamentos
   categorias: CategoriaResponse[] = [];
   
@@ -66,11 +69,6 @@ export class CadastroAtendimento {
 
   }
 
-  save(solicitacao : solicitacaoPostModel){
-    this.solicitacaoService.save(solicitacao).subscribe({
-      next: result => console.log(result)
-    });
-  }
   // Função para "enviar" os dados 
   enviarSolicitacao(): void {
   if (this.solicitacaoForm.valid) {
@@ -91,16 +89,18 @@ export class CadastroAtendimento {
     // 3. Montar o objeto final
     const novaSolicitacao = {
       // Usa o nome que encontramos acima
-      descricao: `[${nomeCategoria}] ${formValues.descricaoEquipamento} - Defeito: ${formValues.descricaoDefeito}`,
-      usuarioId: usuarioLogado.id,
-      estadoChamado: 'ABERTO'
+      descricao: formValues.descricaoDefeito,            
+      descricaoEquipamentos: formValues.descricaoEquipamento, 
+      categoriaId: Number(formValues.categoriaEquipamento),   
+      usuarioId: usuarioLogado.id,                       
+      estadoChamado: 'ABERTO'                           
     };
 
     // 4. Enviar
     this.solicitacaoService.save(novaSolicitacao as any).subscribe({
        next: (res) => {
-         alert('Sucesso!');
          this.solicitacaoForm.reset();
+         this.router.navigate(['/dashboard']);
          this.solicitacaoForm.get('categoriaEquipamento')?.setValue('');
        },
        error: (err) => console.error(err)

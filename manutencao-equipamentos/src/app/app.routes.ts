@@ -67,7 +67,7 @@ export const routes: Routes = [
     data: { role: 'CLIENTE' }
   },
   {
-    path: 'visualizar-servico',
+    path: 'visualizar-servico/:id',
     component: VisualizarServico,
     title: 'visualizar-servico',
     canActivate: [authGuard],

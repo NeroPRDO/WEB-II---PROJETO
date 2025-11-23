@@ -27,7 +27,7 @@
                 <td>{{ solicitacao.descricao }}</td>
                 <td>{{ solicitacao.estadoChamado }}</td>
                 <td>
-                    <button class="button-visualizar" routerLink="/visualizar-servico">
+                    <button class="button-visualizar" [routerLink]="['/visualizar-servico', solicitacao.id]">
                         Solicitação
                     </button>
                 </td>

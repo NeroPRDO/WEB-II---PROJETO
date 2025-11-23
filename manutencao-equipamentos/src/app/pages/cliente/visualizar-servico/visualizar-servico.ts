@@ -1,56 +1,57 @@
 // Importa os módulos necessários do Angular.
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NavComponent } from '../../../shared/Nav/nav'; 
-import { RouterLink, RouterModule } from '@angular/router'; 
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router'; 
 import { SolicitacaoService } from '../../../services/solicitacao'; 
 import { FormsModule } from '@angular/forms'; 
+import { solicitacaoModel } from '../../../models/solicitacaoModel';
+import { CommonModule } from '@angular/common';
+import { CategoriaService } from '../../../services/categoriaService';
 
 @Component({
   selector: 'app-visualizar-servico', 
   standalone: true, 
-  imports: [NavComponent, RouterModule, RouterLink, FormsModule], 
+  imports: [CommonModule,NavComponent, RouterModule, RouterLink, FormsModule], 
   templateUrl: './visualizar-servico.html', 
   styleUrl: './visualizar-servico.css' 
 })
-export class VisualizarServico {
-  // Array para armazenar as solicitações
-  solicitacoes: any[] = [];
-
-  // O construtor injeta o serviço de solicitações
-  constructor(private solicitacaoService: SolicitacaoService) { }
-
-  // Variáveis para controlar a visibilidade dos modais
-  visualizarOrcamento = false;
-  visualizarRejeitar = false;
+export class VisualizarServico implements OnInit {
   
-  motivoRejeicao = '';
+  private categoriaService = inject(CategoriaService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router); // Injetar Router para redirecionar
+  private solicitacaoService = inject(SolicitacaoService);
+  nomeCategoria: string = 'Carregando...';
+  solicitacao?: solicitacaoModel;
 
-  
-  visualizar() {
-    this.visualizarOrcamento = !this.visualizarOrcamento;
-  }
-
-  // Função para alternar a visibilidade do modal de rejeição
-  visuRejeitar() {
-    this.visualizarRejeitar = !this.visualizarRejeitar;
-  }
-  // Função para definir o motivo da rejeição
-  setMotivoRejeicao(s: string) {
-    this.motivoRejeicao = s;
-  }
-
-  // Função para confirmar a rejeição
-  confirmarRejeicao() {
-    
-    if (!this.motivoRejeicao.trim()) {
-      window.alert('Por favor, informe o motivo da rejeição.');
-      return;
+  ngOnInit(): void {
+    const idUrl = this.route.snapshot.paramMap.get('id');
+    if (idUrl) {
+      this.buscarPorId(Number(idUrl));
     }
-    
-    window.alert('Serviço Rejeitado\nMotivo: ' + this.motivoRejeicao);
-    
-    this.visualizarRejeitar = false;
-    this.visualizarOrcamento = false;
   }
 
+  buscarPorId(id: number) {
+    this.solicitacaoService.findById(id).subscribe({
+      next: (dados) => {
+        // ... (seu bloco de segurança que fizemos antes) ...
+
+        this.solicitacao = dados;
+
+        // === NOVO BLOCO: Buscar o nome da categoria ===
+        if (dados.idCategoria) {
+            this.categoriaService.getById(dados.idCategoria).subscribe({
+                next: (cat) => {
+                    this.nomeCategoria = cat.nomeCategoria;
+                },
+                error: () => {
+                    this.nomeCategoria = 'Não identificada';
+                }
+            });
+        }
+        // ==============================================
+      },
+      error: (err) => { /* ... */ }
+    });
+  }
 }
