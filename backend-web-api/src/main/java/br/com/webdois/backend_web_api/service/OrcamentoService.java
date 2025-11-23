@@ -47,7 +47,7 @@ public class OrcamentoService {
                 orcamento.setDesc_Solicitacao(dto.getDesc_Solicitacao());
                 orcamento.setValorOrcamento(dto.getValorOrcamento());
 
-                orcamento.setEstadoOrcamento(EstadoOrcamento.INCIADO);
+                orcamento.setEstadoOrcamento(EstadoOrcamento.INICIADO);
 
                 solicitacao.setEstadoChamado(EstadoChamado.ORCADO);
                 solicitacaoRepository.save(solicitacao);

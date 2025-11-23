@@ -50,12 +50,8 @@ public class OrcamentoController {
     }
 
     @GetMapping("/solicitacao/{solicitacaoId}")
-    public ResponseEntity<List<OrcamentoResponseDTO>> listarPorSolicitacao(
-            @PathVariable Long solicitacaoId) {
-
-        List<OrcamentoResponseDTO> orcamentos =
-                orcamentoService.listarOrcamentosPorSolicitacao(solicitacaoId);
-
+    public ResponseEntity<List<OrcamentoResponseDTO>> listarPorSolicitacao(@PathVariable Long solicitacaoId) {
+        List<OrcamentoResponseDTO> orcamentos = orcamentoService.listarOrcamentosPorSolicitacao(solicitacaoId);
         return ResponseEntity.ok(orcamentos);
     }
 }

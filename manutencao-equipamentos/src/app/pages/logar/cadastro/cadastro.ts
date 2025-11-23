@@ -65,10 +65,11 @@ export class Cadastro {
                 // Trata erro de email já cadastrado (exemplo baseado no status 400 do Spring)
                 if (error.status === 400 && error.error) {
                      // Assume que a mensagem de erro está no corpo da resposta (error.error)
-                     errorMessage = error.error; 
+                    errorMessage = error.error; 
+                    alert(errorMessage);
                 }
+                this.router.navigate(['/login']);
                 
-                alert(errorMessage);
             }
         });
     }
