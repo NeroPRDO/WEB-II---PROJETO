@@ -22,11 +22,20 @@ export class Dashboard {
   
   
   constructor(){
-    this.list();
+    this.listById();
    }
 
-  list(){
-    this.solicitacaoService.list().subscribe({
+  listById(){
+    const dadosSalvos = localStorage.getItem('auth_data');
+
+    if (dadosSalvos) {
+    // 2. Converter a string para Objeto JavaScript
+    const usuarioObj = JSON.parse(dadosSalvos);
+
+    // 3. Acessar o ID
+    const idUsuario = usuarioObj.id;
+
+    this.solicitacaoService.listById(idUsuario).subscribe({
       next: lista =>{
         this.lista = lista;
       },
@@ -52,5 +61,5 @@ export class Dashboard {
       },
     });
   }
-
+  }
 }

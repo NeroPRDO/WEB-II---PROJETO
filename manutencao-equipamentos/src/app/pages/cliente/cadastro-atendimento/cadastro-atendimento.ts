@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { NavComponent } from '../../../shared/Nav/nav';
 import { CategoriaResponse, CategoriaService } from '../../../services/categoriaService';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SolicitacaoService } from '../../../services/solicitacao';
+import { solicitacaoModel } from '../../../models/solicitacaoModel';
 
 @Component({
   selector: 'app-cadastro-atendimento',
@@ -17,11 +19,13 @@ export class CadastroAtendimento {
   // Declara a propriedade para o formulário reativo.
   solicitacaoForm!: FormGroup;
   categoriaService = inject(CategoriaService)
+  solicitacaoService = inject(SolicitacaoService)
   // Dados de teste para as categorias de equipamentos
   categorias: CategoriaResponse[] = [];
-
+  solitacao?: solicitacaoModel;
   // O construtor injeta o FormBuilder para criar o formulário
   constructor(private fb: FormBuilder) {
+
     this.getAll();
     this.solicitacaoForm = this.fb.group({
       descricaoEquipamento: ['', [Validators.required, Validators.maxLength(30)]],
@@ -29,6 +33,7 @@ export class CadastroAtendimento {
       descricaoDefeito: ['', Validators.required]
     });
   }
+
   getAll(){
     this.categoriaService.getAll().subscribe({
       next: categorias =>{
@@ -63,8 +68,35 @@ export class CadastroAtendimento {
   // Função para "enviar" os dados 
   enviarSolicitacao(): void {
     if (this.solicitacaoForm.valid) {
-      console.log('Dados do formulário para prototipação:', this.solicitacaoForm.value);
-      alert('Sua solicitação foi registrada com sucesso!');
+      console.log('Dados do formulário:', this.solicitacaoForm.value);
+      const dadosUsuario = localStorage.getItem('auth_data');
+
+      if (!dadosUsuario) {
+        alert('Erro: Usuário não autenticado.');
+        return;
+      }
+      const usuarioLogado = JSON.parse(dadosUsuario);
+      const valoresFormulario = this.solicitacaoForm.value;
+
+      const novaSolicitacao = {
+        descricao: `${valoresFormulario.descricaoEquipamento} - Defeito: ${valoresFormulario.descricaoDefeito}`,
+        usuarioId: usuarioLogado.id,
+        estadoChamado: 'ABERTO', 
+      };
+      this.solicitacaoService.save(this.novaSolicitacao as any).subscribe({
+          next: (resposta) => {
+          console.log('Sucesso!', resposta);
+          alert('Solicitação cadastrada com sucesso!');
+          
+          this.solicitacaoForm.reset();
+          // Resetar valores específicos se necessário
+          this.solicitacaoForm.get('categoriaEquipamento')?.setValue('');
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error('Erro ao salvar:', err);
+          alert('Erro ao enviar solicitação. Verifique o console.');
+        }
+      });
       
       this.solicitacaoForm.reset();
       // Define o valor do campo 'categoriaEquipamento' como vazio

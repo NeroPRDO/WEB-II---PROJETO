@@ -18,5 +18,16 @@ export class SolicitacaoService {
   list(): Observable<solicitacaoModel[]> {
     return this.http.get<solicitacaoModel[]>(this.API);
   }
+
+  listById(id: number): Observable<solicitacaoModel[]> {
+    return this.http.get<solicitacaoModel[]>(this.API+"/usuario/"+id);
+  }
  
+  save(solicitacao : string): Observable<string>{
+    return this.http.post<string>(this.API, solicitacao);
+  }
+
+  findById(id:number): Observable<solicitacaoModel>{
+    return this.http.get<solicitacaoModel>(this.API+"/"+id);
+  }
 }
