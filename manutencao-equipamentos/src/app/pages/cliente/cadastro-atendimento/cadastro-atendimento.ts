@@ -5,7 +5,8 @@ import { NavComponent } from '../../../shared/Nav/nav';
 import { CategoriaResponse, CategoriaService } from '../../../services/categoriaService';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SolicitacaoService } from '../../../services/solicitacao';
-import { solicitacaoModel } from '../../../models/solicitacaoModel';
+import { solicitacaoPostModel } from '../../../models/solicitacaoPostModel';
+
 
 @Component({
   selector: 'app-cadastro-atendimento',
@@ -22,7 +23,7 @@ export class CadastroAtendimento {
   solicitacaoService = inject(SolicitacaoService)
   // Dados de teste para as categorias de equipamentos
   categorias: CategoriaResponse[] = [];
-  solitacao?: solicitacaoModel;
+  
   // O construtor injeta o FormBuilder para criar o formulário
   constructor(private fb: FormBuilder) {
 
@@ -65,46 +66,48 @@ export class CadastroAtendimento {
 
   }
 
+  save(solicitacao : solicitacaoPostModel){
+    this.solicitacaoService.save(solicitacao).subscribe({
+      next: result => console.log(result)
+    });
+  }
   // Função para "enviar" os dados 
   enviarSolicitacao(): void {
-    if (this.solicitacaoForm.valid) {
-      console.log('Dados do formulário:', this.solicitacaoForm.value);
-      const dadosUsuario = localStorage.getItem('auth_data');
+  if (this.solicitacaoForm.valid) {
+    const formValues = this.solicitacaoForm.value;
+    
+    // 1. Converter o valor do select para número (ID)
+    const idCategoriaSelecionada = Number(formValues.categoriaEquipamento);
 
-      if (!dadosUsuario) {
-        alert('Erro: Usuário não autenticado.');
-        return;
-      }
-      const usuarioLogado = JSON.parse(dadosUsuario);
-      const valoresFormulario = this.solicitacaoForm.value;
+    // 2. Encontrar o objeto categoria na lista original para pegar o nome
+    const categoriaEncontrada = this.categorias.find(c => c.id === idCategoriaSelecionada);
+    const nomeCategoria = categoriaEncontrada ? categoriaEncontrada.nomeCategoria : 'Geral';
 
-      const novaSolicitacao = {
-        descricao: `${valoresFormulario.descricaoEquipamento} - Defeito: ${valoresFormulario.descricaoDefeito}`,
-        usuarioId: usuarioLogado.id,
-        estadoChamado: 'ABERTO', 
-      };
-      this.solicitacaoService.save(this.novaSolicitacao as any).subscribe({
-          next: (resposta) => {
-          console.log('Sucesso!', resposta);
-          alert('Solicitação cadastrada com sucesso!');
-          
-          this.solicitacaoForm.reset();
-          // Resetar valores específicos se necessário
-          this.solicitacaoForm.get('categoriaEquipamento')?.setValue('');
-        },
-        error: (err: HttpErrorResponse) => {
-          console.error('Erro ao salvar:', err);
-          alert('Erro ao enviar solicitação. Verifique o console.');
-        }
-      });
-      
-      this.solicitacaoForm.reset();
-      // Define o valor do campo 'categoriaEquipamento' como vazio
-      this.solicitacaoForm.get('categoriaEquipamento')?.setValue('');
-      
-    } else {
-      // Marca todos os campos como "tocados" para exibir as mensagens de erro
-      this.solicitacaoForm.markAllAsTouched();
-    }
+    // ... lógica de pegar usuário ...
+    const dadosUsuario = localStorage.getItem('auth_data');
+    if (!dadosUsuario) return;
+    const usuarioLogado = JSON.parse(dadosUsuario);
+
+    // 3. Montar o objeto final
+    const novaSolicitacao = {
+      // Usa o nome que encontramos acima
+      descricao: `[${nomeCategoria}] ${formValues.descricaoEquipamento} - Defeito: ${formValues.descricaoDefeito}`,
+      usuarioId: usuarioLogado.id,
+      estadoChamado: 'ABERTO'
+    };
+
+    // 4. Enviar
+    this.solicitacaoService.save(novaSolicitacao as any).subscribe({
+       next: (res) => {
+         alert('Sucesso!');
+         this.solicitacaoForm.reset();
+         this.solicitacaoForm.get('categoriaEquipamento')?.setValue('');
+       },
+       error: (err) => console.error(err)
+    });
+
+  } else {
+    this.solicitacaoForm.markAllAsTouched();
   }
+}
 }

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Orcamento } from '../models/OrcamentoModel';
+import { Orcamento } from '../models/orcamentoModel';
 import { OrcamentoRequest } from '../models/orcamentoRequestModel';
 
 @Injectable({
