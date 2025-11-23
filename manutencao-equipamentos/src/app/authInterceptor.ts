@@ -12,6 +12,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.url.includes('/login') || !authToken) {
     return next(req);
   }
+  
+  if (req.url.includes('/register') || !authToken) {
+      return next(req);
+  }
 
   // Clona a requisição e adiciona o cabeçalho de Autorização
   const authReq = req.clone({

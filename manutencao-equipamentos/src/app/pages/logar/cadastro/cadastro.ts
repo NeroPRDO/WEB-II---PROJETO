@@ -24,20 +24,18 @@ export class Cadastro {
 
     // Objeto para agrupar todos os dados do formulário
     cadastroData: CadastroData = {
-      nome: '',
-      email: '',
-      cpf: '', 
-      dataNascimento: '',
-      telefone: '',
-      cep: '',
-      logradouro: '',
-      numero: '',
-      complemento: '',
-      bairro: '',
-      cidade: '',
-      estado: '', 
-      localidade: '',
-      uf: ''
+        nome: '',
+        email: '',
+        cpf: '',
+        telefone: '',
+        cep: '',
+        logradouro: '',
+        numero: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
+        localidade: '',
+        uf: ''
     };
 
     /**
@@ -50,6 +48,7 @@ export class Cadastro {
             return;
         }
 
+        console.log("payload cadastro => ", this.cadastroData)
 
         // O objeto cadastroData já implementa CadastroRequest e pode ser enviado
         this.clienteService.cadastrar(this.cadastroData).subscribe({
@@ -90,8 +89,8 @@ export class Cadastro {
                             // Mapeia os dados do ViaCEP para o objeto do formulário
                             this.cadastroData.logradouro = data.logradouro;
                             this.cadastroData.bairro = data.bairro;
-                            this.cadastroData.localidade = data.localidade;
-                            this.cadastroData.uf = data.uf;
+                            this.cadastroData.cidade = data.localidade;
+                            this.cadastroData.estado = data.uf;
                             // Foca no campo de número após preencher o restante
                             const numeroInput = document.getElementById('inputNumero') as HTMLInputElement;
                             if (numeroInput) numeroInput.focus();
@@ -115,7 +114,7 @@ export class Cadastro {
     private limparEndereco(): void {
         this.cadastroData.logradouro = '';
         this.cadastroData.bairro = '';
-        this.cadastroData.localidade = '';
-        this.cadastroData.uf = '';
+        this.cadastroData.cidade = '';
+        this.cadastroData.estado = '';
     }
 }
