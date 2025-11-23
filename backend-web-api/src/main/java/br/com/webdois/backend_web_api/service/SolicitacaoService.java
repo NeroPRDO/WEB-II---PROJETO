@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import br.com.webdois.backend_web_api.dtos.SolicitacaoDTO;
 import br.com.webdois.backend_web_api.dtos.SolicitacaoResponseDTO;
 import br.com.webdois.backend_web_api.dtos.UsuarioSolicitacaoDTO;
+import br.com.webdois.backend_web_api.entity.Categoria;
 import br.com.webdois.backend_web_api.entity.Solicitacao;
 import br.com.webdois.backend_web_api.entity.Usuario;
+import br.com.webdois.backend_web_api.repository.CategoriaRepository;
 import br.com.webdois.backend_web_api.repository.SolicitacaoRepository;
 import br.com.webdois.backend_web_api.repository.UsuarioRepository;
 
@@ -22,6 +24,8 @@ public class SolicitacaoService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private CategoriaRepository categoriaRepository;
 
     public SolicitacaoService(SolicitacaoRepository solicitacaoRepository) {
         this.solicitacaoRepository = solicitacaoRepository;
@@ -31,12 +35,17 @@ public class SolicitacaoService {
         Usuario usuario = usuarioRepository.findById(dto.getUsuarioId())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        Categoria categoria = categoriaRepository.findById(dto.getCategoriaId())
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrado"));
+
         Solicitacao solicitacao = new Solicitacao();
         solicitacao.setDescricao(dto.getDescricao());
         solicitacao.setEstadoChamado(dto.getEstadoChamado());
         solicitacao.setDataHora(LocalDateTime.now());
         solicitacao.setUsuario(usuario);
+        solicitacao.setCategoria(categoria);
 
+        solicitacao.setDescricao_equipamentos(dto.getDescricaoEquipamentos());
         return solicitacaoRepository.save(solicitacao);
     }
 
@@ -44,12 +53,15 @@ public class SolicitacaoService {
         List<Solicitacao> solicitacoes = solicitacaoRepository.findAll();
 
         return solicitacoes.stream()
-                .map(s -> new SolicitacaoResponseDTO(
-                        s.getId(),
-                        s.getDataHora(),
-                        s.getDescricao(),
-                        s.getEstadoChamado().name(),
-                        new UsuarioSolicitacaoDTO(s.getUsuario())))
+                .map(s -> SolicitacaoResponseDTO.builder()
+                        .id(s.getId())
+                        .dataHora(s.getDataHora())
+                        .descricao(s.getDescricao())
+                        .estadoChamado(s.getEstadoChamado().name())
+                        .usuario(new UsuarioSolicitacaoDTO(s.getUsuario()))
+                        .descricaoEquipamentos(s.getDescricao_equipamentos())
+                        .idCategoria(s.getCategoria().getId())
+                        .build())
                 .toList();
     }
 
@@ -67,21 +79,27 @@ public class SolicitacaoService {
         Solicitacao solicitacao = solicitacaoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Solicitação não encontrada"));
 
-        return new SolicitacaoResponseDTO(
-                solicitacao.getId(),
-                solicitacao.getDataHora(),
-                solicitacao.getDescricao(),
-                solicitacao.getEstadoChamado().name(),
-                new UsuarioSolicitacaoDTO(solicitacao.getUsuario()));
+        return SolicitacaoResponseDTO.builder()
+                .id(solicitacao.getId())
+                .dataHora(solicitacao.getDataHora())
+                .descricao(solicitacao.getDescricao())
+                .estadoChamado(solicitacao.getEstadoChamado().name())
+                .usuario(new UsuarioSolicitacaoDTO(solicitacao.getUsuario()))
+                .descricaoEquipamentos(solicitacao.getDescricao_equipamentos())
+                .idCategoria(solicitacao.getCategoria().getId())
+                .build();
     }
 
     public SolicitacaoResponseDTO toDTO(Solicitacao solicitacao) {
-        return new SolicitacaoResponseDTO(
-                solicitacao.getId(),
-                solicitacao.getDataHora(),
-                solicitacao.getDescricao(),
-                solicitacao.getEstadoChamado().name(),
-                new UsuarioSolicitacaoDTO(solicitacao.getUsuario()));
+        return SolicitacaoResponseDTO.builder()
+                .id(solicitacao.getId())
+                .dataHora(solicitacao.getDataHora())
+                .descricao(solicitacao.getDescricao())
+                .estadoChamado(solicitacao.getEstadoChamado().name())
+                .usuario(new UsuarioSolicitacaoDTO(solicitacao.getUsuario()))
+                .descricaoEquipamentos(solicitacao.getDescricao_equipamentos())
+                .idCategoria(solicitacao.getCategoria().getId())
+                .build();
     }
 
     public List<SolicitacaoResponseDTO> listarSolicitacaoPorCliente(Long usuarioId) {

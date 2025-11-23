@@ -18,13 +18,30 @@ public class Solicitacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private LocalDateTime dataHora;
+
     private String descricao;
+
+    private String descricao_equipamentos;
+
     @Enumerated(EnumType.STRING)
     private EstadoChamado estadoChamado;
     @ManyToOne
     @JoinColumn(name = "idf-usuario")
     private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "idf-categoria")
+    private Categoria categoria;
+
+    public Categoria getCategoria() {
+        return this.categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public Long getId() {
         return this.id;
@@ -65,4 +82,13 @@ public class Solicitacao {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public String getDescricao_equipamentos() {
+        return this.descricao_equipamentos;
+    }
+
+    public void setDescricao_equipamentos(String descricao_equipamentos) {
+        this.descricao_equipamentos = descricao_equipamentos;
+    }
+
 }
