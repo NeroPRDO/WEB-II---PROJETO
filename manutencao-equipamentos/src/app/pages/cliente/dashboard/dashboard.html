@@ -20,12 +20,12 @@
             </tr>
         </thead>
         <tbody>
-            @for (solicitacao of data; track solicitacao.id) {
+            @for (solicitacao of lista; track solicitacao) {
             <tr>
                 <td>{{ solicitacao.id }}</td>
-                <td>{{ solicitacao.dataHora }}</td>
+                <td>{{ solicitacao.dataHora | date: 'dd/MM/yyyy HH:mm' }}</td>
                 <td>{{ solicitacao.descricao }}</td>
-                <td>{{ solicitacao.estado }}</td>
+                <td>{{ solicitacao.estadoChamado }}</td>
                 <td>
                     <button class="button-visualizar" routerLink="/visualizar-servico">
                         Solicitação

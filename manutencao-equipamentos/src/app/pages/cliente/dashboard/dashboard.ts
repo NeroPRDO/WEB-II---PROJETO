@@ -4,14 +4,9 @@ import { RouterLink } from '@angular/router';
 
 import { NavComponent } from '../../../shared/Nav/nav';
 import { SolicitacaoService } from '../../../services/solicitacao';
+import { solicitacaoModel } from '../../../models/solicitacaoModel';
+import { HttpErrorResponse } from '@angular/common/http';
 
-
-export interface Solicitacao {
-  id: number;
-  dataHora: string;
-  descricao: string;
-  estado: 'ORÇADA' | 'APROVADA' | 'REJEITADA' | 'ARRUMADA' | string;
-}
 
 @Component({
   selector: 'app-dashboard',
@@ -21,56 +16,41 @@ export interface Solicitacao {
   styleUrl: './dashboard.css'
 })
 export class Dashboard {
-  constructor(private solicitacaoService: SolicitacaoService) { }
+  lista: solicitacaoModel[] = [];
+  solicitacaoService = inject(SolicitacaoService)
+  
+  
+  
+  constructor(){
+    this.list();
+   }
 
-  ServiceCliente = inject(SolicitacaoService)// injetando a dependencia, da pra trocar e usar esse (boa pratica)
-
-  data = [
-    {
-      id: 1,
-      dataHora: '2025-09-15 10:00',
-      descricao: 'Notebook Dell Inspiron muito lento',
-      estado: 'ORÇADA',
-      servico: 'Manutenção Preventiva',
-      equipamento: 'Dell Inspiron',
-      categoria: 'Notebook'
-    },
-    {
-      id: 2,
-      dataHora: '2025-09-14 15:30',
-      descricao: 'Impressora HP não imprime',
-      estado: 'APROVADA',
-      servico: 'Troca de Cartucho e Revisão',
-      equipamento: 'Impressora HP',
-      categoria: 'Impressora'
-    },
-    {
-      id: 3,
-      dataHora: '2025-09-13 09:45',
-      descricao: 'PC Gamer não liga',
-      estado: 'REJEITADA',
-      servico: 'Diagnóstico de Fonte e Placa-Mãe',
-      equipamento: 'PC Gamer',
-      categoria: 'Computador'
-    },
-    {
-      id: 4,
-      dataHora: '2025-09-12 08:20',
-      descricao: 'MacBook Pro troca de tela',
-      estado: 'ARRUMADA',
-      servico: 'Substituição de Tela',
-      equipamento: 'MacBook Pro',
-      categoria: 'Notebook'
-    },
-    {
-      id: 5,
-      dataHora: '2025-09-12 08:20',
-      descricao: 'MacBook Pro troca de tela',
-      estado: 'ARRUMADA',
-      servico: 'Substituição de Tela',
-      equipamento: 'MacBook Pro',
-      categoria: 'Notebook'
-    }
-  ];
+  list(){
+    this.solicitacaoService.list().subscribe({
+      next: lista =>{
+        this.lista = lista;
+      },
+      error: (err: HttpErrorResponse) => {
+        
+        console.error('Erro detalhado:', err);
+        
+        if (err.status === 401) {
+          alert('Sessão expirada ou não autenticada. Por favor, faça login novamente.');
+          
+        } 
+        else if (err.status === 403) {
+          alert('Você não tem permissão para acessar este recurso.');
+        } 
+        else if (err.status === 0) {
+          alert('Não foi possível conectar ao servidor. Verifique se o Backend está rodando.');
+        } 
+        else {
+          
+          const mensagemBackend = err.error?.message || err.message;
+          alert(`Ocorreu um erro: ${mensagemBackend}`);
+        }
+      },
+    });
+  }
 
 }
