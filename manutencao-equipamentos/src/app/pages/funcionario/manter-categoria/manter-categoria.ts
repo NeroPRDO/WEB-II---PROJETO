@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Panel } from '../../../shared/panel/panel';
 import { NavComponent } from '../../../shared/Nav/nav';
 import { TableChamado } from '../../../shared/table-chamado/table-chamado';
@@ -22,6 +22,7 @@ export class ManterCategoria implements OnInit {
   modalAdicionarCategoriaVisible: boolean = false;
   modalRemoverCategoriaVisible: boolean = false;
   modalEditarCategoriaVisible: boolean = false;
+  categoriaService = inject(CategoriaService);
 
   data: CategoriaResponse[] = [];
   selectedCategoria: CategoriaResponse | null = null;
@@ -29,7 +30,6 @@ export class ManterCategoria implements OnInit {
   addCatForm!: FormGroup;
   updateCatForm!: FormGroup;
 
-  constructor(private categoriaService: CategoriaService) { }
 
   ngOnInit(): void {
     this.addCatForm = new FormGroup({

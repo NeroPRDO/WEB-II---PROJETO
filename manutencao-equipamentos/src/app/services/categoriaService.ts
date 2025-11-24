@@ -36,6 +36,6 @@ export class CategoriaService {
     }
 
     getById(id: number): Observable<CategoriaResponse> {
-    return this.http.get<CategoriaResponse>(`${this.apiUrl}/${id}`);
-}
+        return this.http.get<CategoriaResponse>(`${this.apiUrl}/${id}`);
+    }
 }

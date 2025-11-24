@@ -1,147 +1,209 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormControl } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavComponent } from '../../../shared/Nav/nav';
 import { TableChamado } from '../../../shared/table-chamado/table-chamado';
 import { ModalComponent } from '../../../shared/novo-modal/novo-modal';
-import { EfetuarOrcamento } from '../efetuar-orcamento/efetuar-orcamento';
 import { PainelAcoesFuncionario } from '../../../shared/painel-acoes-funcionario/painel-acoes-funcionario';
 import { Panel } from '../../../shared/panel/panel';
 
-export interface Funcionario {
-  codigo: string;
-  email: string;
-  nome: string;
-  data_nasc: string;
-  senha: string;
-}
+import { FuncionarioResponse, FuncionarioService, FuncionarioRequest } from '../../../services/funcionarioService';
 
 @Component({
   selector: 'app-manter-funcionario',
-  imports: [RouterLink, Panel, FormsModule, ReactiveFormsModule, NavComponent, TableChamado, ModalComponent, EfetuarOrcamento, PainelAcoesFuncionario],
+  standalone: true,
+  imports: [
+    RouterLink,
+    Panel,
+    FormsModule,
+    ReactiveFormsModule,
+    NavComponent,
+    TableChamado,
+    ModalComponent,
+    PainelAcoesFuncionario
+  ],
   templateUrl: './manter-funcionario.html',
   styleUrl: './manter-funcionario.css'
 })
-export class ManterFuncionario {
+export class ManterFuncionario implements OnInit {
+
   modalAdicionarFuncionarioVisible = false;
   modalRemoverFuncionarioVisible = false;
   modalEditarFuncionarioVisible = false;
 
-  selectedFuncionario: any = null;
+  private funcionarioService = inject(FuncionarioService);
+
+  data: FuncionarioResponse[] = [];
+  selectedFuncionario: FuncionarioResponse | null = null;
 
   addFuncFrom!: FormGroup;
   updateFuncForm!: FormGroup;
 
   ngOnInit() {
-    this.addFuncFrom = new FormGroup({
-      nome: new FormControl(''),
-      email: new FormControl(''),
-      data_nasc: new FormControl(''),
-      senha: new FormControl('')
-    })
-
-    this.updateFuncForm = new FormGroup({
-      nome: new FormControl(''),
-      email: new FormControl(''),
-      data_nasc: new FormControl(''),
-      senha: new FormControl('')
-    })
-
+    this.initForms();
+    this.loadFuncionarios();
   }
 
-  data: Funcionario[] = [
-    {
-      "codigo": "1",
-      "nome": "Maria Fernanda",
-      "email": "mfzc@gmail.com",
-      "data_nasc": "02/07/2005",
-      "senha": "123456"
-    },
-    {
-      "codigo": "2",
-      "nome": "Lucas b",
-      "email": "lucas@gmail.com",
-      "data_nasc": "07/05/2007",
-      "senha": "437854"
-    },
-    {
-      "codigo": "3",
-      "nome": "Nene",
-      "email": "Nene@gmail.com",
-      "data_nasc": "07/05/2023",
-      "senha": "437854"
-    }
-  ]
+  private initForms() {
+    this.addFuncFrom = new FormGroup({
+      nome: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      senha: new FormControl('', Validators.required),
+      dataNascimento: new FormControl('', Validators.required),
+    });
 
-  openEditarFuncionario(row: any) {
+    this.updateFuncForm = new FormGroup({
+      nome: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      senha: new FormControl(''),
+      dataNascimento: new FormControl('', Validators.required),
+    });
+  }
+
+  // --- FUNÇÃO AUXILIAR PARA CORRIGIR A DATA ---
+  // Transforma "02/07/2005" em "2005-07-02"
+  private converterDataParaISO(dataBrasileira: string): string {
+    if (!dataBrasileira) return '';
+
+    // Verifica se já está no formato ISO (YYYY-MM-DD) para evitar erros
+    if (dataBrasileira.includes('-')) return dataBrasileira;
+
+    // Divide a string nas barras: ["02", "07", "2005"]
+    const partes = dataBrasileira.split('/');
+
+    if (partes.length === 3) {
+      // Retorna Ano-Mes-Dia
+      return `${partes[2]}-${partes[1]}-${partes[0]}`;
+    }
+
+    return dataBrasileira;
+  }
+
+  loadFuncionarios(): void {
+    this.funcionarioService.getAll().subscribe({
+      next: (response: any[]) => {
+        this.data = response as FuncionarioResponse[];
+      },
+      error: (err) => console.error('Erro ao carregar funcionários', err)
+    });
+  }
+
+  openAdicionarFuncionario() {
+    this.modalAdicionarFuncionarioVisible = true;
+    this.addFuncFrom.reset();
+  }
+
+  closeAdicionarFuncionario() {
+    this.modalAdicionarFuncionarioVisible = false;
+    this.addFuncFrom.reset();
+  }
+
+  openEditarFuncionario(row: FuncionarioResponse) {
     this.selectedFuncionario = row;
-    this.updateFuncForm.patchValue(this.selectedFuncionario);
+
+    this.updateFuncForm.patchValue({
+      nome: row.nome,
+      email: row.email,
+      // Se a data vier do banco como YYYY-MM-DD e seu input esperar DD/MM/YYYY,
+      // você pode precisar fazer o inverso aqui para exibir corretamente.
+      // Por enquanto, mantivemos direto:
+      dataNascimento: row.dataNascimento,
+      senha: ''
+    });
+
     this.modalEditarFuncionarioVisible = true;
   }
 
   closeEditarFuncionario() {
     this.modalEditarFuncionarioVisible = false;
     this.selectedFuncionario = null;
+    this.updateFuncForm.reset();
   }
 
   openRemoverFuncionario() {
     this.modalEditarFuncionarioVisible = false;
-    this.modalRemoverFuncionarioVisible = true
+    this.modalRemoverFuncionarioVisible = true;
   }
 
   closeRemoverFuncionario() {
     this.modalRemoverFuncionarioVisible = false;
-    this.modalEditarFuncionarioVisible = true;
-  }
-
-  openAdicionarFuncionario() {
-    this.modalAdicionarFuncionarioVisible = true;
-  }
-
-  closeAdicionarFuncionario() {
-    this.modalAdicionarFuncionarioVisible = false;
-  }
-
-  removeFuncionarioByID(id: string) {
-    console.log(id);
-    this.data = this.data.filter(funcionario => funcionario.codigo != id);
-    this.selectedFuncionario = null;
-    this.modalEditarFuncionarioVisible = false;
-    this.modalRemoverFuncionarioVisible = false;
-  }
-
-  updateFuncionario() {
-    if (this.updateFuncForm.invalid) {
-      return;
+    if (this.selectedFuncionario) {
+      this.modalEditarFuncionarioVisible = true;
     }
-    let updatedData = {
-      ...this.updateFuncForm.value,
-      codigo: this.selectedFuncionario.codigo
-    };
-    this.removeFuncionarioByID(this.selectedFuncionario.codigo)
-    this.data.push(updatedData);
-    this.data.sort((a, b) => parseInt(a.codigo) - parseInt(b.codigo));
-    this.closeEditarFuncionario()
   }
 
   addFuncionario() {
-    if (this.updateFuncForm.invalid) {
-      console.log("????")
-      return;
-    }
+    if (this.addFuncFrom.invalid) return;
 
-    let newID = this.data[this.data.length - 1].codigo + 1;
-    console.log(newID);
-    let newFuncionario = {
-      ...this.addFuncFrom.value,
-      codigo: newID
-    }
+    const dataFormatada = this.converterDataParaISO(this.addFuncFrom.value.dataNascimento);
 
-    this.data.push(newFuncionario);
-    this.closeAdicionarFuncionario()
-    this.addFuncFrom.reset();
+    const payload: FuncionarioRequest = {
+      nome: this.addFuncFrom.value.nome,
+      email: this.addFuncFrom.value.email,
+      dataNascimento: dataFormatada,
+      senha: this.addFuncFrom.value.senha
+    };
+
+    this.funcionarioService.create(payload).subscribe({
+      next: (mensagemSucesso: string) => {
+        console.log('Resposta do back:', mensagemSucesso);
+
+        this.loadFuncionarios();
+
+        this.closeAdicionarFuncionario();
+        alert(mensagemSucesso);
+      },
+      error: (err) => {
+        console.error('Erro:', err);
+        alert('Erro ao salvar funcionário.');
+      }
+    });
+  }
+
+  updateFuncionario() {
+    if (this.updateFuncForm.invalid || !this.selectedFuncionario) return;
+
+    const id = this.selectedFuncionario.id;
+
+    const dataFormatada = this.converterDataParaISO(this.updateFuncForm.value.dataNascimento);
+
+    const payload: FuncionarioRequest = {
+      nome: this.updateFuncForm.value.nome,
+      email: this.updateFuncForm.value.email,
+      dataNascimento: dataFormatada,
+      senha: this.updateFuncForm.value.senha
+    };
+
+    this.funcionarioService.update(id, payload).subscribe({
+      next: (response) => {
+        alert(response)
+        this.loadFuncionarios()
+        this.closeEditarFuncionario();
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar funcionário', err);
+        alert('Erro ao atualizar: Verifique se a data está correta.');
+      }
+    });
+  }
+
+  removeFuncionarioByID(id: number) {
+    this.funcionarioService.remove(id).subscribe({
+      next: (mensagemSucesso: string) => {
+        console.log(mensagemSucesso); // "Funcionário deletado com sucesso!"
+
+        // Remove da lista visualmente sem precisar recarregar tudo do banco
+        this.data = this.data.filter(f => f.id !== id);
+
+        this.closeRemoverFuncionario();
+        this.closeEditarFuncionario(); // Fecha o modal de edição se estiver aberto
+
+        alert(mensagemSucesso);
+      },
+      error: (err) => {
+        console.error('Erro ao remover funcionário', err);
+        alert('Erro ao remover funcionário.');
+      }
+    });
   }
 }

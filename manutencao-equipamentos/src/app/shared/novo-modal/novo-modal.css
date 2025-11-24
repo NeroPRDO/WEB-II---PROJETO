@@ -6,7 +6,7 @@
     left: 0;
     width: 100%;
     /* Cover the full viewport width */
-    height: auto;
+    height: 100%;
     /* Cover the full viewport height */
     background: rgba(0, 0, 0, 0.7);
     display: flex;

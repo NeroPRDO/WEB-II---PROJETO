@@ -18,14 +18,14 @@
                 </ng-template>
                 <ng-template #templateCodigo let-row>
                     <div class="template-center">
-                        {{ row.codigo }}
+                        {{ row.id }}
                     </div>
                 </ng-template>
                 <app-table-chamado (action)="openEditarFuncionario($event)" [colunas]="[
-                    { id: 'codigo', header: 'codigo', render: templateCodigo, headerStyle: 'col-2 text-center' },
+                    { id: 'id', header: 'ID', render: templateCodigo, headerStyle: 'col-2 text-center' },
                     { id: 'nome', header: 'nome' },
                     { id: 'email', header: 'email'},
-                    { id: 'data_nasc', header: 'nascimento', headerStyle: 'col-2'},
+                    { id: 'dataNascimento', header: 'nascimento', headerStyle: 'col-2'},
                     { id: 'acao', header: 'acao', render: templateEditar, headerStyle: 'col-2 text-center'}
                 ]" [data]="data" />
             </panel>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="input-div data-input">
                         <span>Nascimento</span>
-                        <input class="base-input" formControlName="data_nasc">
+                        <input class="base-input" formControlName="dataNascimento">
                     </div>
                 </div>
                 <div class="input-div">
@@ -67,10 +67,9 @@
     @if (modalRemoverFuncionarioVisible) {
     <app-modal (closeModalEvent)="closeRemoverFuncionario()">
         <h3>Remover Funcionario?</h3>
-        <p>Tem certeza que deseja remover o(a) funcionario(a) "{{ selectedFuncionario.nome }}"?</p>
+        <p>Tem certeza que deseja remover o(a) funcionario(a) "{{ selectedFuncionario!.nome }}"?</p>
         <div class="btn-div">
-            <button (click)="removeFuncionarioByID(selectedFuncionario.codigo)"
-                class="btn btn-vermelho">remover</button>
+            <button (click)="removeFuncionarioByID(selectedFuncionario!.id)" class="btn btn-vermelho">remover</button>
             <button (click)="closeRemoverFuncionario()" class="btn btn-verde">cancelar</button>
         </div>
     </app-modal>
@@ -90,7 +89,7 @@
                     </div>
                     <div class="input-div data-input">
                         <span>Nascimento</span>
-                        <input class="base-input" formControlName="data_nasc">
+                        <input class="base-input" formControlName="dataNascimento">
                     </div>
                 </div>
                 <div class="input-div">
