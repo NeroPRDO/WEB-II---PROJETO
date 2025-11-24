@@ -63,6 +63,18 @@
             </div>
           }
 
+          @case ('REDIRECIONADA') {
+            <div>
+              EM MANUNETENÇÃO
+            </div>
+          }
+
+           @case ('PAGA') {
+            <div>
+              <p>PAGAMENTO EFETUADO, AGUARDANDO PAGAMENTO</p>
+            </div>
+          }
+
           @default {
             <div class="status-badge">Aguardando Análise</div>
           }

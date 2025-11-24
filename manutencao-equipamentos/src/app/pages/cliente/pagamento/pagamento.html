@@ -1,125 +1,59 @@
 <app-nav></app-nav>
 <div class="container">
-    <header>Pagamento</header>
-    <form>
-        @if (!isSecondStep) {
-        <div class="form first">
-            <div class="details personal">
-                <span class="title">Informações de Contato</span>
-                <div class="fields">
-                    <div class="input-field">
-                        <label>Nome</label>
-                        <input type="text" placeholder="Digite seu nome">
-                    </div>
-                    <div class="input-field">
-                        <label>Sobrenome</label>
-                        <input type="text" placeholder="Digite seu sobrenome">
-                    </div>
-                    <div class="input-field">
-                        <label>Email</label>
-                        <input type="email" placeholder="Digite seu email">
-                    </div>
-                    <div class="input-field">
-                        <label>Número de Celular</label>
-                        <input type="tel" mask="(00) 0 0000-0000" placeholder="Digite seu celular">
-                    </div>
-                    <div class="input-field">
-                        <label>Pessoa</label>
-                        <select [(ngModel)]="tipoPessoa" name="tipoPessoa">
-                            <option value="fisica">Pessoa Física</option>
-                            <option value="juridica">Pessoa Jurídica</option>
-                        </select>
-                    </div>
-                    @if (tipoPessoa === 'fisica') {
-                    <div class="input-field">
-                        <label>CPF</label>
-                        <input type="text" mask="000.000.000-00" placeholder="Digite seu CPF" maxlength="14">
-                    </div>
-                    } @else {
-                    <div class="input-field">
-                        <label>CNPJ</label>
-                        <input type="text" mask="00.000.000/0000-00" placeholder="Digite seu CNPJ" maxlength="18">
-                    </div>
-                    }
-                </div>
-            </div>
-            <div class="details adress">
-                <span class="title">Endereço de Cobrança</span>
-                <div class="fields">
-                     <div class="input-field">
-                        <label>CEP</label>
-                        <input type="text" placeholder="Digite o CEP">
-                    </div>
-                    <div class="input-field">
-                        <label>Rua</label>
-                        <input type="text" placeholder="Endereço (Rua, Avenida,..) ">
-                    </div>
-                    <div class="input-field">
-                        <label>Número</label>
-                        <input type="number" placeholder="Digite o número da residência">
-                    </div>
-                    <div class="input-field">
-                        <label>Bairro</label>
-                        <input type="text" placeholder="Digite o bairro">
-                    </div>
-                    <div class="input-field">
-                        <label>Cidade</label>
-                        <input type="text" placeholder="Digite o nome da cidade">
-                    </div>
-                    <div class="input-field">
-                        <label>Estado</label>
-                        <input type="text" placeholder="Digite o nome do estado">
-                    </div>
-                </div>
-                <button class="nextBtn" type="button" (click)="proximo()">
-                    <span class="btnText">Próximo</span>
-                    <i class="uil uil-navigator"></i>
-                </button>
-            </div>
+
+    <h2 class="title">Pagamento do Serviço</h2>
+
+    <div class="card">
+        <h3>Dados da Solicitação</h3>
+
+        <div class="row">
+            <span>ID da Solicitação:</span>
+           <!-- <strong>{{ solicitacao.id }}</strong> -->
+            <strong> 1 </strong>
         </div>
-    }
-    @if (isSecondStep) {
-        <div class="form second">
-            <div class="details payment">
-                <span class="title">Detalhes de Pagamento</span>
-                <div class="fields">
-                    <div class="input-field">
-                        <label>Nome do Titular do Cartão</label>
-                        <input type="text" placeholder="Digite o nome no cartão">
-                    </div>
-                    <div class="input-field">
-                        <label>Número do Cartão</label>
-                        <input type="text" mask="0000 0000 0000 0000" placeholder="Digite o número do cartão" maxlength="19">
-                    </div>
-                    <div class="input-field">
-                        <label>Bandeira</label>
-                        <input type="text" placeholder="Visa, MasterCard, ...">
-                    </div>
-                    <div class="input-field">
-                        <label>Mês de Validade</label>
-                        <input type="number" placeholder="Digite o mês">
-                    </div>
-                    <div class="input-field">
-                        <label>Ano de Validade</label>
-                        <input type="number" placeholder="Digite o ano">
-                    </div>
-                    <div class="input-field">
-                        <label>CVV</label>
-                        <input type="number" placeholder="CVV">
-                    </div>
-                </div>
-                <div class="buttons">
-                    <div class="backBtn" (click)="voltar()">
-                        <i class="uil uil-navigator"></i>
-                        <span class="btnText">Voltar</span>
-                    </div>
-                    <button class="submit" type="button" (click)="confirmarPagamento()">
-                        <span class="btnText">Pagar</span>
-                        <i class="uil uil-navigator"></i>
-                    </button>
-                </div>
-            </div>
+
+        <div class="row">
+            <span>Data/Hora:</span>
+            <!--<strong>{{ solicitacao.dataHora }}</strong>
+            -->
+            <strong> 1 </strong>
         </div>
-    }
-    </form>
+
+        <div class="row">
+            <span>Equipamento:</span>
+            <!--<strong>{{ solicitacao.equipamento }}</strong>
+            -->
+            
+            <strong> 1 </strong>
+        </div>
+
+        <div class="row">
+            <span>Descrição do Problema:</span>
+            <!--<strong>{{ solicitacao.descricaoProblema }}</strong>
+            -->
+             <strong> 1 </strong>
+        </div>
+
+        <div class="row">
+            <span>Categoria:</span>
+            <!--<strong>{{ solicitacao.categoria }}</strong>-->
+             <strong> 1 </strong>
+        </div>
+
+        <div class="row">
+            <span>Estado:</span>
+            <strong class="status-arrumada">ARRUMADA</strong>
+        </div>
+    </div>
+
+    <div class="card valor-card">
+        <h3>Valor do Serviço</h3>
+        <!--<p class="valor">R$ {{ solicitacao.valor }}</p>-->
+         <strong> 1 </strong>
+    </div>
+
+    <button class="btn-confirmar" (click)="confirmarPagamento()">
+        Confirmar Pagamento
+    </button>
+
 </div>
