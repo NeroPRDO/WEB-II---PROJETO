@@ -47,7 +47,7 @@ export const routes: Routes = [
   },
   
   {
-    path: 'pagamento',
+    path: 'pagamento/:id',
     component: Pagamento,
     title: 'pagamento',
     canActivate: [authGuard],

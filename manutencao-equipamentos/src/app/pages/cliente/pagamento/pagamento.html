@@ -8,48 +8,38 @@
 
         <div class="row">
             <span>ID da Solicitação:</span>
-           <!-- <strong>{{ solicitacao.id }}</strong> -->
-            <strong> 1 </strong>
+            <strong>{{ solicitacao?.id }}</strong>
         </div>
 
         <div class="row">
             <span>Data/Hora:</span>
-            <!--<strong>{{ solicitacao.dataHora }}</strong>
-            -->
-            <strong> 1 </strong>
+            <strong>{{ solicitacao?.dataHora }}</strong>
         </div>
 
         <div class="row">
             <span>Equipamento:</span>
-            <!--<strong>{{ solicitacao.equipamento }}</strong>
-            -->
-            
-            <strong> 1 </strong>
+            <strong>{{ solicitacao?.equipamento }}</strong>
         </div>
 
         <div class="row">
             <span>Descrição do Problema:</span>
-            <!--<strong>{{ solicitacao.descricaoProblema }}</strong>
-            -->
-             <strong> 1 </strong>
+            <strong>{{ solicitacao?.descricaoProblema }}</strong>
         </div>
 
         <div class="row">
             <span>Categoria:</span>
-            <!--<strong>{{ solicitacao.categoria }}</strong>-->
-             <strong> 1 </strong>
+            <strong>{{ solicitacao?.categoria }}</strong>
         </div>
 
         <div class="row">
             <span>Estado:</span>
-            <strong class="status-arrumada">ARRUMADA</strong>
+            <strong class="status-arrumada">{{ solicitacao?.estado }}</strong>
         </div>
     </div>
 
     <div class="card valor-card">
         <h3>Valor do Serviço</h3>
-        <!--<p class="valor">R$ {{ solicitacao.valor }}</p>-->
-         <strong> 1 </strong>
+        <p class="valor">R$ {{ orcamento?.valorOrcamento }}</p>
     </div>
 
     <button class="btn-confirmar" (click)="confirmarPagamento()">
