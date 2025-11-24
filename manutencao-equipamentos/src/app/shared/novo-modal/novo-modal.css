@@ -4,9 +4,9 @@
     /* Crucial: This makes it float over the page */
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     /* Cover the full viewport width */
-    height: 100vh;
+    height: auto;
     /* Cover the full viewport height */
     background: rgba(0, 0, 0, 0.7);
     display: flex;

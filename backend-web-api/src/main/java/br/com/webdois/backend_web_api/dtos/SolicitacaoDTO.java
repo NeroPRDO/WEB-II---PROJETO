@@ -6,6 +6,25 @@ public class SolicitacaoDTO {
     private String descricao;
     private EstadoChamado estadoChamado;
     private Long usuarioId;
+    private Long categoriaId;
+    private String descricaoEquipamentos;
+
+
+    public Long getCategoriaId() {
+        return this.categoriaId;
+    }
+
+    public void setCategoriaId(Long categoriaId) {
+        this.categoriaId = categoriaId;
+    }
+
+    public String getDescricaoEquipamentos() {
+        return this.descricaoEquipamentos;
+    }
+
+    public void setDescricaoEquipamentos(String descricaoEquipamentos) {
+        this.descricaoEquipamentos = descricaoEquipamentos;
+    }
 
 
     public String getDescricao() {

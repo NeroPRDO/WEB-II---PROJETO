@@ -1,9 +1,13 @@
 package br.com.webdois.backend_web_api.entity;
 
 public enum EstadoChamado {
-    ABERTO,
+    ABERTA,
+    ORCADA,
+    APROVADA,
+    REJEITADA,
+    REDIRECIONADA,
     EM_ANDAMENTO,
-    CONCLUIDO,
-    CANCELADO, 
-    ORCADO
+    ARRUMADA,
+    PAGA,
+    FINALIZADA
 }

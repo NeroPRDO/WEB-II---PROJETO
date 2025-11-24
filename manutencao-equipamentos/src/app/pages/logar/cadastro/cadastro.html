@@ -9,7 +9,7 @@
         <div class="second-column">
             <h2 class="title title-second">criar conta</h2>
 
-            <form class="form" #cadastroForm="ngForm" (ngSubmit)="onSubmit()">
+            <form class="form" #cadastroForm="ngForm" (ngSubmit)="cadastrarUsuario()">
 
                 <label class="label-input">
                     <input type="text" mask="000.000.000-00" placeholder="CPF" name="cpf" [(ngModel)]="cadastroData.cpf" #cpf="ngModel" required>
@@ -54,14 +54,14 @@
                 </div>
 
                 <label class="label-input">
-                    <input type="text" placeholder="Cidade" name="cidade" [(ngModel)]="cadastroData.localidade" #localidade="ngModel" required>
+                    <input type="text" placeholder="Cidade" name="cidade" [(ngModel)]="cadastroData.cidade" #localidade="ngModel" required>
                 </label>
                  <div *ngIf="localidade.errors && (localidade.dirty || localidade.touched)" class="alert-danger">
                     <div *ngIf="localidade.errors['required']">Cidade é obrigatória.</div>
                 </div>
 
                 <label class="label-input">
-                    <input type="text" placeholder="UF" name="uf" [(ngModel)]="cadastroData.uf" #uf="ngModel" maxlength="2" required>
+                    <input type="text" placeholder="UF" name="uf" [(ngModel)]="cadastroData.estado" #uf="ngModel" maxlength="2" required>
                 </label>
                  <div *ngIf="uf.errors && (uf.dirty || uf.touched)" class="alert-danger">
                     <div *ngIf="uf.errors['required']">UF é obrigatório.</div>

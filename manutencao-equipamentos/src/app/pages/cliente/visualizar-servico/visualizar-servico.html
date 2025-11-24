@@ -3,68 +3,77 @@
 <div class="container">
   <h2 class="titulo">Detalhes da Solicitação</h2>
 
-  <section class="detalhes">
-    @for(solicitacao of solicitacoes; track solicitacao.id){
-    <div><strong>Serviço:</strong>{{solicitacao.servico}}</div>
-    <div><strong>Cliente:</strong> Razer Montanõ</div>
-    <div><strong>Status:</strong> {{solicitacao.estado}}</div>
-    <div><strong>Valor:</strong> R$ 150,00</div>
-    <div><strong>Data de Abertura:</strong>{{solicitacao.dataHora}}</div>
-    <div><strong>Equipamento:</strong> {{solicitacao.equipamento}}</div>
-    <div><strong>Categoria:</strong> {{solicitacao.categoria}}</div>
-    <div><strong>Descrição:</strong> {{solicitacao.descricao}}.</div>
+  @if (solicitacao) {
+    <section class="detalhes">
+      
+      <div><strong>Nº do Pedido:</strong> {{ solicitacao.id }}</div>
+      <div><strong>Cliente:</strong> {{ solicitacao.usuario.nome }}</div>
+      <div><strong>Status:</strong> {{ solicitacao.estadoChamado }}</div>
+      <div><strong>Data de Abertura:</strong> {{ solicitacao.dataHora | date:'dd/MM/yyyy HH:mm' }}</div>
+      <div><strong>Equipamento:</strong> {{ solicitacao.descricaoEquipamentos }}</div>
+      <div><strong>Categoria:</strong> {{ nomeCategoria }}</div>
+      
+      <div class="descricao-box">
+        <strong>Descrição do Defeito:</strong>
+        <p>{{ solicitacao.descricao }}</p>
+      </div>
 
-    <section class="historico">
-      <h3>Histórico de Andamentos</h3>
-      <ul>
-        <li>
-          <span class="data">10/09/2025 09:15</span>
-          <span class="acao">Solicitação criada</span>
-          <span class="funcionario">por Razer Montaño</span>
-        </li>
-        <li>
-          <span class="data">11/09/2025 14:30</span>
-          <span class="acao">Análise inicial concluída</span>
-          <span class="funcionario">por Pedro Oliveira</span>
-        </li>
-        <li>
-          <span class="data">12/09/2025 10:00</span>
-          <span class="acao">Execução iniciada</span>
-          <span class="funcionario">por Ana Lima</span>
-        </li>
-      </ul>
+      <section class="historico">
+        <h3>Histórico de Andamentos</h3>
+        <ul>
+          <li>
+            <span class="data">{{ solicitacao.dataHora | date:'dd/MM/yyyy HH:mm' }}</span>
+            <span class="acao">Solicitação Criada</span>
+          </li>
+          </ul>
+      </section>
+
+      <section class="acoes">
+        <button class="btn btn-secondary" routerLink="/dashboard">Voltar</button>
+
+        @switch (solicitacao.estadoChamado) {
+          
+          @case ('ORCADA') { 
+            <div>
+              <button class="button-aprovar" (click)="this.abrirOrcamento() ">
+                Visualizar Orçamento
+              </button>
+            </div>
+
+            @if (visualizarOrcamento) {
+              <app-visu-orcamento [dados]="solicitacao.id" (close)="fecharOrcamento()"></app-visu-orcamento>
+            }
+          }
+
+          @case ('APROVADA') {
+            <div class="status-badge sucesso">Em Manutenção</div>
+          }
+
+          @case ('REJEITADA') {
+            <div>
+               <button class="button-resgatar" (click)="resgatarServico(solicitacao.id)">Resgatar Serviço</button>
+            </div>
+          }
+
+          @case ('CONCLUIDO') {
+            <div>
+              <button class="button-pagar" [routerLink]="['/pagamento']">
+                Pagar Serviço
+              </button>
+            </div>
+          }
+
+          @default {
+            <div class="status-badge">Aguardando Análise</div>
+          }
+        }
+      </section>
+
     </section>
-
-    <section class="acoes">
-      <button class="btn btn-secondary" routerLink="/">Voltar</button>
-      @switch (solicitacao.estado) {
-      @case ('ORÇADA') {
-      <div>
-        <button class="button-aprovar" routerLink="/servicos">Visualizar Orçamento</button>
-      </div>
-      }
-      @case ('APROVADA') {
-
-      }
-      @case ('REJEITADA') {
-      <div>
-        <button class="button-resgatar" onclick="alert('Serviço Passou para APROVADO')">Resgatar Serviço</button>
-      </div>
-
-      }
-      @case ('ARRUMADA') {
-      <div>
-        <button class="button-pagar" routerLink="/pagamento">Pagar Serviço</button>
-
-      </div>
-      }
-      @default {
-      <button class="button-verDetalhes">Ver Detalhes</button>
-      <button class="button-visualizar" routerLink="visualizar-servico">Solicitação</button>
-      }
-      }
-    </section>
-
-    }
-  </section>
+  } 
+  @else {
+    <div class="loading">
+      <p>Carregando detalhes da solicitação...</p>
+    </div>
+  }
 </div>

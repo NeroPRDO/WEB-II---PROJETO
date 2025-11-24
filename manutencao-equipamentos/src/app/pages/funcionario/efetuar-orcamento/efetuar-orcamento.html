@@ -1,8 +1,17 @@
-<div class="container">
-  <div class="content">
+<!-- BACKDROP ESCURO -->
+<div class="modal-backdrop" (click)="cancelar()"></div>
+
+<!-- MODAL CENTRAL -->
+<div class="modal-container">
+
+  <div class="modal-content">
+
+    <button class="close-btn" (click)="closeModal()">✖</button>
+
     <h1 class="title title-second">Efetuar Orçamento</h1>
 
-    <div class="grid">
+    <div class="grid" *ngIf="dados; else loading">
+      <!-- CARD 1 -->
       <div class="card bg">
         <h2 class="subtitle">Dados da Solicitação</h2>
         <div class="info-row"><strong>Codigo:</strong><br>{{ dados.solicitacao.id }}</div>
@@ -10,9 +19,10 @@
         <div class="info-row"><strong>Categoria:</strong><br>{{ dados.solicitacao.categoria }}</div>
         <div class="info-row"><strong>Defeito:</strong><br>{{ dados.solicitacao.defeito }}</div>
         <div class="info-row"><strong>Criado em:</strong><br>{{ dados.solicitacao.criadoEm }}</div>
-        <div class="info-row"><strong>Estado atual:</strong>{{ dados.solicitacao.estado }}</div>
+        <div class="info-row"><strong>Estado atual:</strong><br>{{ dados.solicitacao.estado }}</div>
       </div>
 
+      <!-- CARD 2 -->
       <div class="card bg">
         <h2 class="subtitle">Dados do Cliente</h2>
         <div class="info-row"><strong>Nome:</strong><br>{{ dados.cliente.nome }}</div>
@@ -22,6 +32,11 @@
       </div>
     </div>
 
+    <ng-template #loading>
+      <p style="text-align:center;">Carregando dados...</p>
+    </ng-template>
+
+    <!-- FORM -->
     <form class="form" (ngSubmit)="salvarOrcamento()">
       <div class="form-input-group">
         <label>Valor do Orçamento (R$)</label>
@@ -30,7 +45,7 @@
 
       <div class="form-input-group">
         <label>Observação (opcional)</label>
-        <textarea info-rows="3" [(ngModel)]="observacao" name="observacao"></textarea>
+        <textarea rows="3" [(ngModel)]="observacao" name="observacao"></textarea>
       </div>
 
       <div class="actions">
@@ -38,5 +53,6 @@
         <a class="btn btn-primary" (click)="cancelar()">Cancelar</a>
       </div>
     </form>
+
   </div>
 </div>

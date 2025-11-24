@@ -33,14 +33,14 @@
                     { id: 'descricao', header: 'DESCRIÇÃO'},
                     { id: 'data_chamado', header: 'DATA', headerStyle: 'col-2'},
                     { id: 'acao', header: 'AÇÃO', render: templateEditar, headerStyle: 'col-2 text-center'}
-                ]" [data]="chamados" />
+                ]" [data]="chamadosFiltrados" />
             </panel>
         </div>
     </div>
-    @if (orcamentoModalVisible) {
-    <app-modal (closeModalEvent)="closeOrcamentoModal()">
-        <app-efetuar-orcamento (close)="closeOrcamentoModal()" [id]="selectedChamado"></app-efetuar-orcamento>
-    </app-modal>
-    }
+
 
 </div>
+
+@if (orcamentoModalVisible) {
+    <app-efetuar-orcamento (close)="closeOrcamentoModal()" [id]="selectedChamado"></app-efetuar-orcamento>
+}

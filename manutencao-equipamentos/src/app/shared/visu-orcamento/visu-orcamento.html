@@ -1,0 +1,39 @@
+<div class="modal-backdrop">
+    <div class="modal-content">
+
+        <button class="close-btn" (click)="closeModal()">✖</button>
+
+        <h2 class="titulo">Orçamento da Solicitação #{{ orcamento?.solicitacaoId }}</h2>
+
+        <div class="orcamento-info">
+
+            <p><strong>Cliente:</strong> {{ orcamento?.usuarioNome }}</p>
+            <p><strong>Funcionário:</strong> {{ orcamento?.funcionarioNome }}</p>
+            <p><strong>Descrição:</strong> {{ orcamento?.descSolicitacao }}</p>
+
+            <div class="valor-box">
+                <span>Valor do Orçamento:</span>
+                <h1>R$ {{ orcamento?.valorOrcamento }}</h1>
+            </div>
+
+        </div>
+
+        @if (orcamento?.estadoOrcamento == "INICIADO") {
+        <div class="actions">
+            <button class="btn-approve" (click)="aprovar()">Aprovar</button>
+            <button class="btn-reject" (click)="rejeitar()">Rejeitar</button>
+        </div>
+        }
+        @if (orcamento?.estadoOrcamento == "APROVADO") {
+        <div class="actions">
+            <p>ORÇAMENTO APROVADO E MANUNTENÇÂO EM ANDAMENTO</p>
+        </div>
+        }
+        @if (orcamento?.estadoOrcamento == "REPROVADO") {
+        <div class="actions">
+            <p>ORÇAMENTO REPROVADO E NADA FEITO</p>
+        </div>
+        }
+
+    </div>
+</div>

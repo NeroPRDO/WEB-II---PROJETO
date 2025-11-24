@@ -47,9 +47,9 @@ public class OrcamentoService {
                 orcamento.setDesc_Solicitacao(dto.getDesc_Solicitacao());
                 orcamento.setValorOrcamento(dto.getValorOrcamento());
 
-                orcamento.setEstadoOrcamento(EstadoOrcamento.INCIADO);
+                orcamento.setEstadoOrcamento(EstadoOrcamento.INICIADO);
 
-                solicitacao.setEstadoChamado(EstadoChamado.ORCADO);
+                solicitacao.setEstadoChamado(EstadoChamado.ORCADA);
                 solicitacaoRepository.save(solicitacao);
 
                 return orcamentoRepository.save(orcamento);
@@ -89,7 +89,10 @@ public class OrcamentoService {
                                 .orElseThrow(() -> new RuntimeException("Orçamento não encontrado"));
 
                 orcamento.setEstadoOrcamento(EstadoOrcamento.APROVADO);
-
+                Solicitacao solicitacao = solicitacaoRepository.findById(orcamento.getSolicitacao().getId())
+                                .orElseThrow(() -> new RuntimeException("Solicitação não encontrado"));
+                solicitacao.setEstadoChamado(EstadoChamado.APROVADA);
+                solicitacaoRepository.save(solicitacao);
                 return orcamentoRepository.save(orcamento);
         }
 
@@ -99,7 +102,18 @@ public class OrcamentoService {
 
                 orcamento.setEstadoOrcamento(EstadoOrcamento.REPROVADO);
 
+                Solicitacao solicitacao = solicitacaoRepository.findById(orcamento.getSolicitacao().getId())
+                                .orElseThrow(() -> new RuntimeException("Solicitação não encontrado"));
+                solicitacao.setEstadoChamado(EstadoChamado.REJEITADA);
+                solicitacaoRepository.save(solicitacao);
                 return orcamentoRepository.save(orcamento);
         }
 
+        public List<OrcamentoResponseDTO> listarOrcamentosPorSolicitacao(Long solicitacaoId) {
+                List<Orcamento> orcamentos = orcamentoRepository.findBySolicitacaoId(solicitacaoId);
+
+                return orcamentos.stream()
+                                .map(this::toDTO)
+                                .collect(Collectors.toList());
+        }
 }

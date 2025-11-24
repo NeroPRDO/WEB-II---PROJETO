@@ -1,0 +1,87 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  width: 95%;
+  max-width: 550px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 25px;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.titulo {
+  color: #8242be;
+  margin-bottom: 20px;
+}
+
+.valor-box {
+  margin-top: 15px;
+  background: #f4eff8;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.valor-box h1 {
+  margin: 10px 0 0;
+  color: #8242be;
+  font-size: 34px;
+}
+
+.actions {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-approve {
+  width: 48%;
+  padding: 12px;
+  border-radius: 8px;
+  background: #3cb371;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-reject {
+  width: 48%;
+  padding: 12px;
+  border-radius: 8px;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-approve:hover {
+  background: #2e8b57;
+}
+
+.btn-reject:hover {
+  background: #c0392b;
+}
