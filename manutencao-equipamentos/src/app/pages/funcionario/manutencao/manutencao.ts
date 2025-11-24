@@ -1,186 +1,157 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
-type Modo = 'visualizar' | 'efetuar' | 'redirecionar' | 'finalizar';
+import { NavComponent } from '../../../shared/Nav/nav';
+import { SolicitacaoService } from '../../../services/solicitacao'; // Para carregar dados
+
+import { solicitacaoModel } from '../../../models/solicitacaoModel';
+import { FinalizarManutencaoRequest, ManutencaoRequest, ManutencaoService } from '../../../services/manutencaoService';
+import { funcService } from '../../../services/funcService';
 
 @Component({
   selector: 'app-manutencao',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [NavComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './manutencao.html',
-  styleUrls: ['./manutencao.css']
+  styleUrl: './manutencao.css'
 })
 export class ManutencaoComponent implements OnInit {
-  solicitacao: any = null;
+  private funcService = inject(funcService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
+  
+  // INJEÇÕES:
+  private solicitacaoService = inject(SolicitacaoService); // Para ler (GET)
+  private manutencaoService = inject(ManutencaoService);   // Para escrever (POST)
 
-  modo: Modo = 'visualizar';
+  solicitacao?: solicitacaoModel;
+  funcionarios: any[] = []; 
+  modo: 'MANUTENCAO' | 'REDIRECIONAR' | 'FINALIZAR' = 'MANUTENCAO';
+  
+  manutencaoForm: FormGroup;
+  redirecionarForm: FormGroup;
 
-  descricao: string = '';
-  orientacoes: string = '';
-  funcionario = { id: 1, nome: 'Funcionário Exemplo' };
-  loading = false;
-  error = '';
+  constructor() {
+    this.manutencaoForm = this.fb.group({
+      descricaoManutencao: ['', [Validators.required, Validators.minLength(5)]],
+      orientacoesCliente: ['', Validators.required]
+    });
 
-  funcionarios = ['Carlos', 'Ana', 'João', 'Mariana'];
-  funcionarioDestino: string = '';
-
-  get manutencoes() {
-    return this.solicitacao?.manutencoes ?? [];
+    this.redirecionarForm = this.fb.group({
+      funcionarioDestino: ['', Validators.required]
+    });
   }
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
-
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.loadSolicitacao(id);
+    const idUrl = this.route.snapshot.paramMap.get('id');
+    if (idUrl) {
+      this.carregarSolicitacao(Number(idUrl));
+      this.carregarFuncionarios();
+    } else {
+      this.router.navigate(['/func/painel']);
+    }
+  }
 
-    // Detecta sufixo da URL e ajusta o modo
-    this.route.url.subscribe((segments: UrlSegment[]) => {
-      const last = segments.length ? segments[segments.length - 1]!.path : '';
+  carregarSolicitacao(id: number) {
+    // Continua usando o SolicitacaoService para buscar os dados
+    this.solicitacaoService.findById(id).subscribe({
+      next: (dados) => this.solicitacao = dados,
+      error: () => alert('Erro ao carregar solicitação.')
+    });
+  }
 
-      if (last === 'efetuar') {
-        this.modo = 'efetuar';
-      } else if (last === 'redirecionar') {
-        this.modo = 'redirecionar';
-      } else if (last === 'finalizar') {
-        this.modo = 'finalizar';
-      } else {
-        // Não force visualizar aqui, para não "fechar" o formulário ao clicar nas abas
-        // this.modo = 'visualizar';
+  carregarFuncionarios() {
+    // Pega ID do usuário logado para não se redirecionar para si mesmo
+    const dadosLocal = localStorage.getItem('auth_data');
+    const idLogado = dadosLocal ? JSON.parse(dadosLocal).id : 0;
+
+    // 3. Chamada Real ao Backend
+    this.funcService.getFuncionarios().subscribe({
+      next: (lista) => {
+        // Filtra para remover o próprio usuário logado da lista de destino
+        this.funcionarios = lista.filter(f => f.id !== idLogado);
+      },
+      error: (err) => {
+        console.error('Erro ao buscar funcionários:', err);
+        // Se der erro, a lista fica vazia ou mostra um alerta
+        alert('Não foi possível carregar a lista de técnicos.');
       }
     });
   }
 
-  setModo(m: Modo) {
-    this.modo = m;
-    this.error = '';
-
-    if (m === 'efetuar') {
-      this.descricao = '';
-      this.orientacoes = '';
-    }
-
-    if (m === 'redirecionar') {
-      this.funcionarioDestino = '';
-      const sugestao = this.funcionarios.find(
-        f => f !== this.solicitacao?.funcionarioOrigem
-      );
-      if (sugestao) this.funcionarioDestino = sugestao;
-    }
-  }
-
-  // MOCK
-  loadSolicitacao(id: string | null) {
-    this.solicitacao = {
-      id: id || 'TEMP-001',
-      cliente: {
-        nome: 'João da Silva',
-        contato: 'joao@email.com',
-        telefone: '(41) 99999-0000',
-        endereco: 'Rua Exemplo, 100'
-      },
-      equipamento: {
-        tipo: 'Notebook',
-        marca: 'Dell',
-        modelo: 'Inspiron 15',
-        serie: 'SN12345'
-      },
-      problema: 'Tela quebrada e não liga.',
-      dataAbertura: new Date().toISOString(),
-      status: 'ABERTO',
-      manutencoes: [],             // histórico
-      funcionarioOrigem: 'Carlos',
-      funcionarioDestino: '',
-      historico: [] as any[]
-    };
-  }
-
-  iniciarEfetuar() {
-    this.setModo('efetuar');
-  }
-
-  iniciarRedirecionar() {
-    this.setModo('redirecionar');
-  }
+  // --- AQUI MUDAMOS PARA USAR O NOVO SERVICE ---
 
   salvarManutencao() {
-    this.error = '';
-    if (!this.descricao.trim()) {
-      this.error = 'Descrição é obrigatória.';
+    if (this.manutencaoForm.invalid || !this.solicitacao) {
+      this.manutencaoForm.markAllAsTouched();
       return;
     }
-    if (!this.orientacoes.trim()) {
-      this.error = 'Orientações para o cliente são obrigatórias.';
-      return;
-    }
+    const usuarioLogado = this.getUsuarioLogado();
+    if (!usuarioLogado) return;
 
-    const now = new Date();
-    const registro = {
-      descricao: this.descricao.trim(),
-      orientacoes: this.orientacoes.trim(),
-      dataHora: now.toISOString(),
-      funcionario: { id: this.funcionario.id, nome: this.funcionario.nome }
+    const dto: ManutencaoRequest = {
+      solicitacaoId: this.solicitacao.id,
+      funcionarioId: usuarioLogado.id,
+      descricao: this.manutencaoForm.value.descricaoManutencao,
+      orientacoes: this.manutencaoForm.value.orientacoesCliente
     };
 
-    this.solicitacao.manutencoes.push(registro);
-    this.solicitacao.status = 'ARRUMADA';
-    this.solicitacao.ultimaManutencao = {
-      dataHora: registro.dataHora,
-      funcionario: registro.funcionario.nome
+    // USANDO O NOVO SERVICE
+    this.manutencaoService.iniciarManutencao(dto).subscribe({
+      next: () => {
+        alert('Manutenção registrada com sucesso!');
+        this.router.navigate(['/func']);
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  salvarRedirecionamento() {
+    if (this.redirecionarForm.invalid || !this.solicitacao) return;
+
+    const dto: ManutencaoRequest = {
+      solicitacaoId: this.solicitacao.id,
+      funcionarioId: Number(this.redirecionarForm.value.funcionarioDestino)
     };
 
-    alert('Manutenção registrada com sucesso!');
-    this.modo = 'visualizar';
+    // USANDO O NOVO SERVICE
+    this.manutencaoService.trocarFuncionario(dto).subscribe({
+      next: () => {
+        alert('Redirecionado com sucesso!');
+        this.router.navigate(['/func']);
+      },
+      error: (err) => console.error(err)
+    });
   }
 
-  cancelar() {
-    this.modo = 'visualizar';
-    this.error = '';
-  }
+  finalizarSolicitacao() {
+    if (!this.solicitacao) return;
+    if (!confirm('Finalizar solicitação?')) return;
 
-  formatDate(iso?: string) {
-    return iso ? new Date(iso).toLocaleString() : new Date().toLocaleString();
-  }
+    const usuarioLogado = this.getUsuarioLogado();
+    if (!usuarioLogado) return;
 
-  // --- RF015 - Redirecionar ---
-  redirecionar() {
-    this.error = '';
-
-    if (!this.funcionarioDestino) {
-      this.error = 'Selecione um funcionário de destino.';
-      return;
-    }
-    if (this.funcionarioDestino === this.solicitacao.funcionarioOrigem) {
-      this.error = 'Não é possível redirecionar para si mesmo.';
-      return;
-    }
-
-    this.solicitacao.status = 'REDIRECIONADA';
-    const log = {
-      dataHora: new Date().toLocaleString(),
-      acao: `Redirecionada de ${this.solicitacao.funcionarioOrigem} para ${this.funcionarioDestino}`
+    const dto: FinalizarManutencaoRequest = {
+      solicitacaoId: this.solicitacao.id,
+      funcionarioId: usuarioLogado.id
     };
-    this.solicitacao.historico.push(log);
 
-    this.solicitacao.funcionarioOrigem = this.funcionarioDestino;
-    this.funcionarioDestino = '';
-    this.modo = 'visualizar';
-
-    alert('Solicitação redirecionada com sucesso!');
+    // USANDO O NOVO SERVICE
+    this.manutencaoService.finalizarManutencao(dto).subscribe({
+      next: () => {
+        alert('Solicitação finalizada!');
+        this.router.navigate(['/func']);
+      },
+      error: (err) => console.error(err)
+    });
   }
 
-  // --- RF016 - Finalizar ---
-  finalizar() {
-    this.solicitacao.status = 'FINALIZADA';
-    const log = {
-      dataHora: new Date().toLocaleString(),
-      acao: `Finalizada pelo funcionário ${this.solicitacao.funcionarioOrigem}`
-    };
-    this.solicitacao.historico.push(log);
-    this.modo = 'visualizar';
+  private getUsuarioLogado() {
+    const dadosLocal = localStorage.getItem('auth_data');
+    if (!dadosLocal) return null;
+    return JSON.parse(dadosLocal);
   }
 }
-

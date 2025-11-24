@@ -20,6 +20,7 @@ import { Dashboard } from './pages/cliente/dashboard/dashboard';
 import { PainelFuncinario } from './pages/funcionario/painel-funcinario/painel-funcinario';
 import { ManterFuncionario } from './pages/funcionario/manter-funcionario/manter-funcionario';
 import { RelatorioReceitas } from './pages/funcionario/relatorios/relatorios-receitas/relatorio-receitas';
+import { ListaAprovadasComponent } from './pages/funcionario/lista-aprovadas/lista-aprovadas';
 
 export const routes: Routes = [
 
@@ -86,6 +87,14 @@ export const routes: Routes = [
     path: 'orcamento/:id',
     component: Orcamento,
     title: 'orcamento',
+    canActivate: [authGuard],
+    data: { role: 'FUNCIONARIO' }
+  },
+
+  {
+    path: 'lista-aprovadas',
+    component: ListaAprovadasComponent,
+    title: 'lista-aprovadas',
     canActivate: [authGuard],
     data: { role: 'FUNCIONARIO' }
   },

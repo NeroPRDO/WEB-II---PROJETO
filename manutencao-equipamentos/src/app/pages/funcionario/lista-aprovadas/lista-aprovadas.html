@@ -1,0 +1,74 @@
+<app-nav></app-nav>
+
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="text-primary mb-0">Fila de Manutenção</h2>
+      <p class="text-muted">Solicitações aprovadas aguardando técnico.</p>
+    </div>
+    <button class="btn btn-outline-secondary" routerLink="/func">
+      <i class="bi bi-arrow-left"></i> Voltar ao Painel
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2">Carregando fila...</p>
+    </div>
+  } 
+  @else {
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th scope="col" class="ps-4">ID</th>
+                <th scope="col">Data Abertura</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Equipamento / Defeito</th>
+                <th scope="col" class="text-end pe-4">Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (item of listaAprovadas; track item.id) {
+                <tr>
+                  <td class="ps-4 fw-bold text-secondary">#{{ item.id }}</td>
+                  <td>
+                    {{ item.dataHora | date:'dd/MM/yy HH:mm' }}
+                  </td>
+                  <td>
+                    <div class="fw-bold">{{ item.usuario.nome }}</div>
+                    <small class="text-muted">{{ item.usuario.email }}</small>
+                  </td>
+                  <td>
+                    <div class="badge bg-light text-dark border mb-1">
+                      {{ item.descricaoEquipamentos || 'Equipamento Geral' }}
+                    </div>
+                    <div class="text-truncate" style="max-width: 250px;" title="{{ item.descricao }}">
+                      {{ item.descricao }}
+                    </div>
+                  </td>
+                  <td class="text-end pe-4">
+                    <button class="btn btn-primary btn-sm px-3" [routerLink]="['/func/manutencao', item.id]">
+                      <i class="bi bi-tools"></i> Assumir e Reparar
+                    </button>
+                  </td>
+                </tr>
+              }
+              @empty {
+                <tr>
+                  <td colspan="5" class="text-center py-5 text-muted bg-light">
+                    <i class="bi bi-check2-circle fs-1 d-block mb-2"></i>
+                    Não há solicitações aprovadas aguardando manutenção no momento.
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -46,7 +46,7 @@ export class EfetuarOrcamento {
             id: resp.usuario.id,
             nome: resp.usuario.nome,
             email: resp.usuario.email,
-            telefone: resp.usuario.idCategoria ?? "Não informado"
+            telefone: resp.usuario.telefone ?? "Não informado"
           }
         };
       },

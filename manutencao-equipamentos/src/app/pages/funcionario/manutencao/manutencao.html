@@ -1,247 +1,175 @@
-<!-- ================================================ -->
-<!-- COMPONENTE: MANUTENÇÃO DE EQUIPAMENTOS           -->
-<!-- Arquivo responsável por exibir os detalhes da    -->
-<!-- solicitação, histórico e ações do funcionário.   -->
-<!-- ================================================ -->
+<app-nav></app-nav>
 
-<div class="manutencao-wrapper">
-  <!-- ===================================================== -->
-  <!-- SEÇÃO DE DETALHES DA SOLICITAÇÃO / CLIENTE -->
-  <!-- Contém informações sobre o cliente, equipamento e     -->
-  <!-- histórico de manutenções já realizadas.               -->
-  <!-- ===================================================== -->
-  <section class="card detalhes" *ngIf="solicitacao">
-
-    <!-- Cabeçalho com imagem ilustrativa e título -->
-    <header class="header">
-      <img src="/assets/img/laptop-broken.png"
-           alt="equipamento"
-           class="equip-img"
-           aria-label="Imagem ilustrativa de equipamento danificado" />
-      <div class="title">
-        <h1>Manutenção de Equipamentos</h1>
-        <!-- Subtítulo opcional -->
-        <p class="subtitle" *ngIf="solicitacao?.equipamento?.tipo">
-          Detalhes técnicos e registro de serviços realizados
-        </p>
-      </div>
-    </header>
-
-    <hr />
-
-    <!-- ========================= -->
-    <!-- INFORMAÇÕES PRINCIPAIS -->
-    <!-- ========================= -->
-    <div class="info">
-      <h3>Solicitação #{{ solicitacao.id }}</h3>
-
-      <p><strong>Problema:</strong> {{ solicitacao.problema }}</p>
-
-      <p>
-        <strong>Equipamento:</strong>
-        {{ solicitacao.equipamento.tipo }} —
-        {{ solicitacao.equipamento.marca }}
-        {{ solicitacao.equipamento.modelo }}
-        (S/N: {{ solicitacao.equipamento.serie }})
-      </p>
-
-      <p>
-        <strong>Aberta em:</strong>
-        {{ formatDate(solicitacao.dataAbertura) }}
-      </p>
-
-      <p>
-        <strong>Status:</strong>
-        <span class="status">{{ solicitacao.status }}</span>
-      </p>
-
-      <hr />
-
-      <!-- ========================= -->
-      <!-- DADOS DO CLIENTE -->
-      <!-- ========================= -->
-      <h4>Dados do Cliente</h4>
-      <p><strong>Nome:</strong> {{ solicitacao.cliente.nome }}</p>
-      <p>
-        <strong>Contato:</strong>
-        {{ solicitacao.cliente.contato }} — {{ solicitacao.cliente.telefone }}
-      </p>
-      <p><strong>Endereço:</strong> {{ solicitacao.cliente.endereco }}</p>
-
-      <!-- Informação redundante para ampliar o código -->
-      <p *ngIf="solicitacao?.cliente?.nome">
-        <small>Cliente ativo no sistema de manutenção.</small>
-      </p>
-
-      <hr />
-
-      <!-- ========================= -->
-      <!-- HISTÓRICO DE MANUTENÇÕES -->
-      <!-- ========================= -->
-      <div *ngIf="solicitacao.manutencoes?.length">
-        <h4>Histórico de Manutenções</h4>
-
-        <!-- Lista de registros -->
-        <ul class="historico">
-          <li *ngFor="let m of solicitacao.manutencoes">
-            <div class="hist-meta">
-              <strong>{{ formatDate(m.dataHora) }}</strong> —
-              {{ m.funcionario.nome }}
-            </div>
-            <div class="hist-desc">
-              {{ m.descricao }}
-            </div>
-            <div class="hist-orient">
-              <em>Orientações: {{ m.orientacoes }}</em>
-            </div>
-
-            <!-- Linha adicional descritiva e redundante -->
-            <div class="hist-extra" *ngIf="m.funcionario?.nome">
-              <small>
-                Registro efetuado por {{ m.funcionario.nome }} em
-                {{ formatDate(m.dataHora) }}
-              </small>
-            </div>
-          </li>
-        </ul>
-      </div>
+<div class="container mt-4 mb-5">
+  
+  @if (!solicitacao) {
+    <div class="text-center mt-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-2">Carregando detalhes da solicitação...</p>
     </div>
-  </section>
-
-  <!-- ===================================================== -->
-  <!-- ASIDE: AÇÕES DO FUNCIONÁRIO -->
-  <!-- ===================================================== -->
-  <aside class="card acoes">
-    <h2>Ações do Funcionário</h2>
-
-    <!-- Descrição extra -->
-    <p class="info-extra">
-      Escolha abaixo o tipo de ação que deseja executar sobre a solicitação.
-    </p>
-
-    <!-- Botões principais -->
-    <div class="btns">
-      <button
-        class="primary"
-        [class.active]="modo === 'efetuar'"
-        (click)="setModo('efetuar')">
-        Efetuar Manutenção
-      </button>
-
-      <button
-        class="sec"
-        [class.active]="modo === 'redirecionar'"
-        (click)="setModo('redirecionar')">
-        Redirecionar
-      </button>
-
-      <button
-        class="sec"
-        [class.active]="modo === 'finalizar'"
-        (click)="setModo('finalizar')">
-        Finalizar
+  } 
+  
+  @else {
+    
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="h4 text-secondary">Gerenciar Solicitação #{{ solicitacao.id }}</h2>
+      <button class="btn btn-outline-secondary btn-sm" routerLink="/func">
+        <i class="bi bi-arrow-left"></i> Voltar ao Painel
       </button>
     </div>
 
-    <!-- ================================================= -->
-    <!-- FORMULÁRIO: EFETUAR MANUTENÇÃO -->
-    <!-- ================================================= -->
-    <form *ngIf="modo === 'efetuar'"
-          (ngSubmit)="salvarManutencao()"
-          class="form-manutencao">
-
-      <!-- Campo descrição -->
-      <label for="descricao">
-        Descrição da Manutenção <span class="req">*</span>
-      </label>
-      <textarea id="descricao"
-                name="descricao"
-                [(ngModel)]="descricao"
-                required
-                aria-label="Campo de descrição detalhada da manutenção"></textarea>
-
-      <!-- Campo orientações -->
-      <label for="orientacoes">
-        Orientações para o Cliente <span class="req">*</span>
-      </label>
-      <textarea id="orientacoes"
-                name="orientacoes"
-                [(ngModel)]="orientacoes"
-                required
-                aria-label="Campo de orientações ao cliente"></textarea>
-
-      <!-- Informações de contexto -->
-      <div class="meta-info">
-        <p><strong>Funcionário:</strong> {{ funcionario.nome }}</p>
-        <p><strong>Data/Hora atual:</strong> {{ formatDate() }}</p>
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-light fw-bold">
+        <i class="bi bi-info-circle"></i> Dados do Chamado
       </div>
-
-      <!-- Botões do formulário -->
-      <div class="form-actions">
-        <button type="submit" class="primary">Salvar Manutenção</button>
-        <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6 border-end">
+            <h6 class="text-primary">Cliente</h6>
+            <p class="mb-1"><strong>Nome:</strong> {{ solicitacao.usuario.nome }}</p>
+            <p class="mb-1"><strong>Email:</strong> {{ solicitacao.usuario.email }}</p>
+            <p class="mb-0"><strong>Data Abertura:</strong> {{ solicitacao.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
+          </div>
+          
+          <div class="col-md-6">
+            <h6 class="text-primary">Equipamento</h6>
+            <p class="mb-1"><strong>Item:</strong> {{ solicitacao.descricaoEquipamentos || 'Não informado' }}</p>
+            <p class="mb-1"><strong>Defeito:</strong> {{ solicitacao.descricao }}</p>
+            <p class="mb-0">
+              <strong>Estado Atual:</strong> 
+              <span class="badge bg-warning text-dark">{{ solicitacao.estadoChamado }}</span>
+            </p>
+          </div>
+        </div>
       </div>
-
-      <!-- Exibição de erro -->
-      <p class="error" *ngIf="error">{{ error }}</p>
-    </form>
-
-    <!-- ================================================= -->
-    <!-- FORMULÁRIO: REDIRECIONAR -->
-    <!-- ================================================= -->
-    <form *ngIf="modo === 'redirecionar'"
-          (ngSubmit)="redirecionar()"
-          class="form-manutencao">
-
-      <label for="destino">Redirecionar para</label>
-      <select id="destino"
-              name="destino"
-              class="form-select"
-              [(ngModel)]="funcionarioDestino"
-              required>
-        <option value="" disabled selected>Selecione um funcionário</option>
-
-        <!-- Lista dinâmica de funcionários -->
-        <option *ngFor="let f of funcionarios"
-                [value]="f"
-                [disabled]="f === solicitacao?.funcionarioOrigem">
-          {{ f }}
-          <span *ngIf="f === solicitacao?.funcionarioOrigem">(origem)</span>
-        </option>
-      </select>
-
-      <!-- Informações de origem/destino -->
-      <div class="meta-info">
-        <p><strong>Origem:</strong> {{ solicitacao?.funcionarioOrigem }}</p>
-        <p *ngIf="funcionarioDestino"><strong>Destino:</strong> {{ funcionarioDestino }}</p>
-      </div>
-
-      <!-- Ações -->
-      <div class="form-actions">
-        <button type="submit" class="primary">Confirmar Redirecionamento</button>
-        <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
-      </div>
-
-      <p class="error" *ngIf="error">{{ error }}</p>
-    </form>
-
-    <!-- ================================================= -->
-    <!-- BLOCO FINALIZAÇÃO -->
-    <!-- ================================================= -->
-    <div *ngIf="modo === 'finalizar'">
-      <p><strong>Status atual:</strong> {{ solicitacao?.status }}</p>
-      <p class="hist-orient">
-        Ao confirmar, a solicitação será marcada como FINALIZADA.
-      </p>
-
-      <div class="form-actions">
-        <button type="button" class="primary" (click)="finalizar()">Confirmar Finalização</button>
-        <button type="button" class="sec" (click)="cancelar()">Cancelar</button>
-      </div>
-
-      <p class="note">
-        <em>Após finalizada, não será possível reabrir a solicitação.</em>
-      </p>
     </div>
-  </aside>
+
+    <ul class="nav nav-pills nav-fill mb-3 gap-2">
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" 
+           [class.active]="modo === 'MANUTENCAO'" 
+           (click)="modo = 'MANUTENCAO'">
+           <i class="bi bi-tools"></i> Efetuar Manutenção
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" 
+           [class.active]="modo === 'REDIRECIONAR'" 
+           (click)="modo = 'REDIRECIONAR'">
+           <i class="bi bi-arrow-right-circle"></i> Redirecionar
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn-danger-outline cursor-pointer" 
+           [class.active]="modo === 'FINALIZAR'" 
+           [class.bg-danger]="modo === 'FINALIZAR'"
+           [class.text-white]="modo === 'FINALIZAR'"
+           (click)="modo = 'FINALIZAR'">
+           <i class="bi bi-check-circle"></i> Finalizar
+        </a>
+      </li>
+    </ul>
+
+    @if (modo === 'MANUTENCAO') {
+      <div class="card border-primary shadow-sm animate-fade-in">
+        <div class="card-body">
+          <h5 class="card-title text-primary mb-3">Registro de Manutenção</h5>
+          
+          <form [formGroup]="manutencaoForm" (ngSubmit)="salvarManutencao()">
+            
+            <div class="mb-3">
+              <label for="descManutencao" class="form-label fw-bold">Descrição do Serviço Realizado:</label>
+              <textarea 
+                id="descManutencao"
+                class="form-control" 
+                rows="5" 
+                formControlName="descricaoManutencao"
+                placeholder="Descreva os reparos, peças trocadas e testes efetuados..."
+                [class.is-invalid]="manutencaoForm.get('descricaoManutencao')?.invalid && manutencaoForm.get('descricaoManutencao')?.touched"
+              ></textarea>
+              <div class="invalid-feedback">
+                É necessário descrever o que foi feito (mínimo 5 caracteres).
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label for="orientacoes" class="form-label fw-bold">Orientações para o Cliente:</label>
+              <textarea 
+                id="orientacoes"
+                class="form-control" 
+                rows="3" 
+                formControlName="orientacoesCliente"
+                placeholder="Ex: Evitar umidade, realizar limpeza mensal..."
+                [class.is-invalid]="manutencaoForm.get('orientacoesCliente')?.invalid && manutencaoForm.get('orientacoesCliente')?.touched"
+              ></textarea>
+              <div class="invalid-feedback">
+                Por favor, forneça orientações ao cliente.
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" [disabled]="manutencaoForm.invalid">
+              <i class="bi bi-save"></i> Salvar Manutenção e Atualizar Estado
+            </button>
+          </form>
+        </div>
+      </div>
+    }
+
+    @if (modo === 'REDIRECIONAR') {
+      <div class="card border-warning shadow-sm animate-fade-in">
+        <div class="card-body">
+          <h5 class="card-title text-warning-emphasis mb-3">Redirecionamento de Chamado</h5>
+          <div class="alert alert-warning py-2">
+            <small><i class="bi bi-exclamation-triangle"></i> Ao redirecionar, este chamado sairá da sua lista de pendências.</small>
+          </div>
+
+          <form [formGroup]="redirecionarForm" (ngSubmit)="salvarRedirecionamento()">
+            <div class="mb-4">
+              <label for="selectFuncionario" class="form-label fw-bold">Selecione o Técnico Destino:</label>
+              <select 
+                id="selectFuncionario"
+                class="form-select form-select-lg" 
+                formControlName="funcionarioDestino"
+                [class.is-invalid]="redirecionarForm.get('funcionarioDestino')?.invalid && redirecionarForm.get('funcionarioDestino')?.touched"
+              >
+                <option value="" disabled selected>Escolha um funcionário...</option>
+                @for (func of funcionarios; track func.id) {
+                  <option [value]="func.id">{{ func.nome }}</option>
+                }
+              </select>
+              <div class="invalid-feedback">
+                Selecione um funcionário para receber o chamado.
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-warning w-100 py-2 fw-bold" [disabled]="redirecionarForm.invalid">
+              <i class="bi bi-send"></i> Confirmar Redirecionamento
+            </button>
+          </form>
+        </div>
+      </div>
+    }
+
+    @if (modo === 'FINALIZAR') {
+      <div class="card border-danger shadow-sm animate-fade-in">
+        <div class="card-body text-center py-5">
+          <div class="mb-3 text-danger">
+            <i class="bi bi-check-circle-fill" style="font-size: 3rem;"></i>
+          </div>
+          <h4 class="card-title text-danger">Finalizar Solicitação</h4>
+          <p class="card-text text-muted w-75 mx-auto">
+            Esta ação encerrará o ciclo de vida do chamado e o marcará como <strong>FINALIZADA</strong>. 
+            Certifique-se de que o pagamento foi realizado e o equipamento entregue.
+          </p>
+          
+          <hr class="w-50 mx-auto my-4">
+
+          <button class="btn btn-danger btn-lg px-5" (click)="finalizarSolicitacao()">
+            Confirmar Finalização
+          </button>
+        </div>
+      </div>
+    }
+
+  }
 </div>

@@ -12,6 +12,5 @@ export class UsuarioResumo {
   id!: number;
   nome!: string;
   email!: string;
-  descricaoEquipamentos?: string; 
-  idCategoria?: number;
+  telefone!:string;
 }
