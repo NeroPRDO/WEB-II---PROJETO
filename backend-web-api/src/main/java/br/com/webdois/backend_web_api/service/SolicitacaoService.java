@@ -11,6 +11,8 @@ import br.com.webdois.backend_web_api.dtos.SolicitacaoDTO;
 import br.com.webdois.backend_web_api.dtos.SolicitacaoResponseDTO;
 import br.com.webdois.backend_web_api.dtos.UsuarioSolicitacaoDTO;
 import br.com.webdois.backend_web_api.entity.Categoria;
+import br.com.webdois.backend_web_api.entity.EstadoChamado;
+import br.com.webdois.backend_web_api.entity.Role;
 import br.com.webdois.backend_web_api.entity.Solicitacao;
 import br.com.webdois.backend_web_api.entity.Usuario;
 import br.com.webdois.backend_web_api.repository.CategoriaRepository;
@@ -110,4 +112,19 @@ public class SolicitacaoService {
                 .collect(Collectors.toList());
     }
 
+    public SolicitacaoResponseDTO finalizarSolicitacao(Long idSolicitacao, Long idFuncionario) {
+        Solicitacao solicitacao = solicitacaoRepository.findById(idSolicitacao)
+                .orElseThrow(() -> new RuntimeException("Solicitação não encontrada."));
+
+        Usuario funcionario = usuarioRepository.findById(idFuncionario)
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado."));
+
+        if (!funcionario.getRole().equals(Role.FUNCIONARIO)) {
+            throw new RuntimeException("Apenas funcionários podem finalizar solicitações.");
+        }
+
+        solicitacao.setEstadoChamado(EstadoChamado.FINALIZADA);
+        solicitacaoRepository.save(solicitacao);
+        return toDTO(solicitacao);
+    }
 }
