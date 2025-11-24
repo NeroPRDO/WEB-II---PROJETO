@@ -2,6 +2,7 @@ package br.com.webdois.backend_web_api.entity;
 
 import java.time.LocalDateTime;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -22,20 +23,44 @@ public class Manuntencao {
 
 
     @ManyToOne
-    @JoinColumn(name = "idf-solicitacao")
-    private Solicitacao idf_solicitacao;
+    @JoinColumn(name = "idf_solicitacao")
+    private Solicitacao solicitacao;
 
     private LocalDateTime dataHora;
 
-    public Solicitacao getIdf_solicitacao() {
-        return this.idf_solicitacao;
+    private Boolean finalizada;
+
+    private LocalDateTime dataHoraFinalizacao;
+
+    public Boolean isFinalizada() {
+        return this.finalizada;
     }
 
-    public void setIdf_solicitacao(Solicitacao idf_solicitacao) {
-        this.idf_solicitacao = idf_solicitacao;
+    public Boolean getFinalizada() {
+        return this.finalizada;
     }
 
-    
+    public void setFinalizada(Boolean finalizada) {
+        this.finalizada = finalizada;
+    }
+
+    public LocalDateTime getDataHoraFinalizacao() {
+        return this.dataHoraFinalizacao;
+    }
+
+    public void setDataHoraFinalizacao(LocalDateTime dataHoraFinalizacao) {
+        this.dataHoraFinalizacao = dataHoraFinalizacao;
+    }
+
+
+    public Solicitacao getSolicitacao() {
+        return this.solicitacao;
+    }
+
+    public void setSolicitacao(Solicitacao solicitacao) {
+        this.solicitacao = solicitacao;
+    }
+
 
 
     public Long getId_manutencao() {
