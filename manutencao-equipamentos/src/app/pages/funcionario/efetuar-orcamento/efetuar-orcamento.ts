@@ -1,36 +1,10 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Input } from '@angular/core';
-
-type Estado = 'ABERTA' | 'ORÇADA' | 'APROVADA' | 'REJEITADA' | 'ARRUMADA' | 'PAGA' | 'FINALIZADA';
-
-interface Cliente {
-  id: string;
-  nome: string;
-  email: string;
-  telefone: string;
-}
-
-interface Solicitacao {
-  id: string;
-  equipamento: string;
-  categoria: string;
-  defeito: string;
-  criadoEm: string; // ISO ou dd/MM/yyyy HH:mm
-  estado: Estado;
-}
-
-
-function getById(list: any[], id: string) {
-  for (let i = 0; i < list.length; i++) {
-    if (list[i].id === id) {
-      return i;
-    }
-  }
-  return null;
-}
+import { SolicitacaoService } from '../../../services/solicitacao';
+import { OrcamentoRequest } from '../../../models/orcamentoRequestModel';
+import { OrcamentoService } from '../../../services/orcamentoService';
 
 @Component({
   selector: 'app-efetuar-orcamento',
@@ -41,111 +15,93 @@ function getById(list: any[], id: string) {
 })
 export class EfetuarOrcamento {
   @Input() id: string = "";
-
-  dados: any;
-
   @Output() close = new EventEmitter<void>();
+
+  valorOrcamento: number | null = null;
+  observacao: string = '';
+
+  dados: any = null;
+
+  constructor(
+    private solicitacaoService: SolicitacaoService,
+    private orcamentoService: OrcamentoService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    if (!this.id) return;
+
+    this.solicitacaoService.findById(Number(this.id)).subscribe({
+      next: (resp) => {
+        this.dados = {
+          solicitacao: {
+            id: resp.id,
+            equipamento: resp.descricaoEquipamentos,
+            categoria: resp.idCategoria,
+            defeito: resp.descricao,
+            criadoEm: resp.dataHora,
+            estado: resp.estadoChamado
+          },
+          cliente: {
+            id: resp.usuario.id,
+            nome: resp.usuario.nome,
+            email: resp.usuario.email,
+            telefone: resp.usuario.idCategoria ?? "Não informado"
+          }
+        };
+      },
+      error: (err) => console.error("Erro ao carregar solicitação", err)
+    });
+  }
+
+  closeModal() {
+    this.close.emit();
+  }
 
   cancelar() {
     this.close.emit();
   }
 
-  // MOCKS (trocar por dados da API quando integrar backend)
-  clientes: Cliente[] = [
-    {
-      id: '1',
-      nome: 'Maria Fernanda',
-      email: 'fulano@exemplo.com',
-      telefone: '(41) 99999-9999',
-    },
-    {
-      id: '2',
-      nome: 'Lucas',
-      email: 'fulano@exemplo.com',
-      telefone: '(41) 99999-9999',
-    }
-  ];
-
-  solicitacoes: Solicitacao[] = [
-    {
-      id: '1',
-      equipamento: 'Notebook Lenovo Ideapad 3',
-      categoria: 'Notebook',
-      defeito: 'Não liga',
-      criadoEm: '25/08/2025 10:00',
-      estado: 'ABERTA'
-    },
-    {
-      id: '2',
-      equipamento: 'Notebook Lenovo Ideapad 3',
-      categoria: 'Notebook',
-      defeito: 'Não liga',
-      criadoEm: '25/08/2025 10:00',
-      estado: 'ABERTA'
-    }
-  ];
-
-  ngOnInit(): void {
-    if (!this.id) {
-      console.error("ID não foi fornecido para o componente EfetuarOrcamento.");
-      return;
-    }
-
-    const cliente_index = getById(this.clientes, this.id);
-    const solicitacao_index = getById(this.solicitacoes, this.id); // <-- FIX: Search the correct array
-
-    // FIX: Check for null explicitly. An index of 0 is valid but falsy.
-    if (cliente_index !== null && solicitacao_index !== null) {
-      // FIX: Use 'this' to assign to class properties
-      this.dados = {
-        "cliente": this.clientes[cliente_index],
-        "solicitacao": this.solicitacoes[solicitacao_index]
-      };
-    } else {
-      console.error(`Não foi possível encontrar cliente ou solicitação para o ID: ${this.id}`);
-    }
-  }
-
-  // entrada do orçamento
-  valorOrcamento: number | null = null;
-  observacao: string = '';
-
-  // contexto do “funcionário logado” (mock)
-  funcionarioLogado = 'funcionario.demo@empresa.com';
-
-  constructor(private route: ActivatedRoute, private router: Router) {
-    // pega o :id da rota e aplica nos mocks (em produção, buscar na API por id)
-    //this.id = this.route.snapshot.paramMap.get('id');
-
-  }
-
   salvarOrcamento() {
-    if (this.valorOrcamento == null || this.valorOrcamento <= 0) {
-      alert('Informe um valor de orçamento válido.');
+    if (!this.valorOrcamento || this.valorOrcamento <= 0) {
+      alert('Informe um valor válido.');
       return;
     }
 
-    const agora = new Date();
-    const dataHora =
-      agora.toLocaleDateString('pt-BR') +
-      ' ' +
-      agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    if (!this.dados) {
+      alert("Os dados da solicitação ainda não foram carregados.");
+      return;
+    }
 
-    //Em algum momento, aqui deve salvar o orçamento na API
+    // 🔥 PEGAR DADOS DO FUNCIONÁRIO LOGADO
+    const dadosSalvos = localStorage.getItem('auth_data');
+    if (!dadosSalvos) {
+      alert("Erro: usuário não logado.");
+      return;
+    }
 
-    //this.solicitacao.estado = 'ORÇADA';
+    const usuarioObj = JSON.parse(dadosSalvos);
+    const idFuncionario = usuarioObj.id;
 
-    //alert(
-    //  `Orçamento registrado!\n\n` +
-    //  `Solicitação: ${this.solicitacao.id}\n` +
-    //  `Cliente: ${this.cliente.nome}\n` +
-    //  `Valor: R$ ${this.valorOrcamento.toFixed(2)}\n` +
-    //  `Funcionário: ${this.funcionarioLogado}\n` +
-    //  `Data/Hora: ${dataHora}\n\n` +
-    //  `Estado atualizado para: ${this.solicitacao.estado}`
-    //);
+    // 🔥 Montar o payload igual ao Swagger
+    const payload: OrcamentoRequest = {
+      solicitaoId: this.dados.solicitacao.id,
+      usuarioId: this.dados.cliente.id,
+      funcionarioId: idFuncionario,
+      desc_Solicitacao: this.observacao,
+      valorOrcamento: this.valorOrcamento
+    };
 
-    // navegação simples: voltar ao painel do funcionário
-    this.router.navigateByUrl('/func');
+    console.log("payload => ", payload)
+    this.orcamentoService.create(payload).subscribe({
+      next: () => {
+        alert("Orçamento criado com sucesso!");
+        this.close.emit(); // fecha modal
+      },
+      error: (err) => {
+        console.error("Erro ao salvar orçamento", err);
+        alert("Erro ao criar orçamento.");
+      }
+    });
   }
 }

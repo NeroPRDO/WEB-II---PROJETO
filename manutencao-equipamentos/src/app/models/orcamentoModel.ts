@@ -1,7 +1,7 @@
 import { solicitacaoModel } from "./solicitacaoModel";
 
 export interface Orcamento {
-  id: number;
+  idOrcamento: number;
   dataCriacao: String;
   valorTotal: number;
   estadoOrcamento: 'APROVADO' | 'REPROVADO' | 'INICIADO' | String;

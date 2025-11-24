@@ -1,136 +1,164 @@
 :host {
-    --color-roxo-1: #f4eff8;
-    /* Lightest purple */
-    --color-roxo-5: #8242be;
-    /* Main purple */
+  --color-roxo-1: #f4eff8;
+  --color-roxo-5: #8242be;
 }
 
-.container {
-    width: 100%;
+/* BACKDROP ESCURO */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: 998;
+}
+
+/* CONTAINER DO MODAL */
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  width: 90%;
+  max-width: 750px;
+}
+
+/* CONTEÚDO DO MODAL */
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .title {
-    font-size: 28px;
-    font-weight: bold;
-    color: var(--color-roxo-5);
-    margin-bottom: 1rem;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--color-roxo-5);
+  margin-bottom: 1rem;
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-    margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 1rem;
 }
 
 .card {
-    box-sizing: border-box;
-    max-width: 100%;
-    border: 1px solid rgba(0, 0, 0, .08);
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
-}
-
-.card.bg {
-    background: var(--color-roxo-1);
+  border: 1px solid rgba(0, 0, 0, .08);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--color-roxo-1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
 }
 
 .subtitle {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--color-roxo-5);
-    margin-bottom: .5rem;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-roxo-5);
+  margin-bottom: .5rem;
 }
 
 .info-row {
-    margin: .25rem 0;
-    font-size: 0.9rem;
-    /* FIX: Prevents long unbroken text (like emails) from overflowing the card */
-    overflow-wrap: break-word;
-    word-break: break-word;
+  margin: .25rem 0;
+  font-size: 0.9rem;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .form {
-    margin-top: 1rem;
-    border-top: 1px solid rgba(0, 0, 0, .08);
-    padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, .08);
+  padding-top: 1rem;
 }
 
 .form-input-group {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .form-input-group label {
-    display: block;
-    margin-bottom: .35rem;
-    color: #7f8c8d;
-    font-weight: 300;
+  display: block;
+  margin-bottom: .35rem;
+  color: #7f8c8d;
+  font-weight: 300;
 }
 
 .form-input-group input,
 .form-input-group textarea {
-    width: 100%;
-    box-sizing: border-box;
-    border: none;
-    background-color: #ecf0f1;
-    border-radius: 8px;
-    padding: 10px;
-    color: #000;
+  width: 100%;
+  border: none;
+  background-color: #ecf0f1;
+  border-radius: 8px;
+  padding: 10px;
+  color: #000;
 }
 
 .form-input-group input:focus,
 .form-input-group textarea:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(130, 66, 190, 0.3);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(130, 66, 190, 0.3);
 }
 
 .actions {
-    display: flex;
-    flex-wrap: wrap;
-    /* Allows buttons to wrap on small screens */
-    gap: 1rem;
-    margin-top: .5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: .5rem;
 }
 
 .btn {
-    border-radius: 15px;
-    text-transform: uppercase;
-    color: #fff;
-    font-size: 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-weight: bold;
-    width: 150px;
-    border: none;
-    text-align: center;
+  border-radius: 15px;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 150px;
+  border: none;
+  text-align: center;
 }
 
 .btn-primary {
-    background-color: transparent;
-    border: 1px solid var(--color-roxo-5);
-    color: var(--color-roxo-5);
-    transition: background-color .5s, color .5s, border .5s;
+  background-color: transparent;
+  border: 1px solid var(--color-roxo-5);
+  color: var(--color-roxo-5);
+  transition: background-color .5s, color .5s, border .5s;
 }
 
 .btn-primary:hover {
-    background-color: var(--color-roxo-1);
+  background-color: var(--color-roxo-1);
 }
 
 .btn-second {
-    background-color: var(--color-roxo-5);
-    border: 1px solid var(--color-roxo-5);
-    transition: background-color .5s, color .5s, border .5s;
+  background-color: var(--color-roxo-5);
+  border: 1px solid var(--color-roxo-5);
+  transition: background-color .5s, color .5s, border .5s;
 }
 
 .btn-second:hover {
-    background-color: #6a359c;
-    /* A slightly darker purple */
+  background-color: #6a359c;
 }
 
-/* FIX: Makes the two-column grid stack into a single column on smaller screens */
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }

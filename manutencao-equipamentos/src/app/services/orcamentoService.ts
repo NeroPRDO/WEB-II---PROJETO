@@ -20,20 +20,20 @@ export class OrcamentoService {
   }
 
   listarPorCliente(clienteId: number): Observable<Orcamento[]> {
-    return this.http.get<Orcamento[]>(`${this.API}+"/cliente/"+${clienteId}`);
+    return this.http.get<Orcamento[]>(`${this.API}/cliente/${clienteId}`);
   }
  
   listarPorSolicitacao(solicitacaoId: number): Observable<Orcamento[]> {
-    return this.http.get<Orcamento[]>(`${this.API}+"/solicitacao/"+${solicitacaoId}`);
+    return this.http.get<Orcamento[]>(`${this.API}/solicitacao/${solicitacaoId}`);
   }
 
   aprovar(idOrcamento: number): Observable<Orcamento> {
-    return this.http.post<Orcamento>(`${this.API}+"/aprovar/"+${idOrcamento}`, {});
+    return this.http.post<Orcamento>(`${this.API}/aprovar/${idOrcamento}`, {});
   }
 
 
   rejeitar(idOrcamento: number): Observable<Orcamento> {
-    return this.http.post<Orcamento>(`${this.API}+"/rejeitar/"+${idOrcamento}`, {});
+    return this.http.post<Orcamento>(`${this.API}/rejeitar/${idOrcamento}`, {});
   }
 
 }

@@ -1,5 +1,5 @@
 export class solicitacaoPostModel {
   descricao!: string;
-  estadoChamado!: 'ABERTO' | 'EM_ANDAMENTO' | 'CONCLUIDO' | 'CANCELADO' | 'ORCADO' | string;
+  estadoChamado!: 'ABERTA' | 'EM_ANDAMENTO' | 'ORCADA' | 'APROVADA' | 'REJEITADA' | string;
   usuarioId!: number;
 }

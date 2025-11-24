@@ -33,12 +33,16 @@
 
         @switch (solicitacao.estadoChamado) {
           
-          @case ('ORCADO') { 
+          @case ('ORCADA') { 
             <div>
-              <button class="button-aprovar" [routerLink]="['/orcamento', solicitacao.id]">
+              <button class="button-aprovar" (click)="this.abrirOrcamento() ">
                 Visualizar Orçamento
               </button>
             </div>
+
+            @if (visualizarOrcamento) {
+              <app-visu-orcamento [dados]="solicitacao.id" (close)="fecharOrcamento()"></app-visu-orcamento>
+            }
           }
 
           @case ('APROVADA') {
@@ -47,7 +51,7 @@
 
           @case ('REJEITADA') {
             <div>
-               <button class="button-resgatar">Resgatar Serviço</button>
+               <button class="button-resgatar" (click)="resgatarServico(solicitacao.id)">Resgatar Serviço</button>
             </div>
           }
 

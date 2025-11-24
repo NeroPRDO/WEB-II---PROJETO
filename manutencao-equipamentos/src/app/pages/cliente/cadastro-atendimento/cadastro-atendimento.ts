@@ -5,15 +5,13 @@ import { NavComponent } from '../../../shared/Nav/nav';
 import { CategoriaResponse, CategoriaService } from '../../../services/categoriaService';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SolicitacaoService } from '../../../services/solicitacao';
-import { solicitacaoPostModel } from '../../../models/solicitacaoPostModel';
 import { Router } from '@angular/router';
-import { Dashboard } from '../dashboard/dashboard';
 
 
 @Component({
   selector: 'app-cadastro-atendimento',
   standalone: true,
-  imports: [Dashboard,NavComponent, CommonModule, ReactiveFormsModule],
+  imports: [NavComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './cadastro-atendimento.html',
   styleUrls: ['./cadastro-atendimento.css']
 })
@@ -93,7 +91,7 @@ export class CadastroAtendimento {
       descricaoEquipamentos: formValues.descricaoEquipamento, 
       categoriaId: Number(formValues.categoriaEquipamento),   
       usuarioId: usuarioLogado.id,                       
-      estadoChamado: 'ABERTO'                           
+      estadoChamado: 'ABERTA'                           
     };
 
     // 4. Enviar
