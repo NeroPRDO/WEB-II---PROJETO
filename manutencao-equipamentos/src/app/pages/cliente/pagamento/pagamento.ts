@@ -66,7 +66,7 @@ export class Pagamento implements OnInit {
           const data = agora.toLocaleDateString('pt-BR');
 
           alert(`Pagamento Confirmado e Registrado em ${data} às ${hora}!`);
-          this.router.navigate(['/']);
+          this.router.navigate(['/dashboard']);
         },
         error: (err) => {
           console.error("Erro ao pagar:", err);
