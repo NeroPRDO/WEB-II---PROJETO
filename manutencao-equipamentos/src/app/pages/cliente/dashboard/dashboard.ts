@@ -29,6 +29,11 @@ export class Dashboard implements OnInit { // 1. Implementar OnInit
   // 2. Chamar no ngOnInit
   ngOnInit(): void {
     this.listById();
+
+    this.solicitacaoService.chamadosAtualizados$.subscribe(() => {
+      console.log('Dashboard recebeu atualização...');
+      this.listById();
+    });
   }
 
   listById(){

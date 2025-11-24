@@ -51,7 +51,6 @@ export class PainelFuncinario implements OnInit {
 
   orcamentoModalVisible = false;
   selectedChamado: any = null;
-
   chamados: Chamado[] = [];
   chamadosFiltrados: Chamado[] = [];
 
@@ -60,6 +59,12 @@ export class PainelFuncinario implements OnInit {
 
   ngOnInit(): void {
     this.carregarChamados();
+
+    // Subscribe no Observable de atualização
+    this.solicitacaoService.chamadosAtualizados$.subscribe(() => {
+      console.log('Recarregando...');
+      this.carregarChamados(); 
+    });
   }
 
   carregarChamados() {
@@ -100,7 +105,12 @@ export class PainelFuncinario implements OnInit {
     this.selectedChamado = row.id;
   }
 
-  closeOrcamentoModal() {
+  closeOrcamentoModal(refreshNeeded: boolean = false) {
     this.orcamentoModalVisible = false;
+    this.selectedChamado = null;
+    if (refreshNeeded) {
+        // notificamos o serviço, que por sua vez acionará o subscribe.
+        this.solicitacaoService.notificarAtualizacao(); 
+    }
   }
 }

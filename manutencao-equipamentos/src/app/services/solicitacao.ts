@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable,map, catchError, of } from 'rxjs';
-import { Chamado } from '../models/chamadoModel';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 import { solicitacaoModel } from '../models/solicitacaoModel';
 import { solicitacaoPostModel } from '../models/solicitacaoPostModel';
 
@@ -14,7 +13,18 @@ export class SolicitacaoService {
 
   API = "http://localhost:8080/Solicitacoes";
 
+  // subject para notificar atualizações
+  private refreshChamadosSubject = new Subject<void>();
+
+  // observable para os componentes se inscreverem
+  chamadosAtualizados$ = this.refreshChamadosSubject.asObservable();
+
   constructor() { }
+
+  // método para emitir sinal de atualização
+  notificarAtualizacao(): void {
+    this.refreshChamadosSubject.next();
+  }
 
   list(): Observable<solicitacaoModel[]> {
     return this.http.get<solicitacaoModel[]>(this.API);

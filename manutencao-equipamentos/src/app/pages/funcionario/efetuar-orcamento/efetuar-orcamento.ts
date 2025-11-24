@@ -96,7 +96,8 @@ export class EfetuarOrcamento {
     this.orcamentoService.create(payload).subscribe({
       next: () => {
         alert("Orçamento criado com sucesso!");
-        this.close.emit(); // fecha modal
+        this.solicitacaoService.notificarAtualizacao();
+        this.close.emit(); 
       },
       error: (err) => {
         console.error("Erro ao salvar orçamento", err);
