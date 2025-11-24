@@ -1,12 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { NavComponent } from '../../../shared/Nav/nav';
 import { SolicitacaoService } from '../../../services/solicitacao';
 import { solicitacaoModel } from '../../../models/solicitacaoModel';
-import { HttpErrorResponse } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -15,51 +14,65 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
-export class Dashboard {
+export class Dashboard implements OnInit { // 1. Implementar OnInit
+  
   lista: solicitacaoModel[] = [];
-  solicitacaoService = inject(SolicitacaoService)
+  loading = true; // Adicionei loading para feedback visual
   
-  
+  private solicitacaoService = inject(SolicitacaoService);
+  private router = inject(Router); // Injetar Router para redirecionar se necessário
   
   constructor(){
+    // Deixar o construtor vazio
+  }
+
+  // 2. Chamar no ngOnInit
+  ngOnInit(): void {
     this.listById();
-   }
+  }
 
   listById(){
     const dadosSalvos = localStorage.getItem('auth_data');
 
     if (dadosSalvos) {
-    // 2. Converter a string para Objeto JavaScript
-    const usuarioObj = JSON.parse(dadosSalvos);
+      const usuarioObj = JSON.parse(dadosSalvos);
+      const idUsuario = usuarioObj.id;
 
-    // 3. Acessar o ID
-    const idUsuario = usuarioObj.id;
+      this.solicitacaoService.listById(idUsuario).subscribe({
+        next: (lista) => {
+          
+          // 3. Ordenar: Mais recentes primeiro (Decrescente)
+          this.lista = lista.sort((a, b) => {
+            const dataA = new Date(a.dataHora).getTime();
+            const dataB = new Date(b.dataHora).getTime();
+            return dataB - dataA; 
+          });
 
-    this.solicitacaoService.listById(idUsuario).subscribe({
-      next: lista =>{
-        this.lista = lista;
-      },
-      error: (err: HttpErrorResponse) => {
-        
-        console.error('Erro detalhado:', err);
-        
-        if (err.status === 401) {
-          alert('Sessão expirada ou não autenticada. Por favor, faça login novamente.');
+          this.loading = false;
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error('Erro detalhado:', err);
+          this.loading = false;
           
-        } 
-        else if (err.status === 403) {
-          alert('Você não tem permissão para acessar este recurso.');
-        } 
-        else if (err.status === 0) {
-          alert('Não foi possível conectar ao servidor. Verifique se o Backend está rodando.');
-        } 
-        else {
-          
-          const mensagemBackend = err.error?.message || err.message;
-          alert(`Ocorreu um erro: ${mensagemBackend}`);
-        }
-      },
-    });
-  }
+          if (err.status === 401) {
+            alert('Sessão expirada. Por favor, faça login novamente.');
+            this.router.navigate(['/login']);
+          } 
+          else if (err.status === 403) {
+            alert('Acesso negado.');
+          } 
+          else if (err.status === 0) {
+            alert('Sem conexão com o servidor.');
+          } 
+          else {
+            const msg = err.error?.message || err.message;
+            alert(`Erro: ${msg}`);
+          }
+        },
+      });
+    } else {
+      // Se não tiver usuário logado, manda pro login
+      this.router.navigate(['/login']);
+    }
   }
 }
