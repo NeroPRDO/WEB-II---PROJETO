@@ -27,6 +27,7 @@ public class Solicitacao {
 
     @Enumerated(EnumType.STRING)
     private EstadoChamado estadoChamado;
+    
     @ManyToOne
     @JoinColumn(name = "idf-usuario")
     private Usuario usuario;

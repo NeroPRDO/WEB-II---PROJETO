@@ -21,7 +21,6 @@ public class FuncionarioController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // CREATE
     @PostMapping
     public ResponseEntity<?> create(@RequestBody FuncionarioRequestDTO dto) {
 
