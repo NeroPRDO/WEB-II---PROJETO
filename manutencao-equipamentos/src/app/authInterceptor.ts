@@ -1,5 +1,3 @@
-// src/app/auth.interceptor.ts
-
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { LoginService } from '../app/services/loginService';

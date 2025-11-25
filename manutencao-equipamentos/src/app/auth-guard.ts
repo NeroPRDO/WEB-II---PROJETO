@@ -12,7 +12,7 @@ export const authGuard: CanActivateFn = (
   const usuarioLogado = loginService.usuarioLogado(); 
   const url = state.url;
 
-  if (usuarioLogado && loginService.isLoggedIn()) {
+  if (usuarioLogado) {
     const requiredRole = route.data['role'];
 
     if (!requiredRole) {
@@ -24,7 +24,7 @@ export const authGuard: CanActivateFn = (
     } else {
       console.warn(`Acesso negado. Usuário ${usuarioLogado.role} tentou acessar ${url} (requer ${requiredRole})`);
       
-      if (usuarioLogado.role === 'FUNCIONARIO' || usuarioLogado.role === 'ADMIN') {
+      if (usuarioLogado.role === 'FUNCIONARIO') {
         router.navigate(['/painel']); 
       } else {
         router.navigate(['/dashboard-cliente']); 

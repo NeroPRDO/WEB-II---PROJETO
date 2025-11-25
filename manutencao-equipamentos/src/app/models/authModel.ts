@@ -7,7 +7,7 @@ export interface AuthResponse {
 // Modelo dos dados do usuário extraídos do JWT (Payload)
 export interface JwtPayload {
   sub: string; //  ID do usuário (subject)
-  scope: 'CLIENTE' | 'FUNCIONARIO' | 'ADMIN'; // role (scope)
+  scope: 'CLIENTE' | 'FUNCIONARIO'; // role (scope)
   iss: string; // Issuer (Emissor do token)
   iat: number; // Issued At (Data de emissão)
   exp: number; // Expiration (Data de expiração)
@@ -16,6 +16,6 @@ export interface JwtPayload {
 // Modelo de Usuário Logado (O que armazenamos no serviço)
 export interface UsuarioLogado {
   id: number;
-  role: 'CLIENTE' | 'FUNCIONARIO' | 'ADMIN';
+  role: 'CLIENTE' | 'FUNCIONARIO';
   token: string;
 }
