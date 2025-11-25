@@ -9,6 +9,7 @@ import { SolicitacaoService } from '../../../services/solicitacao'; // Para carr
 import { solicitacaoModel } from '../../../models/solicitacaoModel';
 import { FinalizarManutencaoRequest, ManutencaoRequest, ManutencaoService } from '../../../services/manutencaoService';
 import { funcService } from '../../../services/funcService';
+import { IniciarManutencaoRequest } from '../../../models/manutencaoRequest';
 
 @Component({
   selector: 'app-manutencao',
@@ -29,7 +30,7 @@ export class ManutencaoComponent implements OnInit {
 
   solicitacao?: solicitacaoModel;
   funcionarios: any[] = []; 
-  modo: 'MANUTENCAO' | 'REDIRECIONAR' | 'FINALIZAR' = 'MANUTENCAO';
+  modo: 'INICIAR' | 'MANUTENCAO' | 'REDIRECIONAR' = 'INICIAR';
   
   manutencaoForm: FormGroup;
   redirecionarForm: FormGroup;
@@ -56,9 +57,25 @@ export class ManutencaoComponent implements OnInit {
   }
 
   carregarSolicitacao(id: number) {
-    // Continua usando o SolicitacaoService para buscar os dados
     this.solicitacaoService.findById(id).subscribe({
-      next: (dados) => this.solicitacao = dados,
+      next: (dados) => {
+        this.solicitacao = dados;
+        
+        // === LÓGICA DE MODOS ===
+        // Se já iniciou: Vai para o Relatório (e habilita aba Redirecionar)
+        if (this.solicitacao.estadoChamado === 'EM_ANDAMENTO') {
+          this.modo = 'MANUTENCAO';
+        } 
+        // Se ainda não iniciou: Vai para tela de Início (e esconde o resto)
+        else if (this.solicitacao.estadoChamado === 'APROVADA') {
+          this.modo = 'INICIAR';
+        } 
+        else {
+          // Outros estados (Finalizada, etc), volta pro painel ou mostra apenas visualização
+          // Aqui deixo em manutenção para permitir visualização se necessário
+          this.modo = 'MANUTENCAO'; 
+        }
+      },
       error: () => alert('Erro ao carregar solicitação.')
     });
   }
@@ -84,6 +101,35 @@ export class ManutencaoComponent implements OnInit {
 
   // --- AQUI MUDAMOS PARA USAR O NOVO SERVICE ---
 
+  iniciarTrabalho() {
+    if (!this.solicitacao) return;
+    const usuarioLogado = this.getUsuarioLogado();
+    if (!usuarioLogado) return;
+
+    // Usa a interface específica para o endpoint /iniciar
+    const dto: IniciarManutencaoRequest = {
+      idf_funcionarioAtual: usuarioLogado.id,
+      idf_solicitacao: this.solicitacao.id
+    };
+
+    this.manutencaoService.iniciarManutencao(dto as any).subscribe({
+      next: () => {
+        alert('Manutenção iniciada com sucesso!');
+        
+        // Atualiza estado localmente para a UI reagir
+        if (this.solicitacao) this.solicitacao.estadoChamado = 'EM_ANDAMENTO';
+        
+        // Troca para a aba de preencher o relatório
+        this.modo = 'MANUTENCAO';
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Erro ao iniciar manutenção.');
+      }
+    });
+  }
+
+  // 2. SALVAR/CONCLUIR MANUTENÇÃO (Preenche descrição e orientações)
   salvarManutencao() {
     if (this.manutencaoForm.invalid || !this.solicitacao) {
       this.manutencaoForm.markAllAsTouched();
@@ -92,6 +138,8 @@ export class ManutencaoComponent implements OnInit {
     const usuarioLogado = this.getUsuarioLogado();
     if (!usuarioLogado) return;
 
+    // DTO genérico (antigo) para salvar os textos
+    // Nota: Certifique-se que seu backend tem endpoint para atualizar/salvar isso
     const dto: ManutencaoRequest = {
       solicitacaoId: this.solicitacao.id,
       funcionarioId: usuarioLogado.id,
@@ -99,50 +147,29 @@ export class ManutencaoComponent implements OnInit {
       orientacoes: this.manutencaoForm.value.orientacoesCliente
     };
 
-    // USANDO O NOVO SERVICE
-    this.manutencaoService.iniciarManutencao(dto).subscribe({
+    // Supondo que você tenha um método para salvar os detalhes (ex: update ou finalizar)
+    // Se não tiver, use o finalizarManutencao ou crie um endpoint de update
+    this.manutencaoService.finalizarManutencao(dto as any).subscribe({
       next: () => {
-        alert('Manutenção registrada com sucesso!');
+        alert('Manutenção registrada e finalizada!');
         this.router.navigate(['/func']);
       },
       error: (err) => console.error(err)
     });
   }
 
+  // 3. REDIRECIONAR
   salvarRedirecionamento() {
     if (this.redirecionarForm.invalid || !this.solicitacao) return;
 
-    const dto: ManutencaoRequest = {
-      solicitacaoId: this.solicitacao.id,
-      funcionarioId: Number(this.redirecionarForm.value.funcionarioDestino)
+    const dto: IniciarManutencaoRequest = {
+      idf_solicitacao: this.solicitacao.id,
+      idf_funcionarioAtual: Number(this.redirecionarForm.value.funcionarioDestino)
     };
 
-    // USANDO O NOVO SERVICE
-    this.manutencaoService.trocarFuncionario(dto).subscribe({
+    this.manutencaoService.trocarFuncionario(dto as any).subscribe({
       next: () => {
         alert('Redirecionado com sucesso!');
-        this.router.navigate(['/func']);
-      },
-      error: (err) => console.error(err)
-    });
-  }
-
-  finalizarSolicitacao() {
-    if (!this.solicitacao) return;
-    if (!confirm('Finalizar solicitação?')) return;
-
-    const usuarioLogado = this.getUsuarioLogado();
-    if (!usuarioLogado) return;
-
-    const dto: FinalizarManutencaoRequest = {
-      solicitacaoId: this.solicitacao.id,
-      funcionarioId: usuarioLogado.id
-    };
-
-    // USANDO O NOVO SERVICE
-    this.manutencaoService.finalizarManutencao(dto).subscribe({
-      next: () => {
-        alert('Solicitação finalizada!');
         this.router.navigate(['/func']);
       },
       error: (err) => console.error(err)

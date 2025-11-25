@@ -13,7 +13,7 @@
     
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h2 class="h4 text-secondary">Gerenciar Solicitação #{{ solicitacao.id }}</h2>
-      <button class="btn btn-outline-secondary btn-sm" routerLink="/func">
+      <button class="btn btn-outline-secondary btn-sm" routerLink="/func/painel">
         <i class="bi bi-arrow-left"></i> Voltar ao Painel
       </button>
     </div>
@@ -47,11 +47,20 @@
     <ul class="nav nav-pills nav-fill mb-3 gap-2">
       <li class="nav-item">
         <a class="nav-link cursor-pointer" 
+           [class.active]="modo === 'INICIAR'" 
+           (click)="modo = 'INICIAR'">
+           <i class="bi bi-play-circle"></i> Iniciar
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link cursor-pointer" 
            [class.active]="modo === 'MANUTENCAO'" 
            (click)="modo = 'MANUTENCAO'">
            <i class="bi bi-tools"></i> Efetuar Manutenção
         </a>
       </li>
+      
       <li class="nav-item">
         <a class="nav-link cursor-pointer" 
            [class.active]="modo === 'REDIRECIONAR'" 
@@ -59,16 +68,27 @@
            <i class="bi bi-arrow-right-circle"></i> Redirecionar
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link btn-danger-outline cursor-pointer" 
-           [class.active]="modo === 'FINALIZAR'" 
-           [class.bg-danger]="modo === 'FINALIZAR'"
-           [class.text-white]="modo === 'FINALIZAR'"
-           (click)="modo = 'FINALIZAR'">
-           <i class="bi bi-check-circle"></i> Finalizar
-        </a>
-      </li>
     </ul>
+
+    @if (modo === 'INICIAR') {
+      <div class="card border-success shadow-sm animate-fade-in">
+        <div class="card-body text-center py-5">
+          <div class="mb-3 text-success">
+            <i class="bi bi-tools" style="font-size: 3rem;"></i>
+          </div>
+          <h4 class="card-title text-success">Iniciar Manutenção</h4>
+          <p class="card-text text-muted w-75 mx-auto">
+            Ao clicar abaixo, você assume a responsabilidade por este chamado e um registro de manutenção será criado em seu nome.
+          </p>
+          
+          <hr class="w-50 mx-auto my-4">
+
+          <button class="btn btn-success btn-lg px-5" (click)="iniciarTrabalho()">
+            <i class="bi bi-play-fill"></i> Confirmar Início
+          </button>
+        </div>
+      </div>
+    }
 
     @if (modo === 'MANUTENCAO') {
       <div class="card border-primary shadow-sm animate-fade-in">
@@ -146,27 +166,6 @@
               <i class="bi bi-send"></i> Confirmar Redirecionamento
             </button>
           </form>
-        </div>
-      </div>
-    }
-
-    @if (modo === 'FINALIZAR') {
-      <div class="card border-danger shadow-sm animate-fade-in">
-        <div class="card-body text-center py-5">
-          <div class="mb-3 text-danger">
-            <i class="bi bi-check-circle-fill" style="font-size: 3rem;"></i>
-          </div>
-          <h4 class="card-title text-danger">Finalizar Solicitação</h4>
-          <p class="card-text text-muted w-75 mx-auto">
-            Esta ação encerrará o ciclo de vida do chamado e o marcará como <strong>FINALIZADA</strong>. 
-            Certifique-se de que o pagamento foi realizado e o equipamento entregue.
-          </p>
-          
-          <hr class="w-50 mx-auto my-4">
-
-          <button class="btn btn-danger btn-lg px-5" (click)="finalizarSolicitacao()">
-            Confirmar Finalização
-          </button>
         </div>
       </div>
     }

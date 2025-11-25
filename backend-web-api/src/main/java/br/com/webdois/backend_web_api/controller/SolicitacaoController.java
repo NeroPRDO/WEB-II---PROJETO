@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.webdois.backend_web_api.dtos.FinalizarSolicitacaoDTO;
 import br.com.webdois.backend_web_api.dtos.SolicitacaoDTO;
 import br.com.webdois.backend_web_api.dtos.SolicitacaoResponseDTO;
 import br.com.webdois.backend_web_api.entity.Solicitacao;
@@ -57,5 +58,13 @@ public class SolicitacaoController {
     @GetMapping("/usuario/{usuarioId}")
     public List<SolicitacaoResponseDTO> listarPorUsuario(@PathVariable Long usuarioId) {
         return solicitacaoService.listarSolicitacaoPorCliente(usuarioId);
+    }
+
+    @PostMapping("/finalizar")
+    public ResponseEntity<SolicitacaoResponseDTO> finalizar(@RequestBody FinalizarSolicitacaoDTO dto) {
+        SolicitacaoResponseDTO response = solicitacaoService.finalizarSolicitacao(
+                dto.getIdSolicitacao(),
+                dto.getIdFuncionario());
+        return ResponseEntity.ok(response);
     }
 }
