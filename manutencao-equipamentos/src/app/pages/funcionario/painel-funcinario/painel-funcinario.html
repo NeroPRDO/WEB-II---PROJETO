@@ -9,19 +9,36 @@
 
         <div class="col-8">
             <panel>
-                <h3 class="text-center">Chamados Abertos</h3>
+                <h3 class="text-center">Chamados</h3>
 
-                <div class="filtros-chamados">
-                    <span>Mostrar</span>
+                <div class="filtros-chamados gap">
 
-                    <select class="form-select form-select-sm" (change)="onFiltroChange($event)">
-                        <option value="TODOS">Todas</option>
-                        <option value="HOJE">Abertas Hoje</option>
-                        <option value="PERIODO">Período</option>
-                    </select>
+                    <div class="filtro-box">
+                        <span>Status</span>
+                        <select class="form-select form-select-sm" (change)="onStatusChange($event)">
+                            <option value="">Todos</option>
+                            <option value="ABERTA">Aberta</option>
+                            <option value="APROVADA">Aprovada</option>
+                            <option value="EM_ANDAMENTO">Em andamento</option>
+                            <option value="REDIRECIONADA">Redirecionada</option>
+                            <option value="PAGA">Paga</option>
+                            <option value="FINALIZADA">Finalizada</option>
+                        </select>
+                    </div>
+
+                    <div class="filtro-box" *ngIf="filtroSelecionado === 'PERIODO'">
+                        <span>De</span>
+                        <input type="date" class="form-control form-control-sm" (change)="onDataChange()"
+                            [(ngModel)]="dataInicio">
+                    </div>
+
+                    <div class="filtro-box" *ngIf="filtroSelecionado === 'PERIODO'">
+                        <span>Até</span>
+                        <input type="date" class="form-control form-control-sm" (change)="onDataChange()"
+                            [(ngModel)]="dataFim">
+                    </div>
                 </div>
 
-                <!-- Template ações -->
                 <ng-template #templateEditar let-row>
                     <div class="template-center">
                         @switch(row.estado) {
@@ -50,17 +67,16 @@
                 </ng-template>
 
                 <app-table-chamado [colunas]="[
-            { id: 'cliente', header: 'CLIENTE' },
-            { id: 'estado', header: 'ESTADO', headerStyle: 'col-2' },
-            { id: 'descricao', header: 'DESCRIÇÃO' },
-            { id: 'data_chamado', header: 'DATA', headerStyle: 'col-2' },
-            { id: 'acao', header: 'AÇÃO', render: templateEditar, headerStyle: 'col-2 text-center' }
-          ]" [data]="chamadosFiltrados" />
+                    { id: 'cliente', header: 'CLIENTE' },
+                    { id: 'estado', header: 'ESTADO', headerStyle: 'col-2' },
+                    { id: 'descricao', header: 'DESCRIÇÃO' },
+                    { id: 'data_chamado', header: 'DATA', headerStyle: 'col-2' },
+                    { id: 'acao', header: 'AÇÃO', render: templateEditar, headerStyle: 'col-2 text-center' }
+                ]" [data]="chamadosFiltrados" />
             </panel>
         </div>
     </div>
 </div>
-
 
 <!-- MODAL ORÇAR -->
 @if (orcamentoModalVisible) {
@@ -71,35 +87,25 @@
 <!-- MODAL FINALIZAR -->
 @if (finalizarModalVisible) {
 <app-modal (closeModalEvent)="closeFinalizarModal()">
-
     <h4>Finalizar Manutenção</h4>
 
     <form [formGroup]="finalizarForm" (ngSubmit)="confirmarFinalizarManutencao()">
-
         <div class="fundo-modal gap">
-
             <div class="input-div">
                 <span>Descrição da Manutenção</span>
-                <textarea class="base-input" rows="3" formControlName="descricaoManutencao"
-                    placeholder="O que foi feito no aparelho?"></textarea>
+                <textarea class="base-input" rows="3" formControlName="descricaoManutencao"></textarea>
             </div>
 
             <div class="input-div">
                 <span>Orientação ao Cliente</span>
-                <textarea class="base-input" rows="3" formControlName="orientacao"
-                    placeholder="Cuidados, garantias, etc..."></textarea>
+                <textarea class="base-input" rows="3" formControlName="orientacao"></textarea>
             </div>
-
         </div>
 
         <div class="btn-div p-top">
             <button type="button" class="btn btn-vermelho" (click)="closeFinalizarModal()">Cancelar</button>
-
-            <button type="submit" class="btn btn-verde" [disabled]="finalizarForm.invalid">
-                Concluir
-            </button>
+            <button type="submit" class="btn btn-verde" [disabled]="finalizarForm.invalid">Concluir</button>
         </div>
-
     </form>
 </app-modal>
 }

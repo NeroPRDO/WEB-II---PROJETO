@@ -7,7 +7,7 @@ tbody tr:hover {
 }
 
 tbody tr:hover td {
-    color: var(--color-roxo-5)
+    color: var(--color-roxo-5);
 }
 
 table tbody tr:nth-child(odd) td {
@@ -26,7 +26,6 @@ td div.codigo {
     border-radius: 15px;
     padding: 2px;
 }
-
 
 td div.aberta {
     background-color: rgb(224, 224, 224);
@@ -59,11 +58,29 @@ td button {
     display: flex;
     align-items: center;
     width: min-content;
-    padding: 2px 5px 2px 5px;
+    padding: 2px 5px;
     color: var(--color-rosa-3) !important;
     background-color: transparent;
 }
 
 .table-fixed {
     table-layout: fixed;
+}
+
+table td,
+table th {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+}
+
+@media (max-width: 768px) {
+
+    table td,
+    table th {
+        font-size: 11px;
+        max-width: 120px;
+    }
 }

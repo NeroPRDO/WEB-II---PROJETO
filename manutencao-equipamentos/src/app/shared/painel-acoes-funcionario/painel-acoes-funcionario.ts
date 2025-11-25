@@ -36,7 +36,7 @@ export class PainelAcoesFuncionario {
       exact: false
     },
     {
-      routerLink: "",
+      routerLink: "/func/relatorios",
       buttonMessage: "Gerar Relatorio",
       exact: true
     }

@@ -48,12 +48,13 @@ export class PainelFuncinario implements OnInit {
   chamadosFiltrados: Chamado[] = [];
 
   filtroSelecionado: 'TODOS' | 'HOJE' | 'PERIODO' = 'TODOS';
-
+  filtroStatus: string = '';
+  dataInicio: string | null = null;
+  dataFim: string | null = null;
 
   orcamentoModalVisible = false;
   finalizarModalVisible = false;
   selectedChamado: string | null = null;
-
 
   finalizarForm = new FormGroup({
     descricaoManutencao: new FormControl('', Validators.required),
@@ -73,7 +74,7 @@ export class PainelFuncinario implements OnInit {
           codigo: s.id.toString(),
           cliente: s.usuario?.nome ?? 'Sem nome',
           descricao: s.descricao.length > 27 ? s.descricao.substring(0, 27) + '...' : s.descricao,
-          data_chamado: new Date(s.dataHora).toLocaleDateString('pt-BR'),
+          data_chamado: new Date(s.dataHora).toISOString().split('T')[0],
           estado: s.estadoChamado
         }));
 
@@ -85,27 +86,62 @@ export class PainelFuncinario implements OnInit {
     });
   }
 
+
+  filtroData: string = '';
   onFiltroChange(event: any) {
     this.filtroSelecionado = event.target.value;
     this.aplicarFiltro();
   }
 
+  onStatusChange(e: any) {
+    const v = e?.target?.value;
+    this.filtroStatus = (v === 'TODOS' || v === '' || v == null) ? '' : v;
+    this.aplicarFiltro();
+  }
+
+  onPeriodoChange(event: any) {
+    this.filtroSelecionado = event.target.value;
+    this.aplicarFiltro();
+  }
+
+  onFiltroPeriodoChange(event: any) {
+    const value = event.target.value;
+    this.filtroData = value;
+    this.aplicarFiltro();
+  }
+
+  onDataChange() {
+    if (this.dataInicio && this.dataFim) {
+      this.aplicarFiltro();
+    }
+  }
+
   aplicarFiltro() {
-    if (this.filtroSelecionado === 'TODOS') {
-      this.chamadosFiltrados = this.chamados;
-      return;
+    let filtrados = [...this.chamados];
+
+    if (this.filtroStatus && this.filtroStatus.trim() !== '') {
+      filtrados = filtrados.filter(c => c.estado === this.filtroStatus);
     }
 
     if (this.filtroSelecionado === 'HOJE') {
       const hoje = new Date().toLocaleDateString('pt-BR');
-      this.chamadosFiltrados = this.chamados.filter(c => c.data_chamado === hoje);
-      return;
+      filtrados = filtrados.filter(c => {
+        const dataFormatada = new Date(c.data_chamado).toLocaleDateString('pt-BR');
+        return dataFormatada === hoje;
+      });
     }
 
-    if (this.filtroSelecionado === 'PERIODO') {
-      this.chamadosFiltrados = this.chamados;
-      return;
+
+    if (this.filtroSelecionado === 'PERIODO' && this.dataInicio && this.dataFim) {
+      const inicio = new Date(this.dataInicio);
+      const fim = new Date(this.dataFim);
+      filtrados = filtrados.filter(c => {
+        const dataChamado = new Date(c.data_chamado.split('/').reverse().join('-'));
+        return dataChamado >= inicio && dataChamado <= fim;
+      });
     }
+
+    this.chamadosFiltrados = filtrados;
   }
 
   openOrcamentoModal(row: any) {
