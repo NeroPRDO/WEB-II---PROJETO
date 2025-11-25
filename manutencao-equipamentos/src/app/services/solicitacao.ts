@@ -32,7 +32,7 @@ export class SolicitacaoService {
   }
  
   save(solicitacao : solicitacaoPostModel): Observable<solicitacaoPostModel>{
-    return this.http.post<solicitacaoPostModel>(this.API, solicitacao).pipe(tap(() => this.notificarAtualizacao()));;
+    return this.http.post<solicitacaoPostModel>(this.API, solicitacao);
   }
 
   findById(id:number): Observable<solicitacaoModel>{
