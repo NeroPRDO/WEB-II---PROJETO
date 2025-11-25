@@ -23,20 +23,11 @@ export class Dashboard implements OnInit {
   private solicitacaoService = inject(SolicitacaoService);
   private router = inject(Router);
 
-  private destroy$ = new Subject<void>();
 
 ngOnInit(): void {
   this.carregarLista();
-
-  this.solicitacaoService.chamadosAtualizados$
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(() => this.carregarLista());
 }
 
-ngOnDestroy(): void {
-  this.destroy$.next();
-  this.destroy$.complete();
-}
 
   carregarLista(): void {
     const dadosSalvos = localStorage.getItem('auth_data');
@@ -51,10 +42,8 @@ ngOnDestroy(): void {
     this.loading = true;
     this.solicitacaoService.listById(idUsuario).subscribe({
       next: (lista) => {
-        // Ordena mais recentes primeiro
         this.lista = lista.sort((a, b) => new Date(b.dataHora).getTime() - new Date(a.dataHora).getTime());
         this.loading = false;
-
       },
       error: (err: HttpErrorResponse) => {
         console.error('Erro detalhado:', err);
