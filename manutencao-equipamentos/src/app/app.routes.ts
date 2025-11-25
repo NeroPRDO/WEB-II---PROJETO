@@ -7,10 +7,8 @@ import { Orcamento } from './pages/funcionario/atendimento/orcamento/orcamento'
 import { VisualizarSolicitacao } from './pages/funcionario/atendimento/visualizar-solicitacao/visualizar-solicitacao';
 import { VisualizarServico } from './pages/cliente/visualizar-servico/visualizar-servico';
 
-import { Historico } from './pages/cliente/historico/historico';
 import { Cadastro } from './pages/logar/cadastro/cadastro';
 import { EfetuarOrcamento } from './pages/funcionario/efetuar-orcamento/efetuar-orcamento';
-import { Servicos } from './pages/cliente/servicos/servicos';
 import { ManutencaoComponent } from './pages/funcionario/manutencao/manutencao';
 import { Pagamento } from './pages/cliente/pagamento/pagamento';
 import { RelatorioReceitasCategoria } from './pages/funcionario/relatorios/relatorio-receitas-categoria/relatorio-receitas-categoria';
@@ -54,13 +52,6 @@ export const routes: Routes = [
     data: { role: 'CLIENTE' }
   },
   {
-    path: 'servicos',
-    component: Servicos,
-    title: 'servicos',
-    canActivate: [authGuard],
-    data: { role: 'CLIENTE' }
-  },
-  {
     path: 'cadastro-atendimento',
     component: CadastroAtendimento,
     title: 'cadatro-atendimento',
@@ -71,13 +62,6 @@ export const routes: Routes = [
     path: 'visualizar-servico/:id',
     component: VisualizarServico,
     title: 'visualizar-servico',
-    canActivate: [authGuard],
-    data: { role: 'CLIENTE' }
-  },
-  {
-    path: 'historico',
-    component: Historico,
-    title: 'historico',
     canActivate: [authGuard],
     data: { role: 'CLIENTE' }
   },
@@ -221,12 +205,6 @@ export const routes: Routes = [
 
   // === Perfil do Funcionário === RASCUNHO
 
-  {
-    // listagem geral
-    path: 'func/solicitacoes',
-    component: Historico, //por enquanto
-    title: 'lista-solicitacoes'
-  },
 
   {
     // reuso da tela de visualizar
