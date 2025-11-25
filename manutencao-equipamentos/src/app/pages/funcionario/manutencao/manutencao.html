@@ -45,44 +45,49 @@
     </div>
 
     <ul class="nav nav-pills nav-fill mb-3 gap-2">
-      <li class="nav-item">
-        <a class="nav-link cursor-pointer" 
-           [class.active]="modo === 'INICIAR'" 
-           (click)="modo = 'INICIAR'">
-           <i class="bi bi-play-circle"></i> Iniciar
-        </a>
-      </li>
       
-      <li class="nav-item">
-        <a class="nav-link cursor-pointer" 
-           [class.active]="modo === 'MANUTENCAO'" 
-           (click)="modo = 'MANUTENCAO'">
-           <i class="bi bi-tools"></i> Efetuar Manutenção
-        </a>
-      </li>
+      @if (solicitacao.estadoChamado === 'APROVADA') {
+        <li class="nav-item">
+          <a class="nav-link cursor-pointer" 
+             [class.active]="modo === 'INICIAR'" 
+             (click)="modo = 'INICIAR'">
+             <i class="bi bi-play-circle"></i> Iniciar
+          </a>
+        </li>
+      }
       
-      <li class="nav-item">
-        <a class="nav-link cursor-pointer" 
-           [class.active]="modo === 'REDIRECIONAR'" 
-           (click)="modo = 'REDIRECIONAR'">
-           <i class="bi bi-arrow-right-circle"></i> Redirecionar
-        </a>
-      </li>
+      @if (solicitacao.estadoChamado === 'EM_ANDAMENTO' || solicitacao.estadoChamado === 'REDIRECIONADA') {
+        <li class="nav-item">
+          <a class="nav-link cursor-pointer" 
+             [class.active]="modo === 'MANUTENCAO'" 
+             (click)="modo = 'MANUTENCAO'">
+             <i class="bi bi-tools"></i> Relatório Técnico
+          </a>
+        </li>
+      }
+      
+      @if (solicitacao.estadoChamado === 'EM_ANDAMENTO' || solicitacao.estadoChamado === 'REDIRECIONADA') {
+        <li class="nav-item">
+          <a class="nav-link cursor-pointer" 
+             [class.active]="modo === 'REDIRECIONAR'" 
+             (click)="modo = 'REDIRECIONAR'">
+             <i class="bi bi-arrow-right-circle"></i> Redirecionar
+          </a>
+        </li>
+      }
     </ul>
 
     @if (modo === 'INICIAR') {
       <div class="card border-success shadow-sm animate-fade-in">
         <div class="card-body text-center py-5">
           <div class="mb-3 text-success">
-            <i class="bi bi-tools" style="font-size: 3rem;"></i>
+            <i class="bi bi-play-circle-fill" style="font-size: 3rem;"></i>
           </div>
           <h4 class="card-title text-success">Iniciar Manutenção</h4>
           <p class="card-text text-muted w-75 mx-auto">
-            Ao clicar abaixo, você assume a responsabilidade por este chamado e um registro de manutenção será criado em seu nome.
+            Ao clicar abaixo, você assume a responsabilidade por este chamado e o cronômetro será iniciado.
           </p>
-          
           <hr class="w-50 mx-auto my-4">
-
           <button class="btn btn-success btn-lg px-5" (click)="iniciarTrabalho()">
             <i class="bi bi-play-fill"></i> Confirmar Início
           </button>
@@ -93,14 +98,13 @@
     @if (modo === 'MANUTENCAO') {
       <div class="card border-primary shadow-sm animate-fade-in">
         <div class="card-body">
-          <h5 class="card-title text-primary mb-3">Registro de Manutenção</h5>
+          <h5 class="card-title text-primary mb-3">Relatório de Serviço</h5>
           
           <form [formGroup]="manutencaoForm" (ngSubmit)="salvarManutencao()">
             
             <div class="mb-3">
-              <label for="descManutencao" class="form-label fw-bold">Descrição do Serviço Realizado:</label>
+              <label class="form-label fw-bold">Descrição do Serviço Realizado:</label>
               <textarea 
-                id="descManutencao"
                 class="form-control" 
                 rows="5" 
                 formControlName="descricaoManutencao"
@@ -108,14 +112,13 @@
                 [class.is-invalid]="manutencaoForm.get('descricaoManutencao')?.invalid && manutencaoForm.get('descricaoManutencao')?.touched"
               ></textarea>
               <div class="invalid-feedback">
-                É necessário descrever o que foi feito (mínimo 5 caracteres).
+                A descrição é obrigatória (mínimo 5 caracteres).
               </div>
             </div>
 
             <div class="mb-4">
-              <label for="orientacoes" class="form-label fw-bold">Orientações para o Cliente:</label>
+              <label class="form-label fw-bold">Orientações ao Cliente:</label>
               <textarea 
-                id="orientacoes"
                 class="form-control" 
                 rows="3" 
                 formControlName="orientacoesCliente"
@@ -123,12 +126,12 @@
                 [class.is-invalid]="manutencaoForm.get('orientacoesCliente')?.invalid && manutencaoForm.get('orientacoesCliente')?.touched"
               ></textarea>
               <div class="invalid-feedback">
-                Por favor, forneça orientações ao cliente.
+                As orientações são obrigatórias.
               </div>
             </div>
 
             <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" [disabled]="manutencaoForm.invalid">
-              <i class="bi bi-save"></i> Salvar Manutenção e Atualizar Estado
+              <i class="bi bi-check-lg"></i> Salvar e Finalizar
             </button>
           </form>
         </div>
@@ -138,27 +141,26 @@
     @if (modo === 'REDIRECIONAR') {
       <div class="card border-warning shadow-sm animate-fade-in">
         <div class="card-body">
-          <h5 class="card-title text-warning-emphasis mb-3">Redirecionamento de Chamado</h5>
-          <div class="alert alert-warning py-2">
-            <small><i class="bi bi-exclamation-triangle"></i> Ao redirecionar, este chamado sairá da sua lista de pendências.</small>
+          <h5 class="card-title text-warning-emphasis mb-3">Redirecionar Chamado</h5>
+          <div class="alert alert-warning py-2 mb-3">
+            <small><i class="bi bi-exclamation-triangle"></i> O chamado sairá da sua lista de pendências.</small>
           </div>
 
           <form [formGroup]="redirecionarForm" (ngSubmit)="salvarRedirecionamento()">
             <div class="mb-4">
-              <label for="selectFuncionario" class="form-label fw-bold">Selecione o Técnico Destino:</label>
+              <label class="form-label fw-bold">Técnico Destino:</label>
               <select 
-                id="selectFuncionario"
                 class="form-select form-select-lg" 
                 formControlName="funcionarioDestino"
                 [class.is-invalid]="redirecionarForm.get('funcionarioDestino')?.invalid && redirecionarForm.get('funcionarioDestino')?.touched"
               >
-                <option value="" disabled selected>Escolha um funcionário...</option>
+                <option value="" disabled selected>Selecione...</option>
                 @for (func of funcionarios; track func.id) {
                   <option [value]="func.id">{{ func.nome }}</option>
                 }
               </select>
               <div class="invalid-feedback">
-                Selecione um funcionário para receber o chamado.
+                Selecione um técnico.
               </div>
             </div>
 
@@ -166,6 +168,38 @@
               <i class="bi bi-send"></i> Confirmar Redirecionamento
             </button>
           </form>
+        </div>
+      </div>
+    }
+
+    @if (modo === null) {
+      <div class="card border-secondary shadow-sm animate-fade-in mt-3">
+        <div class="card-body text-center py-5">
+          
+          @if (solicitacao.estadoChamado === 'ABERTO') {
+            <div class="mb-3 text-primary"><i class="bi bi-hourglass-split" style="font-size: 3rem;"></i></div>
+            <h4 class="text-primary">Aguardando Orçamento</h4>
+            <p class="text-muted">É necessário realizar o orçamento antes de iniciar a manutenção.</p>
+            }
+          
+          @else if (solicitacao.estadoChamado === 'ORCADO') {
+            <div class="mb-3 text-warning"><i class="bi bi-currency-dollar" style="font-size: 3rem;"></i></div>
+            <h4 class="text-warning">Aguardando Aprovação</h4>
+            <p class="text-muted">O orçamento foi enviado. Aguarde a resposta do cliente.</p>
+          }
+          
+          @else if (solicitacao.estadoChamado === 'FINALIZADA' || solicitacao.estadoChamado === 'ARRUMADA') {
+            <div class="mb-3 text-success"><i class="bi bi-check-circle-fill" style="font-size: 3rem;"></i></div>
+            <h4 class="text-success">Solicitação Concluída</h4>
+            <p class="text-muted">O processo de manutenção foi finalizado.</p>
+          }
+          
+          @else {
+            <div class="mb-3 text-secondary"><i class="bi bi-info-circle" style="font-size: 3rem;"></i></div>
+            <h4>Status: {{ solicitacao.estadoChamado }}</h4>
+            <p class="text-muted">Nenhuma ação de manutenção disponível para este estado.</p>
+          }
+
         </div>
       </div>
     }

@@ -30,7 +30,7 @@ export class ManutencaoComponent implements OnInit {
 
   solicitacao?: solicitacaoModel;
   funcionarios: any[] = []; 
-  modo: 'INICIAR' | 'MANUTENCAO' | 'REDIRECIONAR' = 'INICIAR';
+  modo: 'INICIAR' | 'MANUTENCAO' | 'REDIRECIONAR' | null = null;
   
   manutencaoForm: FormGroup;
   redirecionarForm: FormGroup;
@@ -60,19 +60,29 @@ export class ManutencaoComponent implements OnInit {
     this.solicitacaoService.findById(id).subscribe({
       next: (dados) => {
         this.solicitacao = dados;
-        
-        if (this.solicitacao.estadoChamado === 'EM_ANDAMENTO') {
-          this.modo = 'MANUTENCAO';
-        } 
-        else if (this.solicitacao.estadoChamado === 'APROVADA') {
-          this.modo = 'INICIAR';
-        } 
-        else {
-          this.modo = 'MANUTENCAO'; 
-        }
+        this.atualizarModoPorEstado();
       },
       error: () => alert('Erro ao carregar solicitação.')
     });
+  }
+
+  atualizarModoPorEstado() {
+    if (!this.solicitacao) return;
+    
+    const estado = this.solicitacao.estadoChamado;
+
+    // 1. Se já começou ou foi redirecionada -> Vai para tela de Manutenção (sem botão Iniciar)
+    if (estado === 'EM_ANDAMENTO' || estado === 'REDIRECIONADA') {
+      this.modo = 'MANUTENCAO';
+    } 
+    // 2. Se foi aprovada e ninguém pegou -> Vai para tela de Iniciar
+    else if (estado === 'APROVADA') {
+      this.modo = 'INICIAR';
+    } 
+    // 3. Outros estados (Aberto, Finalizada) -> Apenas visualização
+    else {
+      this.modo = null; 
+    }
   }
 
   carregarFuncionarios() {
