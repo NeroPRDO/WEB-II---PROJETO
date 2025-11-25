@@ -3,7 +3,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-botao-servicos',
-  // CORREÇÃO 2: Remover a propriedade 'imports' se não for um componente standalone
   templateUrl: './botao-servicos.html',
   styleUrl: './botao-servicos.css'
 })

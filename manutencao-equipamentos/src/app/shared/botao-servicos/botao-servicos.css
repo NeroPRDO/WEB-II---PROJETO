@@ -1,12 +1,11 @@
-/* Usando :host para garantir que os estilos fiquem encapsulados neste componente */
 :host {
   display: block;
 }
 
 .actions-container {
   display: flex;
-  gap: 12px; /* Espaçamento entre os botões */
-  flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas menores */
+  gap: 12px; 
+  flex-wrap: wrap; 
 }
 
 .btn {

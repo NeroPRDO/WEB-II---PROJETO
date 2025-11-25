@@ -73,7 +73,7 @@ export class EfetuarOrcamento {
       return;
     }
 
-    // 🔥 PEGAR DADOS DO FUNCIONÁRIO LOGADO
+  
     const dadosSalvos = localStorage.getItem('auth_data');
     if (!dadosSalvos) {
       alert("Erro: usuário não logado.");
@@ -83,7 +83,7 @@ export class EfetuarOrcamento {
     const usuarioObj = JSON.parse(dadosSalvos);
     const idFuncionario = usuarioObj.id;
 
-    // 🔥 Montar o payload igual ao Swagger
+    // montar o payload igual ao Swagger
     const payload: OrcamentoRequest = {
       solicitaoId: this.dados.solicitacao.id,
       usuarioId: this.dados.cliente.id,

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NavComponent } from '../../../shared/Nav/nav';
-import { SolicitacaoService } from '../../../services/solicitacao'; // Para carregar dados
+import { SolicitacaoService } from '../../../services/solicitacao'; 
 
 import { solicitacaoModel } from '../../../models/solicitacaoModel';
 import { FinalizarManutencaoRequest, ManutencaoRequest, ManutencaoService } from '../../../services/manutencaoService';
@@ -61,18 +61,13 @@ export class ManutencaoComponent implements OnInit {
       next: (dados) => {
         this.solicitacao = dados;
         
-        // === LÓGICA DE MODOS ===
-        // Se já iniciou: Vai para o Relatório (e habilita aba Redirecionar)
         if (this.solicitacao.estadoChamado === 'EM_ANDAMENTO') {
           this.modo = 'MANUTENCAO';
         } 
-        // Se ainda não iniciou: Vai para tela de Início (e esconde o resto)
         else if (this.solicitacao.estadoChamado === 'APROVADA') {
           this.modo = 'INICIAR';
         } 
         else {
-          // Outros estados (Finalizada, etc), volta pro painel ou mostra apenas visualização
-          // Aqui deixo em manutenção para permitir visualização se necessário
           this.modo = 'MANUTENCAO'; 
         }
       },
@@ -81,32 +76,25 @@ export class ManutencaoComponent implements OnInit {
   }
 
   carregarFuncionarios() {
-    // Pega ID do usuário logado para não se redirecionar para si mesmo
     const dadosLocal = localStorage.getItem('auth_data');
     const idLogado = dadosLocal ? JSON.parse(dadosLocal).id : 0;
 
-    // 3. Chamada Real ao Backend
     this.funcService.getFuncionarios().subscribe({
       next: (lista) => {
-        // Filtra para remover o próprio usuário logado da lista de destino
         this.funcionarios = lista.filter(f => f.id !== idLogado);
       },
       error: (err) => {
         console.error('Erro ao buscar funcionários:', err);
-        // Se der erro, a lista fica vazia ou mostra um alerta
         alert('Não foi possível carregar a lista de técnicos.');
       }
     });
   }
-
-  // --- AQUI MUDAMOS PARA USAR O NOVO SERVICE ---
 
   iniciarTrabalho() {
     if (!this.solicitacao) return;
     const usuarioLogado = this.getUsuarioLogado();
     if (!usuarioLogado) return;
 
-    // Usa a interface específica para o endpoint /iniciar
     const dto: IniciarManutencaoRequest = {
       idf_funcionarioAtual: usuarioLogado.id,
       idf_solicitacao: this.solicitacao.id
@@ -116,10 +104,8 @@ export class ManutencaoComponent implements OnInit {
       next: () => {
         alert('Manutenção iniciada com sucesso!');
         
-        // Atualiza estado localmente para a UI reagir
         if (this.solicitacao) this.solicitacao.estadoChamado = 'EM_ANDAMENTO';
         
-        // Troca para a aba de preencher o relatório
         this.modo = 'MANUTENCAO';
       },
       error: (err) => {
@@ -129,7 +115,6 @@ export class ManutencaoComponent implements OnInit {
     });
   }
 
-  // 2. SALVAR/CONCLUIR MANUTENÇÃO (Preenche descrição e orientações)
   salvarManutencao() {
     if (this.manutencaoForm.invalid || !this.solicitacao) {
       this.manutencaoForm.markAllAsTouched();
@@ -138,8 +123,6 @@ export class ManutencaoComponent implements OnInit {
     const usuarioLogado = this.getUsuarioLogado();
     if (!usuarioLogado) return;
 
-    // DTO genérico (antigo) para salvar os textos
-    // Nota: Certifique-se que seu backend tem endpoint para atualizar/salvar isso
     const dto: ManutencaoRequest = {
       solicitacaoId: this.solicitacao.id,
       funcionarioId: usuarioLogado.id,
@@ -147,8 +130,6 @@ export class ManutencaoComponent implements OnInit {
       orientacoes: this.manutencaoForm.value.orientacoesCliente
     };
 
-    // Supondo que você tenha um método para salvar os detalhes (ex: update ou finalizar)
-    // Se não tiver, use o finalizarManutencao ou crie um endpoint de update
     this.manutencaoService.finalizarManutencao(dto as any).subscribe({
       next: () => {
         alert('Manutenção registrada e finalizada!');
@@ -158,7 +139,6 @@ export class ManutencaoComponent implements OnInit {
     });
   }
 
-  // 3. REDIRECIONAR
   salvarRedirecionamento() {
     if (this.redirecionarForm.invalid || !this.solicitacao) return;
 

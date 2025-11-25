@@ -32,14 +32,15 @@
             <button class="btn btn-primary" (click)="abrirRejeicao()">Rejeitar Serviço</button>
         </div>
 
-        <!-- Motivo da rejeição (leve, sem lib externa) -->
-        <div *ngIf="showRejeicao" class="rejeicao">
+        @if (showRejeicao) {
+        <div class="rejeicao">
             <h3 class="title title-second">Motivo da Rejeição</h3>
             <textarea [(ngModel)]="motivo" rows="4" placeholder="Descreva o motivo"></textarea>
-            <div class="actions">
-                <button class="btn btn-primary" (click)="cancelarRejeicao()">Cancelar</button>
-                <button class="btn btn-second" (click)="confirmarRejeicao()">Confirmar</button>
-            </div>
+                <div class="actions">
+                    <button class="btn btn-primary" (click)="cancelarRejeicao()">Cancelar</button>
+                    <button class="btn btn-second" (click)="confirmarRejeicao()">Confirmar</button>
+                </div>
         </div>
+        }
     </div>
 </div>

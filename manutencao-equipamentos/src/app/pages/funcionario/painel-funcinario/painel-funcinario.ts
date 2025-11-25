@@ -60,7 +60,6 @@ export class PainelFuncinario implements OnInit {
   ngOnInit(): void {
     this.carregarChamados();
 
-    // Subscribe no Observable de atualização
     this.solicitacaoService.chamadosAtualizados$.subscribe(() => this.carregarChamados());
   }
 
@@ -69,7 +68,7 @@ export class PainelFuncinario implements OnInit {
       next: (res) => {
         this.chamados = res.map(s => ({
           id: s.id.toString(),
-          codigo: s.id.toString(),  // se quiser mudar, coloque outro campo
+          codigo: s.id.toString(),  
           cliente: s.usuario?.nome ?? 'Sem nome',
           descricao:
             s.descricao.length > 27
@@ -106,7 +105,6 @@ export class PainelFuncinario implements OnInit {
     this.orcamentoModalVisible = false;
     this.selectedChamado = null;
     if (refreshNeeded) {
-        // notificamos o serviço, que por sua vez acionará o subscribe.
         this.solicitacaoService.notificarAtualizacao(); 
     }
   }

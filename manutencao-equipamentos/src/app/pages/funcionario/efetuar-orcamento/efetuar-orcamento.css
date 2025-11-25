@@ -3,7 +3,6 @@
   --color-roxo-5: #8242be;
 }
 
-/* BACKDROP ESCURO */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -15,7 +14,6 @@
   z-index: 998;
 }
 
-/* CONTAINER DO MODAL */
 .modal-container {
   position: fixed;
   top: 50%;
@@ -26,7 +24,6 @@
   max-width: 750px;
 }
 
-/* CONTEÚDO DO MODAL */
 .modal-content {
   background: white;
   border-radius: 16px;

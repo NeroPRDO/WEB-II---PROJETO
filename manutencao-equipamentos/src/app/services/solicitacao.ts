@@ -13,15 +13,12 @@ export class SolicitacaoService {
 
   API = "http://localhost:8080/Solicitacoes";
 
-  // subject para notificar atualizações
   private refreshChamadosSubject = new Subject<void>();
 
-  // observable para os componentes se inscreverem
   chamadosAtualizados$ = this.refreshChamadosSubject.asObservable();
 
   constructor() { }
 
-  // método para emitir sinal de atualização
   notificarAtualizacao(): void {
     this.refreshChamadosSubject.next();
   }
