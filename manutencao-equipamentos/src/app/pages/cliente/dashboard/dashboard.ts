@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NavComponent } from '../../../shared/Nav/nav';
 import { SolicitacaoService } from '../../../services/solicitacao';
 import { solicitacaoModel } from '../../../models/solicitacaoModel';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,13 +23,20 @@ export class Dashboard implements OnInit {
   private solicitacaoService = inject(SolicitacaoService);
   private router = inject(Router);
 
-  ngOnInit(): void {
-    // Carregar dados iniciais
-    this.carregarLista();
+  private destroy$ = new Subject<void>();
 
-    // Inscrição no Observable de atualização
-    
-  }
+ngOnInit(): void {
+  this.carregarLista();
+
+  this.solicitacaoService.chamadosAtualizados$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(() => this.carregarLista());
+}
+
+ngOnDestroy(): void {
+  this.destroy$.next();
+  this.destroy$.complete();
+}
 
   carregarLista(): void {
     const dadosSalvos = localStorage.getItem('auth_data');
@@ -46,6 +54,7 @@ export class Dashboard implements OnInit {
         // Ordena mais recentes primeiro
         this.lista = lista.sort((a, b) => new Date(b.dataHora).getTime() - new Date(a.dataHora).getTime());
         this.loading = false;
+
       },
       error: (err: HttpErrorResponse) => {
         console.error('Erro detalhado:', err);
