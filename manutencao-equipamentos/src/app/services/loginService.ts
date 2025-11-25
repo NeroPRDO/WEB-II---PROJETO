@@ -60,12 +60,6 @@ export class LoginService {
       this.storeAuthData(usuario); 
       return usuario;
   }
-  
-  logout(): void {
-    localStorage.removeItem(this.STORAGE_KEY);
-    this.usuarioLogado.set(null);
-    this.router.navigate(['/login']);
-  }
 
   isLoggedIn(): boolean {
     return !!this.getStoredToken();

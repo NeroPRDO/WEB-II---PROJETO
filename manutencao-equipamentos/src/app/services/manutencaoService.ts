@@ -4,14 +4,14 @@ import { HttpClient } from '@angular/common/http';
 
 export interface ManutencaoRequest {
   solicitacaoId: number;
-  funcionarioId?: number; 
   descricao?: string;     
   orientacoes?: string;   
 }
 
-export interface FinalizarManutencaoRequest {
-  solicitacaoId: number;
-  funcionarioId: number; 
+export interface FinalizarRequest {
+  idf_solicitacao: number;
+  descricacaoManuntencao: string; // Atenção: Use o nome exato do JSON do backend
+  orientacao: string;             // Singular, conforme o JSON
 }
 
 @Injectable({ providedIn: 'root' })
@@ -29,7 +29,7 @@ export class ManutencaoService {
     return this.http.post(`${this.API_MANUTENCAO}/trocar-funcionario`, dto);
   }
 
-  finalizarManutencao(dto: FinalizarManutencaoRequest): Observable<any> {
+  finalizarManutencao(dto: FinalizarRequest): Observable<any> {
     return this.http.post(`${this.API_MANUTENCAO}/finalizar`, dto);
   }
   

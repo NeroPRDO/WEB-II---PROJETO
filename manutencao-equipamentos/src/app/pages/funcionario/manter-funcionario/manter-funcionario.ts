@@ -60,19 +60,15 @@ export class ManterFuncionario implements OnInit {
     });
   }
 
-  // --- FUNÇÃO AUXILIAR PARA CORRIGIR A DATA ---
-  // Transforma "02/07/2005" em "2005-07-02"
+  
   private converterDataParaISO(dataBrasileira: string): string {
     if (!dataBrasileira) return '';
 
-    // Verifica se já está no formato ISO (YYYY-MM-DD) para evitar erros
     if (dataBrasileira.includes('-')) return dataBrasileira;
 
-    // Divide a string nas barras: ["02", "07", "2005"]
     const partes = dataBrasileira.split('/');
 
     if (partes.length === 3) {
-      // Retorna Ano-Mes-Dia
       return `${partes[2]}-${partes[1]}-${partes[0]}`;
     }
 
@@ -104,9 +100,6 @@ export class ManterFuncionario implements OnInit {
     this.updateFuncForm.patchValue({
       nome: row.nome,
       email: row.email,
-      // Se a data vier do banco como YYYY-MM-DD e seu input esperar DD/MM/YYYY,
-      // você pode precisar fazer o inverso aqui para exibir corretamente.
-      // Por enquanto, mantivemos direto:
       dataNascimento: row.dataNascimento,
       senha: ''
     });
@@ -190,13 +183,12 @@ export class ManterFuncionario implements OnInit {
   removeFuncionarioByID(id: number) {
     this.funcionarioService.remove(id).subscribe({
       next: (mensagemSucesso: string) => {
-        console.log(mensagemSucesso); // "Funcionário deletado com sucesso!"
+        console.log(mensagemSucesso); 
 
-        // Remove da lista visualmente sem precisar recarregar tudo do banco
         this.data = this.data.filter(f => f.id !== id);
 
         this.closeRemoverFuncionario();
-        this.closeEditarFuncionario(); // Fecha o modal de edição se estiver aberto
+        this.closeEditarFuncionario(); 
 
         alert(mensagemSucesso);
       },

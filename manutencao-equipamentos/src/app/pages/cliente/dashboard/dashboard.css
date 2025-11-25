@@ -7,7 +7,6 @@ section {
         radial-gradient(circle at 70% 40%, rgba(160, 120, 255, 0.35), transparent 60%),
         radial-gradient(circle at 50% 80%, rgba(120, 200, 180, 0.3), transparent 70%),
         #ffffff;
-    /* cor de fundo base */
     background-attachment: fixed;
 }
 
@@ -98,7 +97,6 @@ tbody tr:hover {
     transition: 0.2s;
 }
 
-/* Botões gerais */
 .button {
     padding: 15px 20px;
     border: none;
@@ -129,17 +127,14 @@ tbody tr:hover {
     z-index: -1;
 }
 
-/* cor inicial do efeito */
 .button:before {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
 .button:after {
     background-color: #8324d1;
-    /* cor da animação */
 }
 
-/* hover */
 .button:hover {
     transform: translateY(-3px);
     color: #fff;
@@ -156,8 +151,6 @@ tbody tr:hover {
     transform: translateX(-50%) scale(1.2);
     background-color: #8324d1;
 }
-
-
 
 button {
     padding: 6px 12px;

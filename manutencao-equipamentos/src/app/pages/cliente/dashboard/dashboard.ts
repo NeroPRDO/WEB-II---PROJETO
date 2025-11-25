@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NavComponent } from '../../../shared/Nav/nav';
 import { SolicitacaoService } from '../../../services/solicitacao';
 import { solicitacaoModel } from '../../../models/solicitacaoModel';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,13 +23,11 @@ export class Dashboard implements OnInit {
   private solicitacaoService = inject(SolicitacaoService);
   private router = inject(Router);
 
-  ngOnInit(): void {
-    // Carregar dados iniciais
-    this.carregarLista();
 
-    // Inscrição no Observable de atualização
-    
-  }
+ngOnInit(): void {
+  this.carregarLista();
+}
+
 
   carregarLista(): void {
     const dadosSalvos = localStorage.getItem('auth_data');
@@ -43,7 +42,6 @@ export class Dashboard implements OnInit {
     this.loading = true;
     this.solicitacaoService.listById(idUsuario).subscribe({
       next: (lista) => {
-        // Ordena mais recentes primeiro
         this.lista = lista.sort((a, b) => new Date(b.dataHora).getTime() - new Date(a.dataHora).getTime());
         this.loading = false;
       },

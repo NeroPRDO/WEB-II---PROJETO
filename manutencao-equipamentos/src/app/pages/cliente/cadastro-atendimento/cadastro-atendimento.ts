@@ -17,15 +17,13 @@ import { Router } from '@angular/router';
 })
 export class CadastroAtendimento {
 
-  // Declara a propriedade para o formulário reativo.
+  
   solicitacaoForm!: FormGroup;
   categoriaService = inject(CategoriaService)
   solicitacaoService = inject(SolicitacaoService)
   private router = inject(Router);
-  // Dados de teste para as categorias de equipamentos
   categorias: CategoriaResponse[] = [];
   
-  // O construtor injeta o FormBuilder para criar o formulário
   constructor(private fb: FormBuilder) {
 
     this.getAll();
@@ -67,26 +65,22 @@ export class CadastroAtendimento {
 
   }
 
-  // Função para "enviar" os dados 
+  
   enviarSolicitacao(): void {
   if (this.solicitacaoForm.valid) {
     const formValues = this.solicitacaoForm.value;
     
-    // 1. Converter o valor do select para número (ID)
     const idCategoriaSelecionada = Number(formValues.categoriaEquipamento);
 
-    // 2. Encontrar o objeto categoria na lista original para pegar o nome
+  
     const categoriaEncontrada = this.categorias.find(c => c.id === idCategoriaSelecionada);
     const nomeCategoria = categoriaEncontrada ? categoriaEncontrada.nomeCategoria : 'Geral';
 
-    // ... lógica de pegar usuário ...
     const dadosUsuario = localStorage.getItem('auth_data');
     if (!dadosUsuario) return;
     const usuarioLogado = JSON.parse(dadosUsuario);
 
-    // 3. Montar o objeto final
     const novaSolicitacao = {
-      // Usa o nome que encontramos acima
       descricao: formValues.descricaoDefeito,            
       descricaoEquipamentos: formValues.descricaoEquipamento, 
       categoriaId: Number(formValues.categoriaEquipamento),   
@@ -94,7 +88,6 @@ export class CadastroAtendimento {
       estadoChamado: 'ABERTA'                           
     };
 
-    // 4. Enviar
     this.solicitacaoService.save(novaSolicitacao as any).subscribe({
        next: (res) => {
          this.solicitacaoForm.reset();
