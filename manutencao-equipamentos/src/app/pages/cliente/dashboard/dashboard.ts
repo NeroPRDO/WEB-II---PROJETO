@@ -27,10 +27,7 @@ export class Dashboard implements OnInit {
     this.carregarLista();
 
     // Inscrição no Observable de atualização
-    this.solicitacaoService.chamadosAtualizados$.subscribe(() => {
-      console.log('recarregando lista...');
-      this.carregarLista();
-    });
+    
   }
 
   carregarLista(): void {
