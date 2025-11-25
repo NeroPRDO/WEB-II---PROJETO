@@ -81,6 +81,31 @@
     background-color: var(--rejeitada-1);
 }
 
+.btn-cinza {
+    color: white;
+    background-color: gray;
+}
+
+.btn-marrom {
+    color: white;
+    background-color: brown;
+}
+
+.btn-amarelo {
+    color: white;
+    background-color: yellow;
+}
+
+.btn-roxo {
+    color: white;
+    background-color: purple;
+}
+
+.btn-alaranjado {
+    color: white;
+    background-color: orange;
+}
+
 .center {
     justify-content: center;
 }

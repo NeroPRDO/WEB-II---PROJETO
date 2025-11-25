@@ -10,8 +10,8 @@ export interface ManutencaoRequest {
 
 export interface FinalizarRequest {
   idf_solicitacao: number;
-  descricacaoManuntencao: string; // Atenção: Use o nome exato do JSON do backend
-  orientacao: string;             // Singular, conforme o JSON
+  descricacaoManuntencao: string; 
+  orientacao: string;             
 }
 
 @Injectable({ providedIn: 'root' })
