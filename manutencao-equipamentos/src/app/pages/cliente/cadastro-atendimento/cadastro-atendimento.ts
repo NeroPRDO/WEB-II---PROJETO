@@ -65,7 +65,6 @@ export class CadastroAtendimento {
 
   }
 
-  
   enviarSolicitacao(): void {
   if (this.solicitacaoForm.valid) {
     const formValues = this.solicitacaoForm.value;

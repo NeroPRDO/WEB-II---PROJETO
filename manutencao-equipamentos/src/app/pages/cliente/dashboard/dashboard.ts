@@ -6,7 +6,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NavComponent } from '../../../shared/Nav/nav';
 import { SolicitacaoService } from '../../../services/solicitacao';
 import { solicitacaoModel } from '../../../models/solicitacaoModel';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',

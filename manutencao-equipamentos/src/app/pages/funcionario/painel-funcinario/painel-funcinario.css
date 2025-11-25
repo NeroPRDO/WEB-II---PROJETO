@@ -71,14 +71,29 @@
 }
 
 
-.btn-verde {
-    color: var(--aprovada-3);
-    background-color: var(--aprovada-1);
+.btn-cinza {
+    color: white;
+    background-color: gray;
 }
 
-.btn-vermelho {
-    color: var(--rejeitada-3);
-    background-color: var(--rejeitada-1);
+.btn-marrom {
+    color: white;
+    background-color: brown;
+}
+
+.btn-amarelo {
+    color: white;
+    background-color: yellow;
+}
+
+.btn-roxo {
+    color: white;
+    background-color: purple;
+}
+
+.btn-alaranjado {
+    color: white;
+    background-color: orange;
 }
 
 .center {

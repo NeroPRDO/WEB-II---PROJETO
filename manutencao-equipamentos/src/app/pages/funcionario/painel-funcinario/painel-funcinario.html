@@ -26,19 +26,19 @@
                     <div class="template-center">
                         @switch(row.estado) {
                         @case ('ABERTA') {
-                        <button class="btn btn-verde" (click)="openOrcamentoModal(row)">Orçar</button>
+                        <button class="btn btn-cinza" (click)="openOrcamentoModal(row)">Orçar</button>
                         }
                         @case ('APROVADA') {
-                        <button class="btn btn-verde" [routerLink]="['/func/manutencao', row.id]">Manutenção</button>
+                        <button class="btn btn-amarelo" [routerLink]="['/func/manutencao', row.id]">Manutenção</button>
                         }
                         @case ('EM_ANDAMENTO') {
-                        <button class="btn btn-verde" [routerLink]="['/func/manutencao', row.id]">Manutenção</button>
+                        <button class="btn btn-marrom" [routerLink]="['/func/manutencao', row.id]">Manutenção</button>
                         }
                         @case ('REDIRECIONADA') {
-                        <button class="btn btn-verde" [routerLink]="['/func/manutencao', row.id]">Manutenção</button>
+                        <button class="btn btn-roxo" [routerLink]="['/func/manutencao', row.id]">Manutenção</button>
                         }
                         @case ('PAGA') {
-                        <button class="btn btn-verde" (click)="openFinalizarModal(row)">Finalizar</button>
+                        <button class="btn btn-alaranjado" (click)="openFinalizarModal(row)">Finalizar</button>
                         }
                         }
                     </div>
