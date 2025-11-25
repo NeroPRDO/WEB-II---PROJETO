@@ -32,6 +32,26 @@ public class Manuntencao {
 
     private LocalDateTime dataHoraFinalizacao;
 
+    private String descricacaoManuntencao;
+
+    private String orientacao;
+
+    public String getDescricacaoManuntencao() {
+        return this.descricacaoManuntencao;
+    }
+
+    public void setDescricacaoManuntencao(String descricacaoManuntencao) {
+        this.descricacaoManuntencao = descricacaoManuntencao;
+    }
+
+    public String getOrientacao() {
+        return this.orientacao;
+    }
+
+    public void setOrientacao(String orientacao) {
+        this.orientacao = orientacao;
+    }
+
     public Boolean isFinalizada() {
         return this.finalizada;
     }

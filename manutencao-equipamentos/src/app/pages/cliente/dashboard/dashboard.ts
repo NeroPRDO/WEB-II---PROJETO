@@ -1,12 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { NavComponent } from '../../../shared/Nav/nav';
 import { SolicitacaoService } from '../../../services/solicitacao';
 import { solicitacaoModel } from '../../../models/solicitacaoModel';
-import { HttpErrorResponse } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -15,51 +14,59 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
+
   lista: solicitacaoModel[] = [];
-  solicitacaoService = inject(SolicitacaoService)
-  
-  
-  
-  constructor(){
-    this.listById();
-   }
+  loading = true;
 
-  listById(){
-    const dadosSalvos = localStorage.getItem('auth_data');
+  private solicitacaoService = inject(SolicitacaoService);
+  private router = inject(Router);
 
-    if (dadosSalvos) {
-    // 2. Converter a string para Objeto JavaScript
-    const usuarioObj = JSON.parse(dadosSalvos);
+  ngOnInit(): void {
+    // Carregar dados iniciais
+    this.carregarLista();
 
-    // 3. Acessar o ID
-    const idUsuario = usuarioObj.id;
-
-    this.solicitacaoService.listById(idUsuario).subscribe({
-      next: lista =>{
-        this.lista = lista;
-      },
-      error: (err: HttpErrorResponse) => {
-        
-        console.error('Erro detalhado:', err);
-        
-        if (err.status === 401) {
-          alert('Sessão expirada ou não autenticada. Por favor, faça login novamente.');
-          
-        } 
-        else if (err.status === 403) {
-          alert('Você não tem permissão para acessar este recurso.');
-        } 
-        else if (err.status === 0) {
-          alert('Não foi possível conectar ao servidor. Verifique se o Backend está rodando.');
-        } 
-        else {
-          
-          const mensagemBackend = err.error?.message || err.message;
-          alert(`Ocorreu um erro: ${mensagemBackend}`);
-        }
-      },
+    // Inscrição no Observable de atualização
+    this.solicitacaoService.chamadosAtualizados$.subscribe(() => {
+      console.log('recarregando lista...');
+      this.carregarLista();
     });
   }
+
+  carregarLista(): void {
+    const dadosSalvos = localStorage.getItem('auth_data');
+    if (!dadosSalvos) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const usuarioObj = JSON.parse(dadosSalvos);
+    const idUsuario = usuarioObj.id;
+
+    this.loading = true;
+    this.solicitacaoService.listById(idUsuario).subscribe({
+      next: (lista) => {
+        // Ordena mais recentes primeiro
+        this.lista = lista.sort((a, b) => new Date(b.dataHora).getTime() - new Date(a.dataHora).getTime());
+        this.loading = false;
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error('Erro detalhado:', err);
+        this.loading = false;
+
+        if (err.status === 401) {
+          alert('Sessão expirada. Faça login novamente.');
+          this.router.navigate(['/login']);
+        } else if (err.status === 403) {
+          alert('Acesso negado.');
+        } else if (err.status === 0) {
+          alert('Sem conexão com o servidor.');
+        } else {
+          const msg = err.error?.message || err.message;
+          alert(`Erro: ${msg}`);
+        }
+      }
+    });
   }
+
 }

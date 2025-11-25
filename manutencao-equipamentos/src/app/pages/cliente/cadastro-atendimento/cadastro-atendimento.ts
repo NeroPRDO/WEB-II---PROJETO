@@ -39,7 +39,7 @@ export class CadastroAtendimento {
   getAll(){
     this.categoriaService.getAll().subscribe({
       next: categorias =>{
-        this.categorias = categorias;
+        this.categorias = categorias.filter(c => c.ativo === true);
       },
       error: (err: HttpErrorResponse) => {
         
