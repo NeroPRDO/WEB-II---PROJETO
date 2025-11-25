@@ -61,10 +61,7 @@ export class PainelFuncinario implements OnInit {
     this.carregarChamados();
 
     // Subscribe no Observable de atualização
-    this.solicitacaoService.chamadosAtualizados$.subscribe(() => {
-      console.log('Recarregando...');
-      this.carregarChamados(); 
-    });
+    this.solicitacaoService.chamadosAtualizados$.subscribe(() => this.carregarChamados());
   }
 
   carregarChamados() {

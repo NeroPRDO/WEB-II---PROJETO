@@ -14,70 +14,59 @@ import { solicitacaoModel } from '../../../models/solicitacaoModel';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
-export class Dashboard implements OnInit { // 1. Implementar OnInit
-  
+export class Dashboard implements OnInit {
+
   lista: solicitacaoModel[] = [];
-  loading = true; // Adicionei loading para feedback visual
-  
+  loading = true;
+
   private solicitacaoService = inject(SolicitacaoService);
-  private router = inject(Router); // Injetar Router para redirecionar se necessário
-  
-  constructor(){
-    // Deixar o construtor vazio
-  }
+  private router = inject(Router);
 
-  // 2. Chamar no ngOnInit
   ngOnInit(): void {
-    this.listById();
+    // Carregar dados iniciais
+    this.carregarLista();
 
+    // Inscrição no Observable de atualização
     this.solicitacaoService.chamadosAtualizados$.subscribe(() => {
-      console.log('Dashboard recebeu atualização...');
-      this.listById();
+      console.log('recarregando lista...');
+      this.carregarLista();
     });
   }
 
-  listById(){
+  carregarLista(): void {
     const dadosSalvos = localStorage.getItem('auth_data');
-
-    if (dadosSalvos) {
-      const usuarioObj = JSON.parse(dadosSalvos);
-      const idUsuario = usuarioObj.id;
-
-      this.solicitacaoService.listById(idUsuario).subscribe({
-        next: (lista) => {
-          
-          // 3. Ordenar: Mais recentes primeiro (Decrescente)
-          this.lista = lista.sort((a, b) => {
-            const dataA = new Date(a.dataHora).getTime();
-            const dataB = new Date(b.dataHora).getTime();
-            return dataB - dataA; 
-          });
-
-          this.loading = false;
-        },
-        error: (err: HttpErrorResponse) => {
-          console.error('Erro detalhado:', err);
-          this.loading = false;
-          
-          if (err.status === 401) {
-            alert('Sessão expirada. Por favor, faça login novamente.');
-            this.router.navigate(['/login']);
-          } 
-          else if (err.status === 403) {
-            alert('Acesso negado.');
-          } 
-          else if (err.status === 0) {
-            alert('Sem conexão com o servidor.');
-          } 
-          else {
-            const msg = err.error?.message || err.message;
-            alert(`Erro: ${msg}`);
-          }
-        },
-      });
-    } else {
-      // Se não tiver usuário logado, manda pro login
+    if (!dadosSalvos) {
       this.router.navigate(['/login']);
+      return;
     }
+
+    const usuarioObj = JSON.parse(dadosSalvos);
+    const idUsuario = usuarioObj.id;
+
+    this.loading = true;
+    this.solicitacaoService.listById(idUsuario).subscribe({
+      next: (lista) => {
+        // Ordena mais recentes primeiro
+        this.lista = lista.sort((a, b) => new Date(b.dataHora).getTime() - new Date(a.dataHora).getTime());
+        this.loading = false;
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error('Erro detalhado:', err);
+        this.loading = false;
+
+        if (err.status === 401) {
+          alert('Sessão expirada. Faça login novamente.');
+          this.router.navigate(['/login']);
+        } else if (err.status === 403) {
+          alert('Acesso negado.');
+        } else if (err.status === 0) {
+          alert('Sem conexão com o servidor.');
+        } else {
+          const msg = err.error?.message || err.message;
+          alert(`Erro: ${msg}`);
+        }
+      }
+    });
   }
+
 }
