@@ -7,7 +7,7 @@ import { NavComponent } from '../../../shared/Nav/nav';
 import { SolicitacaoService } from '../../../services/solicitacao'; 
 
 import { solicitacaoModel } from '../../../models/solicitacaoModel';
-import { FinalizarManutencaoRequest, ManutencaoRequest, ManutencaoService } from '../../../services/manutencaoService';
+import { FinalizarRequest, ManutencaoRequest, ManutencaoService } from '../../../services/manutencaoService';
 import { funcService } from '../../../services/funcService';
 import { IniciarManutencaoRequest } from '../../../models/manutencaoRequest';
 
@@ -120,22 +120,27 @@ export class ManutencaoComponent implements OnInit {
       this.manutencaoForm.markAllAsTouched();
       return;
     }
-    const usuarioLogado = this.getUsuarioLogado();
-    if (!usuarioLogado) return;
+    
+    // Nota: O JSON que você mandou não pede ID do funcionário, 
+    // então removi. Se precisar, adicione conforme o backend pedir.
 
-    const dto: ManutencaoRequest = {
-      solicitacaoId: this.solicitacao.id,
-      funcionarioId: usuarioLogado.id,
-      descricao: this.manutencaoForm.value.descricaoManutencao,
-      orientacoes: this.manutencaoForm.value.orientacoesCliente
+    const dto: FinalizarRequest = {
+      idf_solicitacao: this.solicitacao.id,
+      descricacaoManuntencao: this.manutencaoForm.value.descricaoManutencao,
+      orientacao: this.manutencaoForm.value.orientacoesCliente
     };
 
-    this.manutencaoService.finalizarManutencao(dto as any).subscribe({
+    console.log('Enviando Finalização:', dto);
+
+    this.manutencaoService.finalizarManutencao(dto).subscribe({
       next: () => {
         alert('Manutenção registrada e finalizada!');
         this.router.navigate(['/func']);
       },
-      error: (err) => console.error(err)
+      error: (err) => {
+        console.error('Erro ao finalizar:', err);
+        alert('Erro ao salvar manutenção.');
+      }
     });
   }
 
