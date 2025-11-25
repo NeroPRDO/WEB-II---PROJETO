@@ -17,7 +17,6 @@ public class AdminSeeder {
     @Bean
     CommandLineRunner initAdminUser(UsuarioRepository repository, PasswordEncoder passwordEncoder) {
         return args -> {
-
             String adminEmail = "admin@sistema.com";
 
             if (repository.findByEmail(adminEmail).isEmpty()) {
@@ -44,6 +43,53 @@ public class AdminSeeder {
             } else {
                 System.out.println("Usuário ADMIN já existe.");
             }
+            criarFuncionarioSeNaoExistir(
+                repository,
+                passwordEncoder,
+                "Maria Silva",
+                "maria@sistema.com",
+                "11111111111"
+            );
+
+            criarFuncionarioSeNaoExistir(
+                repository,
+                passwordEncoder,
+                "Mário Souza",
+                "mario@sistema.com",
+                "22222222222"
+            );
         };
+    }
+
+    private void criarFuncionarioSeNaoExistir(
+            UsuarioRepository repository,
+            PasswordEncoder passwordEncoder,
+            String nome,
+            String email,
+            String cpf) {
+
+        if (repository.findByEmail(email).isEmpty()) {
+
+            Usuario funcionario = new Usuario();
+            funcionario.setNome(nome);
+            funcionario.setEmail(email);
+            funcionario.setSenha(passwordEncoder.encode("123456"));
+            funcionario.setCpf(cpf);
+            funcionario.setTelefone("11999990000");
+            funcionario.setCep("00000-000");
+            funcionario.setLogradouro("Rua Exemplo");
+            funcionario.setNumero("100");
+            funcionario.setCidade("Cidade");
+            funcionario.setEstado("BR");
+            funcionario.setAtivo(true);
+            funcionario.setDataCriacao(LocalDateTime.now().toLocalDate());
+            funcionario.setRole(Role.FUNCIONARIO);
+
+            repository.save(funcionario);
+
+            System.out.println("Funcionário " + nome + " criado com sucesso.");
+        } else {
+            System.out.println("Funcionário " + nome + " já existe.");
+        }
     }
 }
