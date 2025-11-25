@@ -71,6 +71,16 @@
 }
 
 
+.btn-verde {
+    color: var(--aprovada-3);
+    background-color: var(--aprovada-1);
+}
+
+.btn-vermelho {
+    color: var(--rejeitada-3);
+    background-color: var(--rejeitada-1);
+}
+
 .btn-cinza {
     color: white;
     background-color: gray;
