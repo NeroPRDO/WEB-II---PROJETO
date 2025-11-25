@@ -39,3 +39,13 @@
     align-items: center;
     width: 100%;
 }
+
+.btn-border-active {
+    background-color: transparent;
+    padding: 0px;
+    transition: 0.2s;
+}
+
+.btn-border-active .btn-border {
+    padding: 4px;
+}

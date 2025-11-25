@@ -1,4 +1,4 @@
-<div class="btn-border-hide">
+<div [ngClass]="active ? 'btn-border-active' : 'btn-border-hide'">
     <div class="btn-border">
         <button routerLink="{{routerLink}}" class="btn">
             {{ message }}
