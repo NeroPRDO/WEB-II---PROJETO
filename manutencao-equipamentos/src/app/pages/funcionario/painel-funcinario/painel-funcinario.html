@@ -2,45 +2,104 @@
 
 <div class="container m-top">
     <div class="row justify-content-center painel-funcionario">
+
         <div class="col-3">
             <painel-acoes-funcionario />
         </div>
+
         <div class="col-8">
             <panel>
                 <h3 class="text-center">Chamados Abertos</h3>
 
                 <div class="filtros-chamados">
                     <span>Mostrar</span>
-                    <select class="form-select form-select-sm" aria-label="Small select example">
-                        <option value="1">Todas</option>
-                        <option value="1">Abertas Hoje</option>
-                        <option value="2">Periodo</option>
+
+                    <select class="form-select form-select-sm" (change)="onFiltroChange($event)">
+                        <option value="TODOS">Todas</option>
+                        <option value="HOJE">Abertas Hoje</option>
+                        <option value="PERIODO">Período</option>
                     </select>
                 </div>
-                <ng-template #templateEditar let-row let-emitter="emitter">
+
+                <!-- Template ações -->
+                <ng-template #templateEditar let-row>
                     <div class="template-center">
-                        <button class="btn btn-branco" (click)="emitter.emit(row)">editar</button>
+                        @switch(row.estado) {
+                        @case ('ABERTA') {
+                        <button class="btn btn-verde" (click)="openOrcamentoModal(row)">Orçar</button>
+                        }
+                        @case ('APROVADA') {
+                        <button class="btn btn-verde" [routerLink]="['/func/manutencao', row.id]">Manutenção</button>
+                        }
+                        @case ('EM_ANDAMENTO') {
+                        <button class="btn btn-verde" [routerLink]="['/func/manutencao', row.id]">Manutenção</button>
+                        }
+                        @case ('REDIRECIONADA') {
+                        <button class="btn btn-verde" [routerLink]="['/func/manutencao', row.id]">Manutenção</button>
+                        }
+                        @case ('PAGA') {
+                        <button class="btn btn-verde" (click)="openFinalizarModal(row)">Finalizar</button>
+                        }
+                        }
                     </div>
                 </ng-template>
+
+                <!-- Template código -->
                 <ng-template #templateCodigo let-row>
-                    <div class="template-center">
-                        {{ row.codigo }}
-                    </div>
+                    <div class="template-center">{{ row.codigo }}</div>
                 </ng-template>
-                <app-table-chamado (action)="openOrcamentoModal($event)" [colunas]="[
-                    { id: 'cliente', header: 'CLIENTE'},
-                    { id: 'estado', header: 'ESTADO',  headerStyle: 'col-2'},
-                    { id: 'descricao', header: 'DESCRIÇÃO'},
-                    { id: 'data_chamado', header: 'DATA', headerStyle: 'col-2'},
-                    { id: 'acao', header: 'AÇÃO', render: templateEditar, headerStyle: 'col-2 text-center'}
-                ]" [data]="chamadosFiltrados" />
+
+                <app-table-chamado [colunas]="[
+            { id: 'cliente', header: 'CLIENTE' },
+            { id: 'estado', header: 'ESTADO', headerStyle: 'col-2' },
+            { id: 'descricao', header: 'DESCRIÇÃO' },
+            { id: 'data_chamado', header: 'DATA', headerStyle: 'col-2' },
+            { id: 'acao', header: 'AÇÃO', render: templateEditar, headerStyle: 'col-2 text-center' }
+          ]" [data]="chamadosFiltrados" />
             </panel>
         </div>
     </div>
-
-
 </div>
 
+
+<!-- MODAL ORÇAR -->
 @if (orcamentoModalVisible) {
-<app-efetuar-orcamento (close)="closeOrcamentoModal()" [id]="selectedChamado"></app-efetuar-orcamento>
+<app-efetuar-orcamento [id]="selectedChamado!" (close)="closeOrcamentoModal()">
+</app-efetuar-orcamento>
+}
+
+<!-- MODAL FINALIZAR -->
+@if (finalizarModalVisible) {
+<app-modal (closeModalEvent)="closeFinalizarModal()">
+
+    <h4>Finalizar Manutenção</h4>
+
+    <form [formGroup]="finalizarForm" (ngSubmit)="confirmarFinalizarManutencao()">
+
+        <div class="fundo-modal gap">
+
+            <div class="input-div">
+                <span>Descrição da Manutenção</span>
+                <textarea class="base-input" rows="3" formControlName="descricaoManutencao"
+                    placeholder="O que foi feito no aparelho?"></textarea>
+            </div>
+
+            <div class="input-div">
+                <span>Orientação ao Cliente</span>
+                <textarea class="base-input" rows="3" formControlName="orientacao"
+                    placeholder="Cuidados, garantias, etc..."></textarea>
+            </div>
+
+        </div>
+
+        <div class="btn-div p-top">
+            <button type="button" class="btn btn-vermelho" (click)="closeFinalizarModal()">Cancelar</button>
+
+            <button type="submit" class="btn btn-verde" [disabled]="finalizarForm.invalid">
+                Concluir
+            </button>
+        </div>
+
+    </form>
+</app-modal>
 }
