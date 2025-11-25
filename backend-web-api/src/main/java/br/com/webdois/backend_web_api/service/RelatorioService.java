@@ -1,13 +1,14 @@
 package br.com.webdois.backend_web_api.service;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import br.com.webdois.backend_web_api.dtos.ReceitaPorCategoria;
 import br.com.webdois.backend_web_api.dtos.ReceitaPorDia;
 import br.com.webdois.backend_web_api.repository.ChamadoRepository;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 
 @Service
 public class RelatorioService {
@@ -18,17 +19,15 @@ public class RelatorioService {
         this.chamadoRepository = chamadoRepository;
     }
 
-    public List<ReceitaPorDia> receitasPorDia(LocalDate de, LocalDate ate) {
-        if (de == null || ate == null || de.isAfter(ate)) {
-            throw new IllegalArgumentException("Intervalo de datas inválido");
-        }
-        return chamadoRepository.receitasPorDia(de, ate);
+    public List<ReceitaPorDia> receitasPorDia(LocalDate inicio, LocalDate fim) {
+        LocalDateTime inicioDt = inicio.atStartOfDay();
+        LocalDateTime fimDt = fim.atTime(LocalTime.MAX);
+        return chamadoRepository.receitasPorDia(inicioDt, fimDt);
     }
 
-    public List<ReceitaPorCategoria> receitasPorCategoria(LocalDate de, LocalDate ate) {
-        if (de == null || ate == null || de.isAfter(ate)) {
-            throw new IllegalArgumentException("Intervalo de datas inválido");
-        }
-        return chamadoRepository.receitasPorCategoria(de, ate);
+    public List<ReceitaPorCategoria> receitasPorCategoria(LocalDate inicio, LocalDate fim) {
+        LocalDateTime inicioDt = inicio.atStartOfDay();
+        LocalDateTime fimDt = fim.atTime(LocalTime.MAX);
+        return chamadoRepository.receitasPorCategoria(inicioDt, fimDt);
     }
 }

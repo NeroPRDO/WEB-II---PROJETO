@@ -4,16 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { RelatoriosService, ReceitaPorDia } from '../../../../services/relatorios.service';
 
 type ItemDia = {
-  dataIso: string; // ISO para o date pipe funcionar
+  dataIso: string;
   categoria: string;
   descricao?: string | null;
   valor: number;
 };
 
 type LinhaDia = {
-  day: string; // yyyy-MM-dd (string vinda do back)
+  day: string;
   total: number;
-  itens: ItemDia[]; // tabela interna do dia (aqui usamos 1 item-resumo)
+  itens: ItemDia[];
 };
 
 @Component({
@@ -36,8 +36,7 @@ export class RelatorioReceitas implements OnInit {
   erro: string | null = null;
 
   ngOnInit(): void {
-    // se preferir já carregar “desde sempre”:
-    // this.onFiltrar();
+    this.onFiltrar();
   }
 
   onFiltrar(): void {
@@ -49,9 +48,7 @@ export class RelatorioReceitas implements OnInit {
 
     this.svc.getReceitas(de, ate).subscribe({
       next: (lista: ReceitaPorDia[]) => {
-        // mapeia cada agregado por dia para a estrutura que o HTML espera
         this.linhas = (lista ?? []).map((d) => {
-          // criamos um único “item-resumo” no dia (já que o back não manda itens)
           const itemResumo: ItemDia = {
             dataIso: `${d.dia}T00:00:00`,
             categoria: '—',
@@ -88,7 +85,6 @@ export class RelatorioReceitas implements OnInit {
   }
 
   gerarPDF(): void {
-    // simples e compatível: imprime a página/tela atual
     window.print();
   }
 

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface ReceitaPorDia {
-  dia: string; // ISO yyyy-MM-dd (string vinda do back)
+  dia: string;
   total: number;
 }
 export interface ReceitaPorCategoria {
@@ -12,7 +12,7 @@ export interface ReceitaPorCategoria {
   total: number;
 }
 
-const BASE = 'http://localhost:8080/relatorios'; // troque para environment.apiUrl se usar
+const BASE = 'http://localhost:8080/relatorios';
 
 @Injectable({ providedIn: 'root' })
 export class RelatoriosService {

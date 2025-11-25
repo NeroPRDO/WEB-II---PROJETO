@@ -18,7 +18,6 @@ type LinhaCategoria = {
 export class RelatorioReceitasCategoria implements OnInit {
   private svc = inject(RelatoriosService);
 
-  // se quiser permitir período aqui também, adicione inputs e reuse o service
   linhas: LinhaCategoria[] = [];
   carregando = false;
   erro: string | null = null;
