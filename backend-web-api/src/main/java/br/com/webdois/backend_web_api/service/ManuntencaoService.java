@@ -56,6 +56,10 @@ public class ManuntencaoService {
         manuntencao.setDataHoraFinalizacao(LocalDateTime.now());
         manuntencao.setFinalizada(true);
 
+        manuntencao.setOrientacao(dto.getOrientacao());
+
+        manuntencao.setDescricacaoManuntencao(dto.getDescricacaoManuntencao());
+
         solicitacao.setEstadoChamado(EstadoChamado.ARRUMADA);
         solicitacaoRepository.save(solicitacao);
 
@@ -78,4 +82,9 @@ public class ManuntencaoService {
 
         return manuntencaoRepository.save(manuntencao);
     }
+
+    public Manuntencao buscarPorSolicitacao(Long idSolicitacao) {
+    return manuntencaoRepository.findBySolicitacaoId(idSolicitacao)
+            .orElseThrow(() -> new RuntimeException("Manutenção não encontrada para esta solicitação"));
+     }       
 }
