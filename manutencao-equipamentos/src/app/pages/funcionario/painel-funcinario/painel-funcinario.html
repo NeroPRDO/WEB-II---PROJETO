@@ -19,41 +19,7 @@
                 </div>
                 <ng-template #templateEditar let-row let-emitter="emitter">
                     <div class="template-center">
-
-                        @switch (row.estado) {
-
-                        @case ('ABERTA') {
-                        <button class="btn btn-verde" (click)="abrirModalOrcamento(row)">
-                            Orçar
-                        </button>
-                        }
-
-                        @case ('AGUARDANDO_APROVACAO') {
-                        <button class="btn btn-amarelo" (click)="verDetalhes(row)">
-                            Ver Detalhes
-                        </button>
-                        }
-
-                        @case ('EM_MANUTENCAO') {
-                        <button class="btn btn-azul" (click)="finalizarManutencao(row)">
-                            Finalizar
-                        </button>
-                        }
-
-                        @case ('REJEITADA') {
-                        <span class="texto-cinza">Rejeitado</span>
-                        }
-                        @case ('CONCLUIDA') {
-                        <span class="texto-verde">Concluído</span>
-                        }
-
-                        @default {
-                        <button class="btn btn-branco" (click)="emitter.emit(row)">
-                            Editar
-                        </button>
-                        }
-                        }
-
+                        <button class="btn btn-branco" (click)="emitter.emit(row)">editar</button>
                     </div>
                 </ng-template>
                 <ng-template #templateCodigo let-row>
