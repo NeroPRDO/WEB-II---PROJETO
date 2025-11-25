@@ -17,6 +17,10 @@ public class AdminSeeder {
     @Bean
     CommandLineRunner initAdminUser(UsuarioRepository repository, PasswordEncoder passwordEncoder) {
         return args -> {
+
+            // ===========================================
+            // CRIAR ADMIN
+            // ===========================================
             String adminEmail = "admin@sistema.com";
 
             if (repository.findByEmail(adminEmail).isEmpty()) {
@@ -43,53 +47,84 @@ public class AdminSeeder {
             } else {
                 System.out.println("Usuário ADMIN já existe.");
             }
-            criarFuncionarioSeNaoExistir(
-                repository,
-                passwordEncoder,
-                "Maria Silva",
-                "maria@sistema.com",
-                "11111111111"
+
+            // ===========================================
+            // FUNCIONÁRIOS MARIA E MÁRIO
+            // ===========================================
+
+            criarUsuarioSeNaoExistir(
+                repository, passwordEncoder,
+                "Maria Silva", "maria@sistema.com", "11111111111",
+                Role.FUNCIONARIO
             );
 
-            criarFuncionarioSeNaoExistir(
-                repository,
-                passwordEncoder,
-                "Mário Souza",
-                "mario@sistema.com",
-                "22222222222"
+            criarUsuarioSeNaoExistir(
+                repository, passwordEncoder,
+                "Mário Souza", "mario@sistema.com", "22222222222",
+                Role.FUNCIONARIO
             );
+
+            // ===========================================
+            // CLIENTES JOÃO, JOSÉ, JOANA, JOAQUINA
+            // ===========================================
+
+            criarUsuarioSeNaoExistir(
+                repository, passwordEncoder,
+                "João Pereira", "joao@sistema.com", "33333333333",
+                Role.CLIENTE
+            );
+
+            criarUsuarioSeNaoExistir(
+                repository, passwordEncoder,
+                "José Almeida", "jose@sistema.com", "44444444444",
+                Role.CLIENTE
+            );
+
+            criarUsuarioSeNaoExistir(
+                repository, passwordEncoder,
+                "Joana Silva", "joana@sistema.com", "55555555555",
+                Role.CLIENTE
+            );
+
+            criarUsuarioSeNaoExistir(
+                repository, passwordEncoder,
+                "Joaquina Souza", "joaquina@sistema.com", "66666666666",
+                Role.CLIENTE
+            );
+
         };
     }
 
-    private void criarFuncionarioSeNaoExistir(
+    private void criarUsuarioSeNaoExistir(
             UsuarioRepository repository,
             PasswordEncoder passwordEncoder,
             String nome,
             String email,
-            String cpf) {
+            String cpf,
+            Role role) {
 
         if (repository.findByEmail(email).isEmpty()) {
 
-            Usuario funcionario = new Usuario();
-            funcionario.setNome(nome);
-            funcionario.setEmail(email);
-            funcionario.setSenha(passwordEncoder.encode("123456"));
-            funcionario.setCpf(cpf);
-            funcionario.setTelefone("11999990000");
-            funcionario.setCep("00000-000");
-            funcionario.setLogradouro("Rua Exemplo");
-            funcionario.setNumero("100");
-            funcionario.setCidade("Cidade");
-            funcionario.setEstado("BR");
-            funcionario.setAtivo(true);
-            funcionario.setDataCriacao(LocalDateTime.now().toLocalDate());
-            funcionario.setRole(Role.FUNCIONARIO);
+            Usuario usuario = new Usuario();
+            usuario.setNome(nome);
+            usuario.setEmail(email);
+            usuario.setSenha(passwordEncoder.encode("123456"));
+            usuario.setCpf(cpf);
+            usuario.setTelefone("11999990000");
+            usuario.setCep("00000-000");
+            usuario.setLogradouro("Rua Exemplo");
+            usuario.setNumero("100");
+            usuario.setCidade("Cidade");
+            usuario.setEstado("BR");
+            usuario.setAtivo(true);
+            usuario.setDataCriacao(LocalDateTime.now().toLocalDate());
+            usuario.setRole(role);
 
-            repository.save(funcionario);
+            repository.save(usuario);
 
-            System.out.println("Funcionário " + nome + " criado com sucesso.");
+            System.out.println(role + " " + nome + " criado com sucesso.");
         } else {
-            System.out.println("Funcionário " + nome + " já existe.");
+            System.out.println(role + " " + nome + " já existe.");
         }
     }
 }
