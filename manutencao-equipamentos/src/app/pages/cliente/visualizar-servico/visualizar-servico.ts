@@ -47,11 +47,8 @@ export class VisualizarServico implements OnInit {
   buscarPorId(id: number) {
     this.solicitacaoService.findById(id).subscribe({
       next: (dados) => {
-        // ... (seu bloco de segurança que fizemos antes) ...
-
         this.solicitacao = dados;
 
-        // === NOVO BLOCO: Buscar o nome da categoria ===
         if (dados.idCategoria) {
           this.categoriaService.getById(dados.idCategoria).subscribe({
             next: (cat) => {
@@ -62,14 +59,12 @@ export class VisualizarServico implements OnInit {
             }
           });
         }
-        // ==============================================
       },
       error: (err) => { /* ... */ }
     });
   }
 
   resgatarServico(idSolicitacao: number) {
-    // 1. Buscar orçamento da solicitação
     this.orcamentoService.listarPorSolicitacao(idSolicitacao).subscribe({
       next: (lista) => {
         if (!lista || lista.length === 0) {
@@ -77,15 +72,14 @@ export class VisualizarServico implements OnInit {
           return;
         }
 
-        const orcamento = lista[0]; // normalmente existe apenas 1 por solicitação
+        const orcamento = lista[0]; 
 
         console.log(orcamento)
-        // 2. Aprovar o orçamento encontrado
         this.orcamentoService.aprovar(orcamento.idOrcamento).subscribe({
           next: () => {
             alert("Serviço resgatado e orçamento aprovado com sucesso!");
             this.fecharOrcamento();
-            this.buscarPorId(idSolicitacao); // atualizar tela
+            this.buscarPorId(idSolicitacao);
           },
           error: () => alert("Erro ao aprovar o orçamento.")
         });
